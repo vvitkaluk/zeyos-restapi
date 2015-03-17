@@ -1181,9 +1181,13 @@ For example, the request `GET /records?n=2&o[]=lastmodified-` would be equivalen
         "o": [
             "lastmodified-"
         ]
-    }
+    },
+    // "select": "result"        // Optional. Selects the specified path as the result.
 }
 ```
+
+You may specify a `select` in the request object to reduce the return value to what you actually need.
+Resolution works very much like the `select=<ref>` assignment mentioned earlier, however paths are relative to the request, i.e. `"select": "result"` would fetch the request's `result` property.
 
 ## Referencing Results
 
