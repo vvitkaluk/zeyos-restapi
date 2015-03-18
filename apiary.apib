@@ -1138,7 +1138,13 @@ Currently, the following commands are recognized:
 
 - `=<ref-string>`
   Returns a string assembled according to `<ref-string>`.
+
   This may contain references to results previously obtained in the form `{{<ref>}}`.
+
+  If the string consists of `{{<ref>}}` only, that result will be returned as-is, i.e. without any string conversion, but you can use the `string:` modifier if necessary.
+
+  Any additional characters before or after such a result reference, or multiple references will automatically convert all referenced results to strings.
+
   For a literal `{`, prepend it with a backslash, i.e. `\{`.
   However, you only need to backslash-escape if you have two consecutive opening curly braces `{{`, and only the first brace, i.e. `\{{` is sufficient.
 
@@ -1220,6 +1226,7 @@ This API version supports these modifiers:
 | `csv`      | Produces a comma-separated list         | Array  `[ 1, 2, 3 ]`              | `1,2,3`                  |
 | `entities` | Escapes XML/HTML entities               | String `x > y`                    | `x &gt; y`               |
 | `json`     | Converts the selection to a JSON string | Object `{ "ID": 2, "name": "X" }` | `{"ID":2,"name":"X"}`    |
+| `string`   | Converts the selection to a string      | Boolean `true`                    | `1` (as a string)        |
 | `uri`      | URL-encodes the string result           | String `x > y`                    | `x%20%3E%20y`            |
 
 A special "flattening" wildcard `*` can be used to select all properties in an array or object
