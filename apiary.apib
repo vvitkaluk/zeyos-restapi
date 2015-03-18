@@ -1139,9 +1139,9 @@ Currently, the following commands are recognized:
 - `=<ref-string>`
   Returns a string assembled according to `<ref-string>`.
 
-  This may contain references to results previously obtained in the form `{{<ref>}}`.
+  This may contain _path references_ to results previously obtained in the form `{{<ref-path>}}`.
 
-  If the string consists of `{{<ref>}}` only, that result will be returned as-is, i.e. without any string conversion, but you can use the `string:` modifier if necessary.
+  If the string consists of `{{<ref-path>}}` only, that result will be returned as-is, i.e. without any string conversion, but you can use the `string` modifier if necessary (e.g. `{{string:result}}`).
 
   Any additional characters before or after such a result reference, or multiple references will automatically convert all referenced results to strings.
 
@@ -1151,8 +1151,10 @@ Currently, the following commands are recognized:
 - `all`
   Returns all results from the previously executed commands and stores that as a result.
 
-- `select=<ref>`
-  Returns the resolved result reference. See the section below for details on result references.
+- `select=<ref-path>`
+  Returns the resolved result referenced by the given path.
+
+**See also the section _Referencing Results_ for more details on paths and result references.**
 
 ### Settings
 
@@ -1188,7 +1190,7 @@ For example, the request `GET /records?n=2&o[]=lastmodified-` would be equivalen
             "lastmodified-"
         ]
     },
-    // "select": "result"        // Optional. Selects the specified path as the result.
+    "select": "result"           // Optional. Selects the specified path as the result.
 }
 ```
 
