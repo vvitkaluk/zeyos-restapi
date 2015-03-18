@@ -212,20 +212,20 @@ GET /api/1.0/notes
 
 Other than querying for rows, it is also possible to determine the row count with `q=c` or to obtain the SQL statement via `q=s`.
 
-| Parameter |  Type       | Description                              | Example                 |
-| --------- | ----------- | ---------------------------------------- | ----------------------- |
-| `a`       | string      | Alias                                    | `a=note`                |
-| `d`       | string      | DISTINCT                                 | `d=`                    |
-| `s`       | string/json | SELECT (see below)                       | `s[]=ID`                |
-| `m`       | string/json | Case-insensitive text search (see below) | `m=Anna`                |
-| `w`       | string/json | WHERE (see below)                        | `w[]=["name","Holiday"] |
-| `j`       | string/json | JOIN (see below)                         | `j[]=["contact"]        |
-| `g`       | string      | GROUP BY; name of column to group by     | `g[]=name`              |
-| `o`       | string      | ORDER BY; column name plus optional "+"  for ascending, "-" for descending order and "F" / "L" for `NULLS FIRST` / `NULLS LAST` | `o[]=creationdate- |
-| `n`       | int         | LIMIT                                    | `n=25`                  |
-| `i`       | int         | OFFSET                                   | `i=100`                 |
-| `q`       | string      | Query: `c` for `COUNT`, `s` for the SQL  | `q=s`                   |
-| `x`       | bool        | Set to `1` (or `true` when using JSON) to obtain numerically indexed columns (default: associative keys). | `x=1`                 |
+| Parameter |  Type       | Description                              | Example                  |
+| --------- | ----------- | ---------------------------------------- | ------------------------ |
+| `a`       | string      | Alias                                    | `a=note`                 |
+| `d`       | string      | DISTINCT                                 | `d=`                     |
+| `s`       | string/json | SELECT (see below)                       | `s[]=ID`                 |
+| `m`       | string/json | Case-insensitive text search (see below) | `m=Anna`                 |
+| `w`       | string/json | WHERE (see below)                        | `w[]=["name","Holiday"]` |
+| `j`       | string/json | JOIN (see below)                         | `j[]=["contact"]`        |
+| `g`       | string      | GROUP BY; name of column to group by     | `g[]=name`               |
+| `o`       | string      | ORDER BY; column name plus optional "+"  for ascending, "-" for descending order and "F" / "L" for `NULLS FIRST` / `NULLS LAST` | `o[]=creationdate-` |
+| `n`       | int         | LIMIT                                    | `n=25`                   |
+| `i`       | int         | OFFSET                                   | `i=100`                  |
+| `q`       | string      | Query: `c` for `COUNT`, `s` for the SQL  | `q=s`                    |
+| `x`       | bool        | Set to `1` (or `true` when using JSON) to obtain numerically indexed columns (default: associative keys). | `x=1`                    |
 
 
 ### SELECT parameters
