@@ -1146,7 +1146,7 @@ Currently, the following commands are recognized:
   Returns all results from the previously executed commands and stores that as a result.
 
 - `select=<ref>`
-  Returns the resolved result reference. See the next section for details on result references.
+  Returns the resolved result reference. See the section below for details on result references.
 
 ### Settings
 
@@ -1208,7 +1208,43 @@ The top-level (root) command block can be accessed by specifying a sufficient nu
 If a result is an object, an array or a string, a sub-element of it may be addressed by its respective key / index.
 For example, the property `name` of an object (in JSON terminology) `../2/5` is accessible as `../2/5/result/name`.
 
-Invalid references will produce error objects `{ "error": ... }`.
+Invalid references will produce **error objects** `{ "error": ... }` and will **stop batch execution**, unless `resume_on_fail` is enabled.
+
+The selection may be processed further by prepending the selection path with so-called _modifiers_, separated by a colon `:`, e.g. `json:result`.
+Modifiers may be stacked and are processed from right (inner-most) to left, i.e. `uri:json:result` would first JSON-encode the `result` property and then URL-encode the JSON string.
+
+This API version supports these modifiers:
+
+| Modifier   | Description                             | Sample result                     | Resulting output         |
+| ---------- | --------------------------------------- | --------------------------------- | ------------------------ |
+| `csv`      | Produces a comma-separated list         | Array  `[ 1, 2, 3 ]`              | `1,2,3`                  |
+| `entities` | Escapes XML/HTML entities               | String `x > y`                    | `x &gt; y`               |
+| `json`     | Converts the selection to a JSON string | Object `{ "ID": 2, "name": "X" }` | `{"ID":2,"name":"X"}`    |
+| `uri`      | URL-encodes the string result           | String `x > y`                    | `x%20%3E%20y`            |
+
+A special "flattening" wildcard `*` can be used to select all properties in an array or object
+For example, `result/*/ID` would yield the ID property of all returned objects in the result set such as `[24,31,32]`, rather than this:
+
+```json
+{
+    "result": [
+        {
+            "ID": "24",
+            ...
+        },
+        {
+            "ID": "31",
+            ...
+        },
+        {
+            "ID": "32",
+            ...
+        }
+    ]
+}
+```
+
+To specify a literal slash `/`, backslash `\`, asterisk `*` or a colon `:` as part of the key, prepend it with a backslash to escape it, e.g. `result/paths/C\:\\Windows`.
 
 ## Examples [/batch]
 
