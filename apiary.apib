@@ -4035,6 +4035,215 @@ A single Category object with all its details
             "result": true
         }
 
+# Group Comments
+A comment has the following attributes:
+
+* ID (int8)
+* creator (int4)
+* creationdate (int8)
+* record (int8)
+* sender (varchar)
+* text (text)
+
+
+## List/Create Comments [/comments{?extdata}{?monitor}{?object}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}]
+
+### Select Comments [GET]
+
++ Parameters
+
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column | Joined Table |
+        | ------ | ------------ |
+        | `record` | `records` |
+        
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+        {
+            "result": [
+                {
+                    "ID": "38",
+                    "creator": "72",
+                    "creationdate": "1412437669",
+                    "record": "804",
+                    "sender": "",
+                    "text": "Yes, he's a charmer!"
+                },
+                {
+                    "ID": "39",
+                    "creator": "69",
+                    "creationdate": "1412491212",
+                    "record": "804",
+                    "sender": "",
+                    "text": "Absolutely! :-) It's great doing business with them."
+                },
+                {
+                    "ID": "40",
+                    "creator": "69",
+                    "creationdate": "1412083781",
+                    "record": "805",
+                    "sender": "",
+                    "text": "I had - should I take care of this?"
+                }
+            ]
+        }
+
+### Create a New Comment [PUT]
+
++ Parameters
+
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": "72",
+                "creationdate": "1412437669",
+                "record": "804",
+                "sender": "",
+                "text": "Yes, he's a charmer!"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "result": 2645
+        }
+
+## Edit Comments [/comments/{id}{?extdata}{?monitor}{?object}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}]
+A single Comment object with all its details
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Comment
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column | Joined Table |
+        | ------ | ------------ |
+        | `record` | `records` |
+        
+
+
+### Check If Comment Exists [HEAD]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200
+
+
++ Response 404
+
+
+### Retrieve Comment [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+        {
+            "result": {
+                "ID": "38",
+                "creator": "72",
+                "creationdate": "1412437669",
+                "record": "804",
+                "sender": "",
+                "text": "Yes, he's a charmer!"
+            }
+        }
+
++ Response 404 (application/json)
+
+        {
+            "error": "Could not find item #2645 in comments (or no permission to access it)."
+        }
+
+### Update Comment [POST]
+
++ Parameters
+
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": "72",
+                "creationdate": "1412437669",
+                "record": "804",
+                "sender": "",
+                "text": "Yes, he's a charmer!"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "result": true
+        }
+
+### Remove Comment [DELETE]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+        {
+            "result": true
+        }
+
 # Group Contacts
 A contact has the following attributes:
 
