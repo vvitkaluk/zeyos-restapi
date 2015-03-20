@@ -370,6 +370,11 @@ Managed JOINs are defined by specifying the foreign key column, optionally toget
 
         j[]=[<column>, <table>, <join type>, <alias>]
 
+All parameters but `<column>` are optional.
+
+The alias parameter can be a string specifying the alias for the _joined_ table or an object that maps _table names to aliases_.
+It **must** be specified only when any of the involved tables are aliased.
+
 For example, if we were to query the `accounts` table and wanted to JOIN it with its assigned `contacts` record via `accounts.contact`, we would use
 
 ```
@@ -383,6 +388,102 @@ Using the `JOIN`, we could use any column from the `contacts` table to limit our
 GET /api/1.0/accounts
     ?j[]=["contact"]
     &w[]=["contacts.company","Zeyon Technologies, Inc."]
+```
+
+It is also possible to JOIN on already joined tables ("transitive" JOINs).
+
+In the simplest case, you provide the first JOIN from the main table and then the second from the first joined table to the third.
+
+Let us consider this query:
+
+```sql
+SELECT *
+FROM records
+JOIN users ON records.creator = users.ID
+JOIN contacts ON users.contact = contacts.ID
+LIMIT 5
+```
+
+The REST API query would then look like this:
+
+```
+GET /api/1.0/records
+    ?j[]=["creator", "records"]
+    &j[]=["contact", "users"]
+    &n=5
+```
+
+Transitive JOINs are determined automatically, based on already defined JOINs.
+
+Things get more complicated when aliases are used as these may introduce ambiguities.
+The REST API then needs to know which table uses which alias, so you have to specify them explicitly.
+
+When aliases are used in joining tables, they must be specified in the JOIN definition.
+For example, the query
+
+```sql
+SELECT *
+FROM records
+JOIN users AS u ON records.creator = u.ID
+LIMIT 5
+```
+
+would be written as
+
+```
+GET /api/1.0/records
+    ?a=r
+    &j[]=["creator", "records", "INNER", "u"],
+    &n=5
+```
+
+If the table for which the JOIN column is given is aliased (the `records` table in the example above), **both** tables and their aliases must be declared, e.g.
+
+```sql
+SELECT *
+FROM records AS r
+JOIN users AS u ON r.creator = u.ID
+JOIN contacts AS c ON u.contact = c.ID
+LIMIT 5
+```
+
+would then be:
+
+```
+GET /api/1.0/records
+    ?a=r
+    &j[]=["creator", "records", "INNER", { "records": "r", "users": "u" }],
+    &j[]=["contact", "users", "INNER", { "users": "u", "contacts": "c" }]
+    &n=5
+```
+
+or in JSON
+
+```json
+{
+    "a": "r",
+    "j": [
+        [
+            "creator",
+            "records",
+            "INNER",
+            {
+                "records" : "r",
+                "users"   : "u"
+            }
+        ],
+        [
+            "contact",
+            "users",
+            "INNER",
+            {
+                "users"   : "u",
+                "contacts": "c"
+            }
+        ]
+    ],
+    "n": 5
+}
 ```
 
 # Group Auth
