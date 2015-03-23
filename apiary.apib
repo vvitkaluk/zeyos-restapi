@@ -215,7 +215,7 @@ Other than querying for rows, it is also possible to determine the row count wit
 | Parameter |  Type       | Description                              | Example                  |
 | --------- | ----------- | ---------------------------------------- | ------------------------ |
 | `a`       | string      | Alias                                    | `a=note`                 |
-| `d`       | string      | DISTINCT                                 | `d=`                     |
+| `d`       | bool        | DISTINCT                                 | `d=1`                    |
 | `s`       | string/json | SELECT (see below)                       | `s[]=ID`                 |
 | `m`       | string/json | Case-insensitive text search (see below) | `m=Anna`                 |
 | `w`       | string/json | WHERE (see below)                        | `w[]=["name","Holiday"]` |
@@ -11674,18 +11674,6 @@ A resource has the following attributes:
                     "code": "..."
                 },
                 {
-                    "ID": "1926",
-                    "creator": null,
-                    "creationdate": "1401202397",
-                    "lastmodified": "1401202397",
-                    "application": "397",
-                    "activity": "0",
-                    "name": "locale-de_DE.json",
-                    "identifier": "net.zeyon.ticket.merge-1000.locale-de_DE",
-                    "mimetype": "application\/json",
-                    "code": "..."
-                },
-                {
                     "ID": "2077",
                     "creator": null,
                     "creationdate": "0",
@@ -11695,6 +11683,18 @@ A resource has the following attributes:
                     "name": "Select lists",
                     "identifier": "net.zeyon.zeytimer-1000.lists",
                     "mimetype": "application\/ixml+xml",
+                    "code": "..."
+                },
+                {
+                    "ID": "2016",
+                    "creator": null,
+                    "creationdate": "0",
+                    "lastmodified": "1404214567",
+                    "application": "411",
+                    "activity": "0",
+                    "name": "E-Mail Template - Why did you leave?",
+                    "identifier": "net.zeyon.mailapi-1000.mail-whyleave",
+                    "mimetype": "text\/plain",
                     "code": "..."
                 }
             ]
@@ -12830,61 +12830,61 @@ A task has the following attributes:
         {
             "result": [
                 {
-                    "ID": "1267",
-                    "owneruser": null,
-                    "ownergroup": null,
-                    "creator": "75",
-                    "assigneduser": "75",
-                    "creationdate": "1415555664",
-                    "lastmodified": "1416160464",
-                    "project": "78",
-                    "visibility": "0",
-                    "name": "Write invitations",
-                    "datefrom": "1415555664",
-                    "duedate": "1404237264",
-                    "status": "5",
-                    "priority": "4",
-                    "projectedeffort": "600",
-                    "description": "",
-                    "tasknum": "",
-                    "ticket": "1886"
-                },
-                {
-                    "ID": "1268",
-                    "owneruser": null,
-                    "ownergroup": null,
-                    "creator": "77",
-                    "assigneduser": "76",
-                    "creationdate": "1417715664",
-                    "lastmodified": "1422986064",
-                    "project": "78",
-                    "visibility": "0",
-                    "name": "Update marketing brochure",
-                    "datefrom": "1417715664",
-                    "duedate": "1405187664",
-                    "status": "3",
-                    "priority": "1",
-                    "projectedeffort": "300",
-                    "description": "",
-                    "tasknum": "",
-                    "ticket": "1888"
-                },
-                {
-                    "ID": "1269",
+                    "ID": "1270",
                     "owneruser": null,
                     "ownergroup": null,
                     "creator": "71",
-                    "assigneduser": "78",
-                    "creationdate": "1421085264",
-                    "lastmodified": "1425405264",
+                    "assigneduser": "75",
+                    "creationdate": "1419443664",
+                    "lastmodified": "1426182864",
                     "project": "78",
                     "visibility": "0",
-                    "name": "Apply for free tradeshow tickets",
-                    "datefrom": "1421085264",
-                    "duedate": "1405792464",
-                    "status": "1",
+                    "name": "Buy\/rent coffee maker",
+                    "datefrom": "1419443664",
+                    "duedate": "1406829264",
+                    "status": "5",
                     "priority": "0",
-                    "projectedeffort": "180",
+                    "projectedeffort": "1500",
+                    "description": "",
+                    "tasknum": "",
+                    "ticket": "1887"
+                },
+                {
+                    "ID": "1271",
+                    "owneruser": null,
+                    "ownergroup": null,
+                    "creator": "70",
+                    "assigneduser": "75",
+                    "creationdate": "1424109264",
+                    "lastmodified": "1426010064",
+                    "project": "78",
+                    "visibility": "0",
+                    "name": "Configure Internet connection",
+                    "datefrom": "1424109264",
+                    "duedate": "1416851664",
+                    "status": "5",
+                    "priority": "2",
+                    "projectedeffort": "2100",
+                    "description": "",
+                    "tasknum": "",
+                    "ticket": "1887"
+                },
+                {
+                    "ID": "1286",
+                    "owneruser": null,
+                    "ownergroup": null,
+                    "creator": "78",
+                    "assigneduser": "72",
+                    "creationdate": "1419443664",
+                    "lastmodified": "1425923664",
+                    "project": "80",
+                    "visibility": "0",
+                    "name": "Create design styleguide",
+                    "datefrom": "1419443664",
+                    "duedate": "1419011664",
+                    "status": "0",
+                    "priority": "1",
+                    "projectedeffort": "1800",
                     "description": "",
                     "tasknum": "",
                     "ticket": "1887"
@@ -12913,21 +12913,21 @@ A task has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "75",
+                "creator": "71",
                 "assigneduser": "75",
-                "creationdate": "1415555664",
-                "lastmodified": "1416160464",
+                "creationdate": "1419443664",
+                "lastmodified": "1426182864",
                 "project": "78",
                 "visibility": "0",
-                "name": "Write invitations",
-                "datefrom": "1415555664",
-                "duedate": "1404237264",
+                "name": "Buy\/rent coffee maker",
+                "datefrom": "1419443664",
+                "duedate": "1406829264",
                 "status": "5",
-                "priority": "4",
-                "projectedeffort": "600",
+                "priority": "0",
+                "projectedeffort": "1500",
                 "description": "",
                 "tasknum": "",
-                "ticket": "1886"
+                "ticket": "1887"
             }
 
 + Response 201 (application/json)
@@ -12988,24 +12988,24 @@ A single Task object with all its details
 
         {
             "result": {
-                "ID": "1267",
+                "ID": "1270",
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "75",
+                "creator": "71",
                 "assigneduser": "75",
-                "creationdate": "1415555664",
-                "lastmodified": "1416160464",
+                "creationdate": "1419443664",
+                "lastmodified": "1426182864",
                 "project": "78",
                 "visibility": "0",
-                "name": "Write invitations",
-                "datefrom": "1415555664",
-                "duedate": "1404237264",
+                "name": "Buy\/rent coffee maker",
+                "datefrom": "1419443664",
+                "duedate": "1406829264",
                 "status": "5",
-                "priority": "4",
-                "projectedeffort": "600",
+                "priority": "0",
+                "projectedeffort": "1500",
                 "description": "",
                 "tasknum": "",
-                "ticket": "1886"
+                "ticket": "1887"
             }
         }
 
@@ -13036,21 +13036,21 @@ A single Task object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "75",
+                "creator": "71",
                 "assigneduser": "75",
-                "creationdate": "1415555664",
-                "lastmodified": "1416160464",
+                "creationdate": "1419443664",
+                "lastmodified": "1426182864",
                 "project": "78",
                 "visibility": "0",
-                "name": "Write invitations",
-                "datefrom": "1415555664",
-                "duedate": "1404237264",
+                "name": "Buy\/rent coffee maker",
+                "datefrom": "1419443664",
+                "duedate": "1406829264",
                 "status": "5",
-                "priority": "4",
-                "projectedeffort": "600",
+                "priority": "0",
+                "projectedeffort": "1500",
                 "description": "",
                 "tasknum": "",
-                "ticket": "1886"
+                "ticket": "1887"
             }
 
 + Response 200 (application/json)
@@ -13320,17 +13320,17 @@ A ticket has the following attributes:
         {
             "result": [
                 {
-                    "ID": "1884",
+                    "ID": "1891",
                     "ownergroup": null,
-                    "creator": "70",
-                    "assigneduser": "70",
-                    "creationdate": "1414691461",
-                    "lastmodified": "1424454661",
-                    "account": "2621",
-                    "visibility": "0",
-                    "name": "Wrong delivery for BEQ Building Equipment",
-                    "ticketnum": "T3626",
-                    "status": "4",
+                    "creator": "71",
+                    "assigneduser": "71",
+                    "creationdate": "1419616261",
+                    "lastmodified": "1426875881",
+                    "account": "2629",
+                    "visibility": "1",
+                    "name": "Jenni Bevia Fabrics and Services is interested in partnering with us",
+                    "ticketnum": "T3633",
+                    "status": "8",
                     "priority": "0",
                     "description": "",
                     "itemsbinfile": null,
@@ -13344,12 +13344,12 @@ A ticket has the following attributes:
                     "creator": "52",
                     "assigneduser": "52",
                     "creationdate": "1423072261",
-                    "lastmodified": "1425923461",
+                    "lastmodified": "1426875963",
                     "account": "2633",
-                    "visibility": "0",
+                    "visibility": "1",
                     "name": "Marc Anderson is asking to change delivery schedule",
                     "ticketnum": "T3627",
-                    "status": "0",
+                    "status": "8",
                     "priority": "2",
                     "description": "",
                     "itemsbinfile": null,
@@ -13358,22 +13358,22 @@ A ticket has the following attributes:
                     "project": null
                 },
                 {
-                    "ID": "1886",
+                    "ID": "1884",
                     "ownergroup": null,
-                    "creator": "73",
-                    "assigneduser": "73",
-                    "creationdate": "1424281861",
-                    "lastmodified": "1424454661",
-                    "account": "2643",
+                    "creator": "70",
+                    "assigneduser": "70",
+                    "creationdate": "1414691461",
+                    "lastmodified": "1427107009",
+                    "account": "2621",
                     "visibility": "0",
-                    "name": "Request to change delivery address",
-                    "ticketnum": "T3628",
+                    "name": "Setup new storage system",
+                    "ticketnum": "T3626",
                     "status": "4",
-                    "priority": "3",
+                    "priority": "0",
                     "description": "",
                     "itemsbinfile": null,
                     "duedate": null,
-                    "items": null,
+                    "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, \\u00d8 3.0cm, L 150cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811003\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":86.31,\"purchaseprice\":45.78,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":13523,\"reservation\":null,\"transactions\":[],\"transaction_billing\":\"16359\"},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Tube, \\u00d8 3.0cm, L 200cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"812304\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":10,\"amounttaken\":0,\"sellingprice\":10.36,\"purchaseprice\":9.32,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":13542,\"reservation\":null,\"transactions\":[],\"transaction_billing\":\"16359\"},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Glass Pannel, \\u00d8 0.5cm, 100x170 cm, transparent\",\"manufacturer\":\"FLAWLESS\",\"itemnum\":\"526810\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":65,\"amounttaken\":0,\"sellingprice\":10.1,\"purchaseprice\":4.26,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":13493,\"reservation\":null,\"transactions\":[],\"transaction_billing\":\"16359\"}]",
                     "project": null
                 }
             ]
@@ -13399,15 +13399,15 @@ A ticket has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "70",
-                "assigneduser": "70",
-                "creationdate": "1414691461",
-                "lastmodified": "1424454661",
-                "account": "2621",
-                "visibility": "0",
-                "name": "Wrong delivery for BEQ Building Equipment",
-                "ticketnum": "T3626",
-                "status": "4",
+                "creator": "71",
+                "assigneduser": "71",
+                "creationdate": "1419616261",
+                "lastmodified": "1426875881",
+                "account": "2629",
+                "visibility": "1",
+                "name": "Jenni Bevia Fabrics and Services is interested in partnering with us",
+                "ticketnum": "T3633",
+                "status": "8",
                 "priority": "0",
                 "description": "",
                 "itemsbinfile": null,
@@ -13474,17 +13474,17 @@ A single Ticket object with all its details
 
         {
             "result": {
-                "ID": "1884",
+                "ID": "1891",
                 "ownergroup": null,
-                "creator": "70",
-                "assigneduser": "70",
-                "creationdate": "1414691461",
-                "lastmodified": "1424454661",
-                "account": "2621",
-                "visibility": "0",
-                "name": "Wrong delivery for BEQ Building Equipment",
-                "ticketnum": "T3626",
-                "status": "4",
+                "creator": "71",
+                "assigneduser": "71",
+                "creationdate": "1419616261",
+                "lastmodified": "1426875881",
+                "account": "2629",
+                "visibility": "1",
+                "name": "Jenni Bevia Fabrics and Services is interested in partnering with us",
+                "ticketnum": "T3633",
+                "status": "8",
                 "priority": "0",
                 "description": "",
                 "itemsbinfile": null,
@@ -13520,15 +13520,15 @@ A single Ticket object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "70",
-                "assigneduser": "70",
-                "creationdate": "1414691461",
-                "lastmodified": "1424454661",
-                "account": "2621",
-                "visibility": "0",
-                "name": "Wrong delivery for BEQ Building Equipment",
-                "ticketnum": "T3626",
-                "status": "4",
+                "creator": "71",
+                "assigneduser": "71",
+                "creationdate": "1419616261",
+                "lastmodified": "1426875881",
+                "account": "2629",
+                "visibility": "1",
+                "name": "Jenni Bevia Fabrics and Services is interested in partnering with us",
+                "ticketnum": "T3633",
+                "status": "8",
                 "priority": "0",
                 "description": "",
                 "itemsbinfile": null,
@@ -14166,19 +14166,25 @@ A user has the following attributes:
                 {
                     "ID": "76",
                     "contact": "9209",
+                    "activity": "0",
                     "name": "cathy.winters",
+                    "expdate": null,
                     "email": "don.petro@katayo.com"
                 },
                 {
                     "ID": "69",
                     "contact": "9202",
+                    "activity": "0",
                     "name": "steve.morris",
+                    "expdate": null,
                     "email": "steve.morris@katayo.com"
                 },
                 {
                     "ID": "70",
                     "contact": "9203",
+                    "activity": "0",
                     "name": "dirk.schulz",
+                    "expdate": null,
                     "email": "dirk.schulz@katayo.com"
                 }
             ]
@@ -14204,7 +14210,9 @@ A user has the following attributes:
 
             {
                 "contact": "9209",
+                "activity": "0",
                 "name": "cathy.winters",
+                "expdate": null,
                 "email": "don.petro@katayo.com"
             }
 
@@ -14264,7 +14272,9 @@ A single User object with all its details
             "result": {
                 "ID": "76",
                 "contact": "9209",
+                "activity": "0",
                 "name": "cathy.winters",
+                "expdate": null,
                 "email": "don.petro@katayo.com"
             }
         }
@@ -14295,7 +14305,9 @@ A single User object with all its details
 
             {
                 "contact": "9209",
+                "activity": "0",
                 "name": "cathy.winters",
+                "expdate": null,
                 "email": "don.petro@katayo.com"
             }
 
