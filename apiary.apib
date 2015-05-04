@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://api.zeyos.com/{instance}/1.0/
+HOST: https://api.zeyos.com/{platform}/1.0/
 
 # ZeyOS REST API [draft]
 
@@ -12,6 +12,14 @@ The REST API currently consists of two function groups:
 Using a query language based on SQL, you can extract data from and manipulate data in your ZeyOS database, including simple table JOINs.
 
 For more sophisticated tasks you can also use the [ZeyOS Core API and ZeyOS Library](http://www.zymba.info/] to build custom apps and web services for [ZeyOS](https://developer.zeyos.com/) and even deploy them to ZeyOS users via [ZeyConnect](https://www.zeyconnect.com/).
+
+## Notational Conventions
+
+Literal (verbatim) text is formatted like this: `Hello world`.
+Please note that it may contain references or placeholders though which will then be documented.
+
+A common placeholder is `{platform}` which should be replaced with the name of your platform.
+For example, the base URL for API requests is `https://api.zeyos.com/{platform}/1.0/`, so if your platform were named `sandbox`, your API URL would be `https://api.zeyos.com/sandbox/1.0/`.
 
 ## Versioning Policy
 
@@ -50,7 +58,7 @@ The REST API uses HTTP verbs according to the intended operation.
 | PUT    | Create data         |
 
 Depending on the requested resource, not all methods may be available.
-For example, `/<platform>/1.0/tags` supports `DELETE`, `GET`, `HEAD` and `PUT`, but not `POST` because tags can be removed, fetched, checked to exist and be created not be updated.
+For example, `/{platform}/1.0/tags` supports `DELETE`, `GET`, `HEAD` and `PUT`, but not `POST` because tags can be removed, fetched, checked to exist and be created not be updated.
 
 Sometimes it may not be possible to use the proper HTTP verb, for example because you are sending a request from an HTML form or use a restricted HTTP client.
 
@@ -96,13 +104,13 @@ Authentication is based on ZeyOS's token authentication mechanism, which is also
 Tokens are linked to *identifiers* which should be specific to both the accessing app and device.
 This allows devices to renew their tokens independently.
 
-To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/<platform>/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
+To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/{platform}/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
 
 Token authentication works by including the `Zeyos-Api-Token` header in your request with the identifier, followed by a colon `:` and the obtained token string, as the value, e.g. `Zeyos-Api-Token: com.example.myapp.dev1138:2a3e4ec88e66138253a69da3406841fccb1c998e`.
 
 ## Data Access and Data Manipulation
 
-Database table rows can be loaded by performing a `GET` with the table name and the database record ID as the path, e.g. `GET /<platform>/1.0/notes/1`.
+Database table rows can be loaded by performing a `GET` with the table name and the database record ID as the path, e.g. `GET /{platform}/1.0/notes/1`.
 
 This will return a JSON-encoded object with the record's columns as properties of the `result` sub-object:
 
@@ -127,7 +135,7 @@ This will return a JSON-encoded object with the record's columns as properties o
 }
 ```
 
-To load all notes (up to the REST API's internal limit, or to a limit specified with `n=...`, whichever is less), simply omit the ID: `GET /<platform>/1.0/notes`.
+To load all notes (up to the REST API's internal limit, or to a limit specified with `n=...`, whichever is less), simply omit the ID: `GET /{platform}/1.0/notes`.
 
 If you also want to load extensional data (_"extdata"_), add a `GET` parameter `extdata=1`.
 This will include a sub-object `extdata` for each returned object.
@@ -173,7 +181,7 @@ When an entity record is created or updated, a "monitor" record (a log entry in 
 
 `PUT` requests on database tables / entities will return the database record ID, i.e. the created row's primary key while `POST` requests will return `true` on success.
 
-If you instead want to get the updated record after such a `PUT` or `POST`, specify a URI query parameter `object=1`, e.g. `POST /<platform>/1.0/accounts/42?object=1`.
+If you instead want to get the updated record after such a `PUT` or `POST`, specify a URI query parameter `object=1`, e.g. `POST /{platform}/1.0/accounts/42?object=1`.
 This can be combined with the `extdata` flag to retrieve associated extensional data at the same time.
 
 ## Database Tables with Visibility Flag
@@ -197,7 +205,7 @@ The REST API exposes the ZeyOS Library's SQL query builder API, giving developer
 Let's start with an example, searching for a text note where the name is `Vacation` or which contains the text `Jul`, followed by `2014` (e.g. `Jul 2014` or `July 28, 2014`):
 
 ```
-GET /<platform>/1.0/notes
+GET /{platform}/1.0/notes
 ?a=n
 &s=["n.text"]
 &w[]=or
@@ -381,14 +389,14 @@ It **must** be specified only when any of the involved tables are aliased.
 For example, if we were to query the `accounts` table and wanted to JOIN it with its assigned `contacts` record via `accounts.contact`, we would use
 
 ```
-GET /<platform>/1.0/accounts
+GET /{platform}/1.0/accounts
 ?j[]=["contact"]
 ```
 
 Using the `JOIN`, we could use any column from the `contacts` table to limit our search:
 
 ```
-GET /<platform>/1.0/accounts
+GET /{platform}/1.0/accounts
     ?j[]=["contact"]
     &w[]=["contacts.company","Zeyon Technologies, Inc."]
 ```
@@ -410,7 +418,7 @@ LIMIT 5
 The REST API query would then look like this:
 
 ```
-GET /<platform>/1.0/records
+GET /{platform}/1.0/records
     ?j[]=["creator", "records"]
     &j[]=["contact", "users"]
     &n=5
@@ -434,7 +442,7 @@ LIMIT 5
 would be written as
 
 ```
-GET /<platform>/1.0/records
+GET /{platform}/1.0/records
     ?a=r
     &j[]=["creator", "records", "INNER", "u"],
     &n=5
@@ -453,7 +461,7 @@ LIMIT 5
 would then be:
 
 ```
-GET /<platform>/1.0/records
+GET /{platform}/1.0/records
     ?a=r
     &j[]=["creator", "records", "INNER", { "records": "r", "users": "u" }],
     &j[]=["contact", "users", "INNER", { "users": "u", "contacts": "c" }]
@@ -493,7 +501,7 @@ or in JSON
 
 ## Authentication [/auth{?object}{?settings}]
 
-The authentication API yields the authenticated user's details when requesting`GET /<platform>/1.0/auth` or `POST /<platform>/1.0/auth?object=1`.
+The authentication API yields the authenticated user's details when requesting`GET /{platform}/1.0/auth` or `POST /{platform}/1.0/auth?object=1`.
 The returned data object contains most of the `users` table columns, permissions and possibly an (incomplete) `contact` sub-object that looks like this:
 
 ```json
