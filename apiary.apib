@@ -1210,13 +1210,14 @@ The following table lists format sequences supported by ZeyOS and this API.
 
 ## Formatted Numbers [/numformat/{name}]
 
+### Get Formatted Number [GET]
+
+Returns the next used number that would be used for the [numformat](http://www.zymba.info/docs/ZeyOS.NumFormat/) column with the specified name when creating a record without an explicit value for that column, e.g. for the `tasks` table's `tasknum` column.
+
 + Parameters
 
     + name (required, string) ... The name of the ["numformat" string](http://www.zymba.info/docs/ZeyOS.NumFormat/), i.e. the `...num` column name
 
-### Get Formatted Number [GET]
-
-Returns the next used number that would be used for the [numformat](http://www.zymba.info/docs/ZeyOS.NumFormat/) column with the specified name when creating a record without an explicit value for that column, e.g. for the `tasks` table's `tasknum` column.
 + Request
 
     + Headers
