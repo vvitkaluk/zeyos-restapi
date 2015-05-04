@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://cloud.zeyos.com/{instance}/api/1.0/
+HOST: https://api.zeyos.com/{instance}/1.0/
 
 # ZeyOS REST API [draft]
 
@@ -50,7 +50,7 @@ The REST API uses HTTP verbs according to the intended operation.
 | PUT    | Create data         |
 
 Depending on the requested resource, not all methods may be available.
-For example, `/api/1.0/tags` supports `DELETE`, `GET`, `HEAD` and `PUT`, but not `POST` because tags can be removed, fetched, checked to exist and be created not be updated.
+For example, `/<platform>/1.0/tags` supports `DELETE`, `GET`, `HEAD` and `PUT`, but not `POST` because tags can be removed, fetched, checked to exist and be created not be updated.
 
 Sometimes it may not be possible to use the proper HTTP verb, for example because you are sending a request from an HTML form or use a restricted HTTP client.
 
@@ -96,13 +96,13 @@ Authentication is based on ZeyOS's token authentication mechanism, which is also
 Tokens are linked to *identifiers* which should be specific to both the accessing app and device.
 This allows devices to renew their tokens independently.
 
-To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/api/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
+To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/<platform>/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
 
 Token authentication works by including the `Zeyos-Api-Token` header in your request with the identifier, followed by a colon `:` and the obtained token string, as the value, e.g. `Zeyos-Api-Token: com.example.myapp.dev1138:2a3e4ec88e66138253a69da3406841fccb1c998e`.
 
 ## Data Access and Data Manipulation
 
-Database table rows can be loaded by performing a `GET` with the table name and the database record ID as the path, e.g. `GET /api/1.0/notes/1`.
+Database table rows can be loaded by performing a `GET` with the table name and the database record ID as the path, e.g. `GET /<platform>/1.0/notes/1`.
 
 This will return a JSON-encoded object with the record's columns as properties of the `result` sub-object:
 
@@ -127,7 +127,7 @@ This will return a JSON-encoded object with the record's columns as properties o
 }
 ```
 
-To load all notes (up to the REST API's internal limit, or to a limit specified with `n=...`, whichever is less), simply omit the ID: `GET /api/1.0/notes`.
+To load all notes (up to the REST API's internal limit, or to a limit specified with `n=...`, whichever is less), simply omit the ID: `GET /<platform>/1.0/notes`.
 
 If you also want to load extensional data (_"extdata"_), add a `GET` parameter `extdata=1`.
 This will include a sub-object `extdata` for each returned object.
@@ -173,7 +173,7 @@ When an entity record is created or updated, a "monitor" record (a log entry in 
 
 `PUT` requests on database tables / entities will return the database record ID, i.e. the created row's primary key while `POST` requests will return `true` on success.
 
-If you instead want to get the updated record after such a `PUT` or `POST`, specify a URI query parameter `object=1`, e.g. `POST /myplatform/api/1.0/accounts/42?object=1`.
+If you instead want to get the updated record after such a `PUT` or `POST`, specify a URI query parameter `object=1`, e.g. `POST /<platform>/1.0/accounts/42?object=1`.
 This can be combined with the `extdata` flag to retrieve associated extensional data at the same time.
 
 ## Database Tables with Visibility Flag
@@ -197,7 +197,7 @@ The REST API exposes the ZeyOS Library's SQL query builder API, giving developer
 Let's start with an example, searching for a text note where the name is `Vacation` or which contains the text `Jul`, followed by `2014` (e.g. `Jul 2014` or `July 28, 2014`):
 
 ```
-GET /api/1.0/notes
+GET /<platform>/1.0/notes
 ?a=n
 &s=["n.text"]
 &w[]=or
@@ -381,14 +381,14 @@ It **must** be specified only when any of the involved tables are aliased.
 For example, if we were to query the `accounts` table and wanted to JOIN it with its assigned `contacts` record via `accounts.contact`, we would use
 
 ```
-GET /api/1.0/accounts
+GET /<platform>/1.0/accounts
 ?j[]=["contact"]
 ```
 
 Using the `JOIN`, we could use any column from the `contacts` table to limit our search:
 
 ```
-GET /api/1.0/accounts
+GET /<platform>/1.0/accounts
     ?j[]=["contact"]
     &w[]=["contacts.company","Zeyon Technologies, Inc."]
 ```
@@ -410,7 +410,7 @@ LIMIT 5
 The REST API query would then look like this:
 
 ```
-GET /api/1.0/records
+GET /<platform>/1.0/records
     ?j[]=["creator", "records"]
     &j[]=["contact", "users"]
     &n=5
@@ -434,7 +434,7 @@ LIMIT 5
 would be written as
 
 ```
-GET /api/1.0/records
+GET /<platform>/1.0/records
     ?a=r
     &j[]=["creator", "records", "INNER", "u"],
     &n=5
@@ -453,7 +453,7 @@ LIMIT 5
 would then be:
 
 ```
-GET /api/1.0/records
+GET /<platform>/1.0/records
     ?a=r
     &j[]=["creator", "records", "INNER", { "records": "r", "users": "u" }],
     &j[]=["contact", "users", "INNER", { "users": "u", "contacts": "c" }]
@@ -493,7 +493,7 @@ or in JSON
 
 ## Authentication [/auth{?object}{?settings}]
 
-The authentication API yields the authenticated user's details when requesting`GET /api/1.0/auth` or `POST /api/1.0/auth?object=1`.
+The authentication API yields the authenticated user's details when requesting`GET /<platform>/1.0/auth` or `POST /<platform>/1.0/auth?object=1`.
 The returned data object contains most of the `users` table columns, permissions and possibly an (incomplete) `contact` sub-object that looks like this:
 
 ```json
@@ -4378,6 +4378,14 @@ A comment has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "283",
+                        "creator": "1",
+                        "creationdate": "1429031793",
+                        "record": "12139",
+                        "sender": "",
+                        "text": "Yeah, sure"
+                    },
+                    {
                         "ID": "266",
                         "creator": "97",
                         "creationdate": "1426541919",
@@ -4392,14 +4400,6 @@ A comment has the following attributes:
                         "record": "12106",
                         "sender": "",
                         "text": "Absolutely! :-) It's great doing business with them."
-                    },
-                    {
-                        "ID": "268",
-                        "creator": "94",
-                        "creationdate": "1426623004",
-                        "record": "12107",
-                        "sender": "",
-                        "text": "I had - should I take care of this?"
                     }
                 ]
             }
@@ -4422,11 +4422,11 @@ A comment has the following attributes:
     + Body
 
             {
-                "creator": "97",
-                "creationdate": "1426541919",
-                "record": "12106",
+                "creator": "1",
+                "creationdate": "1429031793",
+                "record": "12139",
                 "sender": "",
-                "text": "Yes, he's a charmer!"
+                "text": "Yeah, sure"
             }
 
 + Response 201 (application/json)
@@ -4488,12 +4488,12 @@ A single Comment object with all its details
 
             {
                 "result": {
-                    "ID": "266",
-                    "creator": "97",
-                    "creationdate": "1426541919",
-                    "record": "12106",
+                    "ID": "283",
+                    "creator": "1",
+                    "creationdate": "1429031793",
+                    "record": "12139",
                     "sender": "",
-                    "text": "Yes, he's a charmer!"
+                    "text": "Yeah, sure"
                 }
             }
 
@@ -4523,11 +4523,11 @@ A single Comment object with all its details
     + Body
 
             {
-                "creator": "97",
-                "creationdate": "1426541919",
-                "record": "12106",
+                "creator": "1",
+                "creationdate": "1429031793",
+                "record": "12139",
                 "sender": "",
-                "text": "Yes, he's a charmer!"
+                "text": "Yeah, sure"
             }
 
 + Response 200 (application/json)
@@ -6838,6 +6838,39 @@ A group has the following attributes:
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": [
+                    {
+                        "ID": "4",
+                        "creator": "1",
+                        "creationdate": "1359018678",
+                        "lastmodified": "1359018730",
+                        "leader": "1",
+                        "name": "Guests",
+                        "description": "only calendar"
+                    },
+                    {
+                        "ID": "8",
+                        "creator": "1",
+                        "creationdate": "1359392796",
+                        "lastmodified": "1359392796",
+                        "leader": "1",
+                        "name": "Finance",
+                        "description": ""
+                    },
+                    {
+                        "ID": "9",
+                        "creator": "1",
+                        "creationdate": "1359392800",
+                        "lastmodified": "1359392800",
+                        "leader": "1",
+                        "name": "Marketing",
+                        "description": ""
+                    }
+                ]
+            }
 
 ### Create a New Group [PUT]
 
@@ -6854,6 +6887,16 @@ A group has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
+    + Body
+
+            {
+                "creator": "1",
+                "creationdate": "1359018678",
+                "lastmodified": "1359018730",
+                "leader": "1",
+                "name": "Guests",
+                "description": "only calendar"
+            }
 
 + Response 201 (application/json)
 
@@ -6911,6 +6954,19 @@ A single Group object with all its details
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": {
+                    "ID": "4",
+                    "creator": "1",
+                    "creationdate": "1359018678",
+                    "lastmodified": "1359018730",
+                    "leader": "1",
+                    "name": "Guests",
+                    "description": "only calendar"
+                }
+            }
 
 + Response 404 (application/json)
 
@@ -6935,6 +6991,16 @@ A single Group object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
+    + Body
+
+            {
+                "creator": "1",
+                "creationdate": "1359018678",
+                "lastmodified": "1359018730",
+                "leader": "1",
+                "name": "Guests",
+                "description": "only calendar"
+            }
 
 + Response 200 (application/json)
 
@@ -10654,46 +10720,46 @@ A payment has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "41",
+                        "ID": "56",
                         "creator": null,
-                        "creationdate": "1428552623",
+                        "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
                         "reference": "",
                         "amount": "50",
                         "subject": "Kommanditeinlage",
                         "assigneduser": null,
-                        "lastmodified": "1428552623",
+                        "lastmodified": "1428594016",
                         "flag": "0",
                         "description": "",
                         "account": null
                     },
                     {
-                        "ID": "42",
+                        "ID": "57",
                         "creator": null,
-                        "creationdate": "1428552623",
+                        "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
                         "reference": "",
                         "amount": "500000",
                         "subject": "Gesellschafterdarlehen",
                         "assigneduser": null,
-                        "lastmodified": "1428552623",
+                        "lastmodified": "1428594016",
                         "flag": "0",
                         "description": "",
                         "account": "3627"
                     },
                     {
-                        "ID": "43",
+                        "ID": "58",
                         "creator": null,
-                        "creationdate": "1428552623",
+                        "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
                         "reference": "",
                         "amount": "-498500",
                         "subject": "Kaufpreiszahlung",
                         "assigneduser": null,
-                        "lastmodified": "1428552623",
+                        "lastmodified": "1428594016",
                         "flag": "0",
                         "description": "",
                         "account": null
@@ -10720,14 +10786,14 @@ A payment has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1428552623",
+                "creationdate": "1428594016",
                 "transaction": null,
                 "date": "1418857200",
                 "reference": "",
                 "amount": "50",
                 "subject": "Kommanditeinlage",
                 "assigneduser": null,
-                "lastmodified": "1428552623",
+                "lastmodified": "1428594016",
                 "flag": "0",
                 "description": "",
                 "account": null
@@ -10793,16 +10859,16 @@ A single Payment object with all its details
 
             {
                 "result": {
-                    "ID": "41",
+                    "ID": "56",
                     "creator": null,
-                    "creationdate": "1428552623",
+                    "creationdate": "1428594016",
                     "transaction": null,
                     "date": "1418857200",
                     "reference": "",
                     "amount": "50",
                     "subject": "Kommanditeinlage",
                     "assigneduser": null,
-                    "lastmodified": "1428552623",
+                    "lastmodified": "1428594016",
                     "flag": "0",
                     "description": "",
                     "account": null
@@ -10836,14 +10902,14 @@ A single Payment object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1428552623",
+                "creationdate": "1428594016",
                 "transaction": null,
                 "date": "1418857200",
                 "reference": "",
                 "amount": "50",
                 "subject": "Kommanditeinlage",
                 "assigneduser": null,
-                "lastmodified": "1428552623",
+                "lastmodified": "1428594016",
                 "flag": "0",
                 "description": "",
                 "account": null
@@ -11961,20 +12027,20 @@ A record has the following attributes:
                         "assigneduser": null
                     },
                     {
-                        "ID": "12130",
+                        "ID": "12139",
                         "owneruser": null,
-                        "ownergroup": null,
+                        "ownergroup": "12",
                         "creator": "1",
-                        "creationdate": "1428442863",
-                        "entity": "accounts",
-                        "index": "3632",
-                        "flag": "3",
+                        "creationdate": "1429031776",
+                        "entity": "messages",
+                        "index": "3933",
+                        "flag": "0",
                         "sender": "",
-                        "text": "MODIFY accounts 3632 Donner & Reuschel AG",
-                        "lastmodified": "1428442863",
-                        "date": "1428442863",
-                        "meta": "{\"name\":\"Donner & Reuschel AG\"}",
-                        "assigneduser": null
+                        "text": "Can you answer this for me?",
+                        "lastmodified": "1429031776",
+                        "date": "1429031776",
+                        "meta": "null",
+                        "assigneduser": "94"
                     }
                 ]
             }
@@ -12987,7 +13053,8 @@ A service has the following attributes:
                         "entity": "",
                         "schedule": "0",
                         "interval": "1",
-                        "code": "..."
+                        "code": "...",
+                        "url": ""
                     },
                     {
                         "ID": "1042",
@@ -13003,7 +13070,8 @@ A service has the following attributes:
                         "entity": "",
                         "schedule": "0",
                         "interval": "1",
-                        "code": "..."
+                        "code": "...",
+                        "url": ""
                     },
                     {
                         "ID": "671",
@@ -13019,7 +13087,8 @@ A service has the following attributes:
                         "entity": "",
                         "schedule": "0",
                         "interval": "1",
-                        "code": "..."
+                        "code": "...",
+                        "url": ""
                     }
                 ]
             }
@@ -13054,7 +13123,8 @@ A service has the following attributes:
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
-                "code": "..."
+                "code": "...",
+                "url": ""
             }
 
 + Response 201 (application/json)
@@ -13129,7 +13199,8 @@ A single Service object with all its details
                     "entity": "",
                     "schedule": "0",
                     "interval": "1",
-                    "code": "..."
+                    "code": "...",
+                    "url": ""
                 }
             }
 
@@ -13171,7 +13242,8 @@ A single Service object with all its details
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
-                "code": "..."
+                "code": "...",
+                "url": ""
             }
 
 + Response 200 (application/json)
@@ -13745,6 +13817,26 @@ A task has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "2037",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "1",
+                        "assigneduser": null,
+                        "creationdate": "1429031955",
+                        "lastmodified": "1429031955",
+                        "project": null,
+                        "visibility": "0",
+                        "name": "Create quote",
+                        "datefrom": "1429031955",
+                        "duedate": null,
+                        "status": "0",
+                        "priority": "2",
+                        "projectedeffort": "0",
+                        "description": "",
+                        "tasknum": "T.00032",
+                        "ticket": null
+                    },
+                    {
                         "ID": "2002",
                         "owneruser": null,
                         "ownergroup": null,
@@ -13783,26 +13875,6 @@ A task has the following attributes:
                         "description": "",
                         "tasknum": "",
                         "ticket": "2103"
-                    },
-                    {
-                        "ID": "2004",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "99",
-                        "creationdate": "1413647261",
-                        "lastmodified": "1419176861",
-                        "project": "162",
-                        "visibility": "0",
-                        "name": "Apply for free tradeshow tickets",
-                        "datefrom": "1413647261",
-                        "duedate": "1400082461",
-                        "status": "5",
-                        "priority": "0",
-                        "projectedeffort": "360",
-                        "description": "",
-                        "tasknum": "",
-                        "ticket": "2099"
                     }
                 ]
             }
@@ -13827,21 +13899,21 @@ A task has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1425138461",
-                "lastmodified": "1426866461",
-                "project": "162",
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1429031955",
+                "lastmodified": "1429031955",
+                "project": null,
                 "visibility": "0",
-                "name": "Write invitations",
-                "datefrom": "1425138461",
-                "duedate": "1410968861",
-                "status": "2",
-                "priority": "1",
-                "projectedeffort": "720",
+                "name": "Create quote",
+                "datefrom": "1429031955",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "projectedeffort": "0",
                 "description": "",
-                "tasknum": "",
-                "ticket": "2106"
+                "tasknum": "T.00032",
+                "ticket": null
             }
 
 + Response 201 (application/json)
@@ -13907,24 +13979,24 @@ A single Task object with all its details
 
             {
                 "result": {
-                    "ID": "2002",
+                    "ID": "2037",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "93",
-                    "assigneduser": "93",
-                    "creationdate": "1425138461",
-                    "lastmodified": "1426866461",
-                    "project": "162",
+                    "creator": "1",
+                    "assigneduser": null,
+                    "creationdate": "1429031955",
+                    "lastmodified": "1429031955",
+                    "project": null,
                     "visibility": "0",
-                    "name": "Write invitations",
-                    "datefrom": "1425138461",
-                    "duedate": "1410968861",
-                    "status": "2",
-                    "priority": "1",
-                    "projectedeffort": "720",
+                    "name": "Create quote",
+                    "datefrom": "1429031955",
+                    "duedate": null,
+                    "status": "0",
+                    "priority": "2",
+                    "projectedeffort": "0",
                     "description": "",
-                    "tasknum": "",
-                    "ticket": "2106"
+                    "tasknum": "T.00032",
+                    "ticket": null
                 }
             }
 
@@ -13956,21 +14028,21 @@ A single Task object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1425138461",
-                "lastmodified": "1426866461",
-                "project": "162",
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1429031955",
+                "lastmodified": "1429031955",
+                "project": null,
                 "visibility": "0",
-                "name": "Write invitations",
-                "datefrom": "1425138461",
-                "duedate": "1410968861",
-                "status": "2",
-                "priority": "1",
-                "projectedeffort": "720",
+                "name": "Create quote",
+                "datefrom": "1429031955",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "projectedeffort": "0",
                 "description": "",
-                "tasknum": "",
-                "ticket": "2106"
+                "tasknum": "T.00032",
+                "ticket": null
             }
 
 + Response 200 (application/json)
