@@ -49,16 +49,16 @@ We will also provide migration guides to help you transition to newer REST API v
 
 The REST API uses HTTP verbs according to the intended operation.
 
-| Verb   | Description         |
-| ------ | ------------------- |
-| DELETE | Delete data         |
-| GET    | Read data           |
-| HEAD   | Check for existence |
-| POST   | Update data         |
-| PUT    | Create data         |
+| Verb   | Description            |
+| ------ | ---------------------- |
+| DELETE | Delete data            |
+| GET    | Read data              |
+| HEAD   | Check for existence    |
+| POST   | Create or update data  |
+| PUT    | Create or replace data |
 
 Depending on the requested resource, not all methods may be available.
-For example, `/{platform}/1.0/tags` supports `DELETE`, `GET`, `HEAD` and `PUT`, but not `POST` because tags can be removed, fetched, checked to exist and be created not be updated.
+For example, `/{platform}/1.0/records/` supports `GET` and `POST` but not `DELETE`, `HEAD`, `PUT` because the URL is non-identifying so that you can list and create new records but not access a specific record without specifying an ID (or using a query).
 
 Sometimes it may not be possible to use the proper HTTP verb, for example because you are sending a request from an HTML form or use a restricted HTTP client.
 
@@ -1236,6 +1236,45 @@ Returns the next used number that would be used for the [numformat](http://www.z
             "result": ""
         }
 
+# Group Open Graph Metadata
+
+## Retrieving a Website Summary [/meta/url?{url}]
+
+ZeyOS automatically fetches Facebook Open Graph metadata from web pages referenced in Mindlog entries to display them with the web page's summary.
+Applications can obtain such a web page summary by calling the `meta` route of the REST API.
+
+### Load Open Graph web page summary [GET]
+
+Returns an object with web page metadata, or `null` if the web page does not have Open Graph metadata.
+
++ Parameters
+
+    + url (required, string) ... The full web page URL
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        {
+            "result": {
+                "url": "http:\/\/www.example.com\/2015\/03\/14\/Pi_Day",
+                "title": "Super Pi Day Celebration",
+                "description": "Celebrate Super Pi Day with us on 03/14/15!",
+                "site": "Pi Site",
+                "image": "http:\/\/www.example.com\/pie.jpg"
+            }
+        }
+
++ Response 200 (application/json)
+
+        {
+            "result": null
+        }
+
 # Group Batch Requests
 
 ## Specifying Commands
@@ -1690,7 +1729,7 @@ A account has the following attributes:
                 ]
             }
 
-### Create a New Account [PUT]
+### Create a New Account [POST]
 
 + Parameters
 
@@ -1950,7 +1989,7 @@ Lists all tags for a single Account.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -2209,7 +2248,7 @@ A actionstep has the following attributes:
                 ]
             }
 
-### Create a New Actionstep [PUT]
+### Create a New Actionstep [POST]
 
 + Parameters
 
@@ -2473,7 +2512,7 @@ Lists all tags for a single Actionstep.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -2713,7 +2752,7 @@ A application has the following attributes:
                 ]
             }
 
-### Create a New Application [PUT]
+### Create a New Application [POST]
 
 + Parameters
 
@@ -2961,7 +3000,7 @@ Lists all tags for a single Application.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -3157,6 +3196,25 @@ A appointment has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "2666",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "1",
+                        "assigneduser": "1",
+                        "creationdate": "1430975463",
+                        "lastmodified": "1430975472",
+                        "visibility": "0",
+                        "name": "Test",
+                        "location": "",
+                        "datefrom": "1430978400",
+                        "dateto": "1430982000",
+                        "recurrence": null,
+                        "interval": "1",
+                        "daterecurrence": null,
+                        "description": "",
+                        "color": ""
+                    },
+                    {
                         "ID": "2564",
                         "owneruser": null,
                         "ownergroup": null,
@@ -3193,30 +3251,11 @@ A appointment has the following attributes:
                         "daterecurrence": null,
                         "description": "",
                         "color": "FCF"
-                    },
-                    {
-                        "ID": "2566",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "95",
-                        "assigneduser": "95",
-                        "creationdate": "1415375261",
-                        "lastmodified": "1422028061",
-                        "visibility": "0",
-                        "name": "Maintenance window for LTG installation",
-                        "location": "",
-                        "datefrom": "1431520200",
-                        "dateto": "1431524700",
-                        "recurrence": null,
-                        "interval": "1",
-                        "daterecurrence": null,
-                        "description": "",
-                        "color": "FCF"
                     }
                 ]
             }
 
-### Create a New Appointment [PUT]
+### Create a New Appointment [POST]
 
 + Parameters
 
@@ -3236,20 +3275,20 @@ A appointment has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1420991261",
-                "lastmodified": "1423669661",
+                "creator": "1",
+                "assigneduser": "1",
+                "creationdate": "1430975463",
+                "lastmodified": "1430975472",
                 "visibility": "0",
-                "name": "Wedding Tom & Jane",
+                "name": "Test",
                 "location": "",
-                "datefrom": "1430395200",
-                "dateto": "1430397900",
+                "datefrom": "1430978400",
+                "dateto": "1430982000",
                 "recurrence": null,
                 "interval": "1",
                 "daterecurrence": null,
                 "description": "",
-                "color": "FFC"
+                "color": ""
             }
 
 + Response 201 (application/json)
@@ -3314,23 +3353,23 @@ A single Appointment object with all its details
 
             {
                 "result": {
-                    "ID": "2564",
+                    "ID": "2666",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "94",
-                    "assigneduser": "94",
-                    "creationdate": "1420991261",
-                    "lastmodified": "1423669661",
+                    "creator": "1",
+                    "assigneduser": "1",
+                    "creationdate": "1430975463",
+                    "lastmodified": "1430975472",
                     "visibility": "0",
-                    "name": "Wedding Tom & Jane",
+                    "name": "Test",
                     "location": "",
-                    "datefrom": "1430395200",
-                    "dateto": "1430397900",
+                    "datefrom": "1430978400",
+                    "dateto": "1430982000",
                     "recurrence": null,
                     "interval": "1",
                     "daterecurrence": null,
                     "description": "",
-                    "color": "FFC"
+                    "color": ""
                 }
             }
 
@@ -3362,20 +3401,20 @@ A single Appointment object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1420991261",
-                "lastmodified": "1423669661",
+                "creator": "1",
+                "assigneduser": "1",
+                "creationdate": "1430975463",
+                "lastmodified": "1430975472",
                 "visibility": "0",
-                "name": "Wedding Tom & Jane",
+                "name": "Test",
                 "location": "",
-                "datefrom": "1430395200",
-                "dateto": "1430397900",
+                "datefrom": "1430978400",
+                "dateto": "1430982000",
                 "recurrence": null,
                 "interval": "1",
                 "daterecurrence": null,
                 "description": "",
-                "color": "FFC"
+                "color": ""
             }
 
 + Response 200 (application/json)
@@ -3476,7 +3515,7 @@ Lists all tags for a single Appointment.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -3725,7 +3764,7 @@ A campaign has the following attributes:
                 ]
             }
 
-### Create a New Campaign [PUT]
+### Create a New Campaign [POST]
 
 + Parameters
 
@@ -3969,7 +4008,7 @@ Lists all tags for a single Campaign.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -4184,7 +4223,7 @@ A category has the following attributes:
                 ]
             }
 
-### Create a New Category [PUT]
+### Create a New Category [POST]
 
 + Parameters
 
@@ -4413,7 +4452,7 @@ A comment has the following attributes:
                 ]
             }
 
-### Create a New Comment [PUT]
+### Create a New Comment [POST]
 
 + Parameters
 
@@ -4739,7 +4778,7 @@ A contact has the following attributes:
                 ]
             }
 
-### Create a New Contact [PUT]
+### Create a New Contact [POST]
 
 + Parameters
 
@@ -5041,7 +5080,7 @@ Lists all tags for a single Contact.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -5295,7 +5334,7 @@ A contract has the following attributes:
                 ]
             }
 
-### Create a New Contract [PUT]
+### Create a New Contract [POST]
 
 + Parameters
 
@@ -5555,7 +5594,7 @@ Lists all tags for a single Contract.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -5786,7 +5825,7 @@ A dunning note has the following attributes:
                 ]
             }
 
-### Create a New Dunning note [PUT]
+### Create a New Dunning note [POST]
 
 + Parameters
 
@@ -6027,7 +6066,7 @@ A event has the following attributes:
                 ]
             }
 
-### Create a New Event [PUT]
+### Create a New Event [POST]
 
 + Parameters
 
@@ -6274,7 +6313,7 @@ Lists all tags for a single Event.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -6481,7 +6520,7 @@ A extdataform has the following attributes:
                 ]
             }
 
-### Create a New Extdataform [PUT]
+### Create a New Extdataform [POST]
 
 + Parameters
 
@@ -6655,9 +6694,15 @@ A single Extdataform object with all its details
 
 # Group Files
 This route is read-only, i.e. only `GET` and `HEAD` requests are allowed.
-The `files` table is considered an extension to the `records` table and therefore can only be modified through a `PUT` or `POST` to `records`.
+The `files` table is considered an extension to the `records` table and therefore can only be modified through a `PUT` or `POST` to [`records`](#/reference/records).
 
-For the `files/<id>/download` sub-route, the REST API will serve a `Content-Disposition` header detailing the file name and whether the file should be treated as an attachment or be handled inline (if supported).
+The REST API will serve a `Content-Disposition` header for the `files/<id>/download` sub-route detailing the file name and whether the file should be treated as an attachment or be handled inline (if supported).
+
+For security reasons, only files with MIME types `application/pdf`, `audio/*`, `image/*` and `video/*` can and will be served inline by default, while all others will always have a `Content-Disposition: attachment` header which advises browsers to present a download prompt.
+
+PDFs, audio, video and image files can be requested as an attachment by specifying the query parameter `disposition=attachment` in the URL.
+
+Additionally, the response will include the headers `X-Content-Type-Options: nosniff` and `Content-Security-Policy: default-src 'self'; base-uri '.invalid'; referrer no-referrer;` which will instruct Chrome and Internet Explorer to not override the MIME type based on content and prevent current web browsers from executing scripts that may have been uploaded by users.
 
 
 A file has the following attributes:
@@ -6760,7 +6805,7 @@ A single File object with all its details
 
 + Parameters
 
-    + disposition (optional, string, `inline`) ... `inline` (the default) advises the user agent to handle the file directly if possible; `attachment` tells the user agent to download the file.
+    + disposition (optional, string, `inline`) ... `inline` (the default) advises the user agent to handle the file directly if possible; `attachment` tells the user agent to download the file. Note that this parameter is restricted to files with `application/pdf`, `audio/*`, `image/*` and `video/*` files. All other files will be served as attachments for security reasons.
 
 
 
@@ -6881,7 +6926,7 @@ A group has the following attributes:
                 ]
             }
 
-### Create a New Group [PUT]
+### Create a New Group [POST]
 
 + Parameters
 
@@ -7080,7 +7125,7 @@ A invitation has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Invitation [PUT]
+### Create a New Invitation [POST]
 
 + Parameters
 
@@ -7323,7 +7368,7 @@ A item has the following attributes:
                 ]
             }
 
-### Create a New Item [PUT]
+### Create a New Item [POST]
 
 + Parameters
 
@@ -7584,7 +7629,7 @@ Lists all tags for a single Item.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -7837,7 +7882,7 @@ A link has the following attributes:
                 ]
             }
 
-### Create a New Link [PUT]
+### Create a New Link [POST]
 
 + Parameters
 
@@ -8065,7 +8110,7 @@ A mailinglist has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Mailinglist [PUT]
+### Create a New Mailinglist [POST]
 
 + Parameters
 
@@ -8262,7 +8307,7 @@ Lists all tags for a single Mailinglist.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -8458,7 +8503,7 @@ A mailserver has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Mailserver [PUT]
+### Create a New Mailserver [POST]
 
 + Parameters
 
@@ -8657,7 +8702,7 @@ Lists all tags for a single Mailserver.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -8953,7 +8998,7 @@ A message has the following attributes:
                 ]
             }
 
-### Create a New Message [PUT]
+### Create a New Message [POST]
 
 + Parameters
 
@@ -9278,7 +9323,7 @@ A note has the following attributes:
                 ]
             }
 
-### Create a New Note [PUT]
+### Create a New Note [POST]
 
 + Parameters
 
@@ -9529,7 +9574,7 @@ Lists all tags for a single Note.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -9764,7 +9809,7 @@ A object has the following attributes:
                 ]
             }
 
-### Create a New Object [PUT]
+### Create a New Object [POST]
 
 + Parameters
 
@@ -10009,7 +10054,7 @@ Lists all tags for a single Object.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -10273,7 +10318,7 @@ A opportunity has the following attributes:
                 ]
             }
 
-### Create a New Opportunity [PUT]
+### Create a New Opportunity [POST]
 
 + Parameters
 
@@ -10540,7 +10585,7 @@ Lists all tags for a single Opportunity.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -10776,7 +10821,7 @@ A payment has the following attributes:
                 ]
             }
 
-### Create a New Payment [PUT]
+### Create a New Payment [POST]
 
 + Parameters
 
@@ -11063,7 +11108,7 @@ A pricelist has the following attributes:
                 ]
             }
 
-### Create a New Pricelist [PUT]
+### Create a New Pricelist [POST]
 
 + Parameters
 
@@ -11309,7 +11354,7 @@ Lists all tags for a single Pricelist.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -11544,7 +11589,7 @@ A project has the following attributes:
                 ]
             }
 
-### Create a New Project [PUT]
+### Create a New Project [POST]
 
 + Parameters
 
@@ -11789,7 +11834,7 @@ Lists all tags for a single Project.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -12054,7 +12099,7 @@ A record has the following attributes:
                 ]
             }
 
-### Create a New Record [PUT]
+### Create a New Record [POST]
 
 + Parameters
 
@@ -12305,7 +12350,7 @@ Lists all tags for a single Record.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -12614,7 +12659,7 @@ A resource has the following attributes:
                 ]
             }
 
-### Create a New Resource [PUT]
+### Create a New Resource [POST]
 
 + Parameters
 
@@ -12850,7 +12895,7 @@ Lists all tags for a single Resource.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -13102,7 +13147,7 @@ A service has the following attributes:
                 ]
             }
 
-### Create a New Service [PUT]
+### Create a New Service [POST]
 
 + Parameters
 
@@ -13353,7 +13398,7 @@ Lists all tags for a single Service.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -13590,7 +13635,7 @@ A storage has the following attributes:
                 ]
             }
 
-### Create a New Storage [PUT]
+### Create a New Storage [POST]
 
 + Parameters
 
@@ -13888,7 +13933,7 @@ A task has the following attributes:
                 ]
             }
 
-### Create a New Task [PUT]
+### Create a New Task [POST]
 
 + Parameters
 
@@ -14152,7 +14197,7 @@ Lists all tags for a single Task.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -14407,7 +14452,7 @@ A ticket has the following attributes:
                 ]
             }
 
-### Create a New Ticket [PUT]
+### Create a New Ticket [POST]
 
 + Parameters
 
@@ -14668,7 +14713,7 @@ Lists all tags for a single Ticket.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -14875,7 +14920,7 @@ A transaction has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Transaction [PUT]
+### Create a New Transaction [POST]
 
 + Parameters
 
@@ -15072,7 +15117,7 @@ Lists all tags for a single Transaction.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -15270,17 +15315,17 @@ A user has the following attributes:
                         "email": "peter.haider@mx.zeyon.net"
                     },
                     {
-                        "ID": "94",
-                        "contact": "12199",
+                        "ID": "99",
+                        "contact": "12204",
                         "activity": "0",
-                        "name": "dirk.schulz",
+                        "name": "marry.johanson",
                         "expdate": null,
-                        "email": "dirk.schulz@katayo.com"
+                        "email": "marry.johanson@katayo.com"
                     }
                 ]
             }
 
-### Create a New User [PUT]
+### Create a New User [POST]
 
 + Parameters
 
@@ -15504,7 +15549,7 @@ Lists all tags for a single User.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
@@ -15694,7 +15739,7 @@ A weblet has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Weblet [PUT]
+### Create a New Weblet [POST]
 
 + Parameters
 
@@ -15888,7 +15933,7 @@ Lists all tags for a single Weblet.
                 "result": false
             }
 
-### Add a New Tag [PUT]
+### Add a Tag [PUT]
 + Request
 
     + Headers
