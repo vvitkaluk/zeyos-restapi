@@ -5215,6 +5215,37 @@ Add or change an association.
                 "result": true
             }
 
+## Picture Management [/contacts/{id}/picture{?disposition}]
+Download pictures.
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Contact
+    + disposition (optional, string) ... Determines the `Content-Disposition` header value. Must be `inline` (default) or `attachment`.
+
+
+### Get a picbinfile [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (image/jpeg)
+
+    + Body
+
+            ÿØÿà..JFIF...
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "No picture associated."
+            }
+
 # Group Contracts
 A contract has the following attributes:
 
@@ -7762,6 +7793,37 @@ Add or change an association.
 
             {
                 "result": true
+            }
+
+## Picture Management [/items/{id}/picture{?disposition}]
+Download pictures.
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Item
+    + disposition (optional, string) ... Determines the `Content-Disposition` header value. Must be `inline` (default) or `attachment`.
+
+
+### Get a picbinfile [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (image/jpeg)
+
+    + Body
+
+            ÿØÿà..JFIF...
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "No picture associated."
             }
 
 # Group Likes
