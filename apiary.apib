@@ -99,7 +99,15 @@ HTTP status codes commonly used by the REST API to indicate failures:
 
 ## Authentication and Session Management
 
-Authentication is based on ZeyOS's token authentication mechanism, which is also exposed to [Zymba](http://www.zymba.info/docs/ZeyOS.TokenAuth/#validate) and [iXML](http://www.ixmldev.com/docs#auth:validate).
+The REST API provides two means of authentication, a token-based mechanism and [HTTP Basic Access Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) via user name and password.
+Token authentication is recommended for any applications that separate sign-in from interaction with ZeyOS and is likely safer than using user name and password because only a revocable token needs to be persisted.
+HTTP Basic Access Authentication on the other hand provides compatibility with existing HTTP clients and can be less complex than managing token sessions when only single, "one-shot" requests should be performed.
+
+If _both_ a token and Basic Access Authentication credentials are provided, token authentication will be used, ignoring any given user name and password, even if token authentication fails.
+
+### Token Authentication
+
+Token authentication relies on ZeyOS's token authentication mechanism, which is also exposed to [Zymba](http://www.zymba.info/docs/ZeyOS.TokenAuth/#validate) and [iXML](http://www.ixmldev.com/docs#auth:validate).
 
 Tokens are linked to *identifiers* which should be specific to both the accessing app and device.
 This allows devices to renew their tokens independently.
@@ -107,6 +115,11 @@ This allows devices to renew their tokens independently.
 To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/{platform}/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
 
 Token authentication works by including the `Zeyos-Api-Token` header in your request with the identifier, followed by a colon `:` and the obtained token string, as the value, e.g. `Zeyos-Api-Token: com.example.myapp.dev1138:2a3e4ec88e66138253a69da3406841fccb1c998e`.
+
+### HTTP Basic Access Authentication
+
+The REST API server itself will _not_ advertise HTTP Basic Access Authentication capabilities by default, i.e. it will not send a `WWW-Authenticate` response header, unless the request includes a URL query parameter `__auth=basic` or was attempted using this authentication method and failed.
+However, the REST API will accept and verify an `Authorization: Basic ...` request header if one is supplied (and no authentication token was provided).
 
 ## Data Access and Data Manipulation
 
@@ -2189,6 +2202,25 @@ A actionstep has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "8451",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "1",
+                        "assigneduser": "97",
+                        "creationdate": "1431421284",
+                        "lastmodified": "1431421284",
+                        "task": "2022",
+                        "ticket": null,
+                        "account": null,
+                        "transaction": null,
+                        "name": "test",
+                        "actionnum": "",
+                        "date": "1431421286",
+                        "status": "0",
+                        "effort": "300",
+                        "description": ""
+                    },
+                    {
                         "ID": "8231",
                         "owneruser": null,
                         "ownergroup": null,
@@ -2225,25 +2257,6 @@ A actionstep has the following attributes:
                         "status": "0",
                         "effort": "110",
                         "description": ""
-                    },
-                    {
-                        "ID": "8233",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": null,
-                        "assigneduser": null,
-                        "creationdate": "1425318064",
-                        "lastmodified": "1425318064",
-                        "task": "2002",
-                        "ticket": null,
-                        "account": null,
-                        "transaction": null,
-                        "name": "Talk to customer",
-                        "actionnum": "",
-                        "date": "1425318064",
-                        "status": "0",
-                        "effort": "35",
-                        "description": ""
                     }
                 ]
             }
@@ -2268,19 +2281,19 @@ A actionstep has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": null,
-                "assigneduser": null,
-                "creationdate": "1425292434",
-                "lastmodified": "1425292434",
-                "task": "2002",
+                "creator": "1",
+                "assigneduser": "97",
+                "creationdate": "1431421284",
+                "lastmodified": "1431421284",
+                "task": "2022",
                 "ticket": null,
                 "account": null,
                 "transaction": null,
-                "name": "Prepare work items",
+                "name": "test",
                 "actionnum": "",
-                "date": "1425292434",
+                "date": "1431421286",
                 "status": "0",
-                "effort": "95",
+                "effort": "300",
                 "description": ""
             }
 
@@ -2350,22 +2363,22 @@ A single Actionstep object with all its details
 
             {
                 "result": {
-                    "ID": "8231",
+                    "ID": "8451",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": null,
-                    "assigneduser": null,
-                    "creationdate": "1425292434",
-                    "lastmodified": "1425292434",
-                    "task": "2002",
+                    "creator": "1",
+                    "assigneduser": "97",
+                    "creationdate": "1431421284",
+                    "lastmodified": "1431421284",
+                    "task": "2022",
                     "ticket": null,
                     "account": null,
                     "transaction": null,
-                    "name": "Prepare work items",
+                    "name": "test",
                     "actionnum": "",
-                    "date": "1425292434",
+                    "date": "1431421286",
                     "status": "0",
-                    "effort": "95",
+                    "effort": "300",
                     "description": ""
                 }
             }
@@ -2398,19 +2411,19 @@ A single Actionstep object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": null,
-                "assigneduser": null,
-                "creationdate": "1425292434",
-                "lastmodified": "1425292434",
-                "task": "2002",
+                "creator": "1",
+                "assigneduser": "97",
+                "creationdate": "1431421284",
+                "lastmodified": "1431421284",
+                "task": "2022",
                 "ticket": null,
                 "account": null,
                 "transaction": null,
-                "name": "Prepare work items",
+                "name": "test",
                 "actionnum": "",
-                "date": "1425292434",
+                "date": "1431421286",
                 "status": "0",
-                "effort": "95",
+                "effort": "300",
                 "description": ""
             }
 
@@ -4434,20 +4447,20 @@ A comment has the following attributes:
                         "text": "Yeah, sure"
                     },
                     {
+                        "ID": "284",
+                        "creator": "1",
+                        "creationdate": "1431357953",
+                        "record": "12150",
+                        "sender": "",
+                        "text": "Doppelt angelegt"
+                    },
+                    {
                         "ID": "266",
                         "creator": "97",
                         "creationdate": "1426541919",
                         "record": "12106",
                         "sender": "",
                         "text": "Yes, he's a charmer!"
-                    },
-                    {
-                        "ID": "267",
-                        "creator": "95",
-                        "creationdate": "1426719014",
-                        "record": "12106",
-                        "sender": "",
-                        "text": "Absolutely! :-) It's great doing business with them."
                     }
                 ]
             }
@@ -10315,6 +10328,27 @@ A opportunity has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "1293",
+                        "ownergroup": null,
+                        "creator": "93",
+                        "assigneduser": "93",
+                        "creationdate": "1422114461",
+                        "lastmodified": "1431357928",
+                        "account": "3619",
+                        "contact": "13170",
+                        "visibility": "0",
+                        "name": "New office chairs for uOpen Workstations",
+                        "opportunitynum": "",
+                        "duedate": "1420559261",
+                        "status": "0",
+                        "priority": "0",
+                        "probability": "95",
+                        "worstcase": "934",
+                        "mostlikely": "4823",
+                        "upside": "9514",
+                        "description": ""
+                    },
+                    {
                         "ID": "1291",
                         "ownergroup": null,
                         "creator": "97",
@@ -10355,27 +10389,6 @@ A opportunity has the following attributes:
                         "mostlikely": "1390",
                         "upside": "6200",
                         "description": ""
-                    },
-                    {
-                        "ID": "1293",
-                        "ownergroup": null,
-                        "creator": "93",
-                        "assigneduser": "93",
-                        "creationdate": "1422114461",
-                        "lastmodified": "1425829661",
-                        "account": "3619",
-                        "contact": "13170",
-                        "visibility": "0",
-                        "name": "New office chairs for uOpen Workstations",
-                        "opportunitynum": "",
-                        "duedate": "1420559261",
-                        "status": "0",
-                        "priority": "0",
-                        "probability": "95",
-                        "worstcase": "934",
-                        "mostlikely": "4823",
-                        "upside": "9514",
-                        "description": ""
                     }
                 ]
             }
@@ -10399,22 +10412,22 @@ A opportunity has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "97",
-                "assigneduser": "99",
-                "creationdate": "1423410461",
-                "lastmodified": "1425570461",
-                "account": "3626",
-                "contact": "13199",
+                "creator": "93",
+                "assigneduser": "93",
+                "creationdate": "1422114461",
+                "lastmodified": "1431357928",
+                "account": "3619",
+                "contact": "13170",
                 "visibility": "0",
-                "name": "Jones & Jones Tax Consulting needs a new door sign",
+                "name": "New office chairs for uOpen Workstations",
                 "opportunitynum": "",
-                "duedate": "1414079261",
-                "status": "3",
+                "duedate": "1420559261",
+                "status": "0",
                 "priority": "0",
-                "probability": "50",
-                "worstcase": "604",
-                "mostlikely": "4132",
-                "upside": "4199",
+                "probability": "95",
+                "worstcase": "934",
+                "mostlikely": "4823",
+                "upside": "9514",
                 "description": ""
             }
 
@@ -10481,24 +10494,24 @@ A single Opportunity object with all its details
 
             {
                 "result": {
-                    "ID": "1291",
+                    "ID": "1293",
                     "ownergroup": null,
-                    "creator": "97",
-                    "assigneduser": "99",
-                    "creationdate": "1423410461",
-                    "lastmodified": "1425570461",
-                    "account": "3626",
-                    "contact": "13199",
+                    "creator": "93",
+                    "assigneduser": "93",
+                    "creationdate": "1422114461",
+                    "lastmodified": "1431357928",
+                    "account": "3619",
+                    "contact": "13170",
                     "visibility": "0",
-                    "name": "Jones & Jones Tax Consulting needs a new door sign",
+                    "name": "New office chairs for uOpen Workstations",
                     "opportunitynum": "",
-                    "duedate": "1414079261",
-                    "status": "3",
+                    "duedate": "1420559261",
+                    "status": "0",
                     "priority": "0",
-                    "probability": "50",
-                    "worstcase": "604",
-                    "mostlikely": "4132",
-                    "upside": "4199",
+                    "probability": "95",
+                    "worstcase": "934",
+                    "mostlikely": "4823",
+                    "upside": "9514",
                     "description": ""
                 }
             }
@@ -10530,22 +10543,22 @@ A single Opportunity object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "97",
-                "assigneduser": "99",
-                "creationdate": "1423410461",
-                "lastmodified": "1425570461",
-                "account": "3626",
-                "contact": "13199",
+                "creator": "93",
+                "assigneduser": "93",
+                "creationdate": "1422114461",
+                "lastmodified": "1431357928",
+                "account": "3619",
+                "contact": "13170",
                 "visibility": "0",
-                "name": "Jones & Jones Tax Consulting needs a new door sign",
+                "name": "New office chairs for uOpen Workstations",
                 "opportunitynum": "",
-                "duedate": "1414079261",
-                "status": "3",
+                "duedate": "1420559261",
+                "status": "0",
                 "priority": "0",
-                "probability": "50",
-                "worstcase": "604",
-                "mostlikely": "4132",
-                "upside": "4199",
+                "probability": "95",
+                "worstcase": "934",
+                "mostlikely": "4823",
+                "upside": "9514",
                 "description": ""
             }
 
