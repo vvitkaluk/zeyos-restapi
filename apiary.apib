@@ -45,11 +45,11 @@ We will update our corresponding GitHub repositories to document pending changes
 
 We will also provide migration guides to help you transition to newer REST API versions.
 
-## HTTP Verbs
+## HTTP Methods
 
-The REST API uses HTTP verbs according to the intended operation.
+The REST API uses HTTP verbs according to the intended operation, also known as HTTP methods.
 
-| Verb   | Description            |
+| Method | Description            |
 | ------ | ---------------------- |
 | DELETE | Delete data            |
 | GET    | Read data              |
@@ -58,11 +58,10 @@ The REST API uses HTTP verbs according to the intended operation.
 | PUT    | Create or replace data |
 
 Depending on the requested resource, not all methods may be available.
-For example, `/{platform}/1.0/records/` supports `GET` and `POST` but not `DELETE`, `HEAD`, `PUT` because the URL is non-identifying so that you can list and create new records but not access a specific record without specifying an ID (or using a query).
 
-Sometimes it may not be possible to use the proper HTTP verb, for example because you are sending a request from an HTML form or use a restricted HTTP client.
+Sometimes it may not be possible to use the proper HTTP method, for example because you are sending a request from an HTML form or use a restricted HTTP client.
 
-For such cases, the REST API will check any `POST` request for an `X-HTTP-Method-Override` header or a `__method` form variable that specifies the actual intended verb, in that order, and use the first non-empty value to route the request.
+For such cases, the REST API will check any `POST` request for an `X-HTTP-Method-Override` header or a `__method` form variable that specifies the actual intended method, in that order, and use the first non-empty value to route the request.
 
 ## Return Values and Error Handling
 
@@ -1207,14 +1206,14 @@ The following table lists format sequences supported by ZeyOS and this API.
 | `j`        | The current year as a one-/two-digit representation, no leading zeros    | `j`           | `3` for year `2003`, `15` for `2015` |
 | `M`        | Numeric representation of a month, zero-padded                           | `M`           | `01` to `12`                         |
 | `m`        | Numeric representation of a month, no leading zeros                      | `m`           | `1` to `12`                          |
-| `L`        | Random upper-case letter (`A` - `Z`)                                     | `L            | `A` to `Z`                           |
-| `l`        | Random lower-case letter (`a` - `z`)                                     | `l            | `a` to `z`                           |
+| `L`        | Random upper-case letter (`A` - `Z`)                                     | `L`           | `A` to `Z`                           |
+| `l`        | Random lower-case letter (`a` - `z`)                                     | `l`           | `a` to `z`                           |
 | `N`        | Random digit (`0` - `9`)                                                 | `N`           | `0` to `9`                           |
 | `n`        | Random digit (`1` - `9`)                                                 | `n`           | `1` to `9`                           |
 | `W`        | ISO-8601 week number of year, weeks starting on Monday, zero-padded      | `W`           | `01` to `53`                         |
-| `w`        | ISO-8601 week number of year, weeks starting on Monday, no leading zeros | `w`           | `1` to 53`                           |
-| `X[<n>]`   | The counter, optionally zero-padded to `<n>` digits                      | `X`           | `42`                                 |
-|            |                                                                          | `X4`          | `0042`                               |
+| `w`        | ISO-8601 week number of year, weeks starting on Monday, no leading zeros | `w`           | `1` to `53`                          |
+| `X`        | The counter                                                              | `X`           | `42`                                 |
+| `X[<n>]`   | The counter, zero-padded to `<n>` digits                                 | `X4`          | `0042`                               |
 | `Y`        | The current year as a four-digit representation, zero-padded             | `Y`           | `2015`                               |
 | `y`        | The current year as a two-digit representation, zero-padded              | `y`           | `15`                                 |
 | `Z`        | The day of the year (starting from 0), zero-padded                       | `Z`           | `000` to `365`                       |
@@ -1623,7 +1622,7 @@ This request turns off database transaction mode and will not abort execution at
 
 
 # Group Accounts
-A account has the following attributes:
+account has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -1644,7 +1643,7 @@ A account has the following attributes:
 * description (text)
 
 
-## List/Create Accounts [/accounts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Accounts [/accounts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Accounts [GET]
 
@@ -1742,7 +1741,7 @@ A account has the following attributes:
                 ]
             }
 
-### Create a New Account [POST]
+### Create Account [PUT]
 
 + Parameters
 
@@ -1784,6 +1783,68 @@ A account has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Accounts specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `accounts.assigneduser` = `users.ID` |
+        | `contact` | `contacts` | `accounts.contact` = `contacts.ID` |
+        | `creator` | `users` | `accounts.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `accounts.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `customernum`, `suppliernum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1412783261",
+                "lastmodified": "1428442710",
+                "contact": "13144",
+                "visibility": "0",
+                "lastname": "RA Florian Wehner",
+                "firstname": "",
+                "type": "1",
+                "customernum": "31408",
+                "suppliernum": "",
+                "excludetax": "0",
+                "description": "",
+                "locked": "0",
+                "currency": "EUR"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Accounts [/accounts/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -2138,7 +2199,7 @@ Add or change an association.
             }
 
 # Group Actionsteps
-A actionstep has the following attributes:
+actionstep has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -2159,7 +2220,7 @@ A actionstep has the following attributes:
 * description (text)
 
 
-## List/Create Actionsteps [/actionsteps/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Actionsteps [/actionsteps/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Actionsteps [GET]
 
@@ -2208,7 +2269,7 @@ A actionstep has the following attributes:
                         "creator": "1",
                         "assigneduser": "97",
                         "creationdate": "1431421284",
-                        "lastmodified": "1431421284",
+                        "lastmodified": "1432102089",
                         "task": "2022",
                         "ticket": null,
                         "account": null,
@@ -2216,52 +2277,55 @@ A actionstep has the following attributes:
                         "name": "test",
                         "actionnum": "",
                         "date": "1431421286",
-                        "status": "0",
+                        "status": "1",
                         "effort": "300",
-                        "description": ""
+                        "description": "",
+                        "duedate": null
                     },
                     {
-                        "ID": "8231",
+                        "ID": "8244",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": null,
                         "assigneduser": null,
-                        "creationdate": "1425292434",
-                        "lastmodified": "1425292434",
-                        "task": "2002",
+                        "creationdate": "1417585440",
+                        "lastmodified": "1417585440",
+                        "task": "2003",
                         "ticket": null,
                         "account": null,
                         "transaction": null,
-                        "name": "Prepare work items",
+                        "name": "Coordinate with team",
                         "actionnum": "",
-                        "date": "1425292434",
+                        "date": "1417585440",
                         "status": "0",
-                        "effort": "95",
-                        "description": ""
+                        "effort": "145",
+                        "description": "",
+                        "duedate": null
                     },
                     {
-                        "ID": "8232",
+                        "ID": "8245",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": null,
                         "assigneduser": null,
-                        "creationdate": "1425202407",
-                        "lastmodified": "1425202407",
-                        "task": "2002",
+                        "creationdate": "1413791802",
+                        "lastmodified": "1413791802",
+                        "task": "2004",
                         "ticket": null,
                         "account": null,
                         "transaction": null,
                         "name": "(none)",
                         "actionnum": "",
-                        "date": "1425202407",
+                        "date": "1413791802",
                         "status": "0",
-                        "effort": "110",
-                        "description": ""
+                        "effort": "125",
+                        "description": "",
+                        "duedate": null
                     }
                 ]
             }
 
-### Create a New Actionstep [POST]
+### Create Actionstep [PUT]
 
 + Parameters
 
@@ -2284,7 +2348,7 @@ A actionstep has the following attributes:
                 "creator": "1",
                 "assigneduser": "97",
                 "creationdate": "1431421284",
-                "lastmodified": "1431421284",
+                "lastmodified": "1432102089",
                 "task": "2022",
                 "ticket": null,
                 "account": null,
@@ -2292,9 +2356,10 @@ A actionstep has the following attributes:
                 "name": "test",
                 "actionnum": "",
                 "date": "1431421286",
-                "status": "0",
+                "status": "1",
                 "effort": "300",
-                "description": ""
+                "description": "",
+                "duedate": null
             }
 
 + Response 201 (application/json)
@@ -2303,6 +2368,73 @@ A actionstep has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Actionsteps specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `actionsteps.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `actionsteps.assigneduser` = `users.ID` |
+        | `creator` | `users` | `actionsteps.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `actionsteps.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `actionsteps.owneruser` = `users.ID` |
+        | `task` | `tasks` | `actionsteps.task` = `tasks.ID` |
+        | `ticket` | `tickets` | `actionsteps.ticket` = `tickets.ID` |
+        | `transaction` | `transactions` | `actionsteps.transaction` = `transactions.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `actionnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "1",
+                "assigneduser": "97",
+                "creationdate": "1431421284",
+                "lastmodified": "1432102089",
+                "task": "2022",
+                "ticket": null,
+                "account": null,
+                "transaction": null,
+                "name": "test",
+                "actionnum": "",
+                "date": "1431421286",
+                "status": "1",
+                "effort": "300",
+                "description": "",
+                "duedate": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Actionsteps [/actionsteps/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -2369,7 +2501,7 @@ A single Actionstep object with all its details
                     "creator": "1",
                     "assigneduser": "97",
                     "creationdate": "1431421284",
-                    "lastmodified": "1431421284",
+                    "lastmodified": "1432102089",
                     "task": "2022",
                     "ticket": null,
                     "account": null,
@@ -2377,9 +2509,10 @@ A single Actionstep object with all its details
                     "name": "test",
                     "actionnum": "",
                     "date": "1431421286",
-                    "status": "0",
+                    "status": "1",
                     "effort": "300",
-                    "description": ""
+                    "description": "",
+                    "duedate": null
                 }
             }
 
@@ -2414,7 +2547,7 @@ A single Actionstep object with all its details
                 "creator": "1",
                 "assigneduser": "97",
                 "creationdate": "1431421284",
-                "lastmodified": "1431421284",
+                "lastmodified": "1432102089",
                 "task": "2022",
                 "ticket": null,
                 "account": null,
@@ -2422,9 +2555,10 @@ A single Actionstep object with all its details
                 "name": "test",
                 "actionnum": "",
                 "date": "1431421286",
-                "status": "0",
+                "status": "1",
                 "effort": "300",
-                "description": ""
+                "description": "",
+                "duedate": null
             }
 
 + Response 200 (application/json)
@@ -2661,7 +2795,7 @@ Add or change an association.
             }
 
 # Group Applications
-A application has the following attributes:
+application has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -2679,7 +2813,7 @@ A application has the following attributes:
 * usersettingscode (text)
 
 
-## List/Create Applications [/applications/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Applications [/applications/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Applications [GET]
 
@@ -2731,6 +2865,22 @@ A application has the following attributes:
                         "zeyconnectid": ""
                     },
                     {
+                        "ID": "459",
+                        "creator": null,
+                        "creationdate": "1433140741",
+                        "lastmodified": "1433140743",
+                        "activity": "0",
+                        "name": "net.zeyon.duplicate.transactions-1010",
+                        "identifier": "net.zeyon.duplicate.transactions-1010",
+                        "vendor": "",
+                        "accesskey": "",
+                        "defaultsettings": "{}",
+                        "settings": "{\n\t\"convert\": {\n\t\t\"billing2procurement\": 1,\n\t\t\"procurement2billing\": 1\n\t} \n}",
+                        "settingscode": "",
+                        "usersettingscode": "",
+                        "zeyconnectid": ""
+                    },
+                    {
                         "ID": "397",
                         "creator": null,
                         "creationdate": "1401202396",
@@ -2745,27 +2895,11 @@ A application has the following attributes:
                         "settingscode": "",
                         "usersettingscode": "",
                         "zeyconnectid": ""
-                    },
-                    {
-                        "ID": "448",
-                        "creator": null,
-                        "creationdate": "1425921042",
-                        "lastmodified": "1425921042",
-                        "activity": "0",
-                        "name": "net.zeyon.numcounter-1000",
-                        "identifier": "net.zeyon.numcounter-1000",
-                        "vendor": "",
-                        "accesskey": "",
-                        "defaultsettings": "{}",
-                        "settings": "{}",
-                        "settingscode": "",
-                        "usersettingscode": "",
-                        "zeyconnectid": ""
                     }
                 ]
             }
 
-### Create a New Application [POST]
+### Create Application [PUT]
 
 + Parameters
 
@@ -2804,6 +2938,62 @@ A application has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Applications specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `applications.creator` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": null,
+                "creationdate": "1402384626",
+                "lastmodified": "1402404131",
+                "activity": "0",
+                "name": "net.zeyon.payment.import-1000",
+                "identifier": "net.zeyon.payment.import-1000",
+                "vendor": "",
+                "accesskey": "",
+                "defaultsettings": null,
+                "settings": "{\n\t\"offset\": {\n\t\t\"top\": 12,\n\t\t\"bottom\": 2\n\t},\n\t\"columns\": {\n\t\t\"date\": 0,\n\t\t\"subject\": 6,\n\t\t\"amount\": 8\n\t}\n}",
+                "settingscode": "",
+                "usersettingscode": "",
+                "zeyconnectid": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Applications [/applications/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -3149,7 +3339,7 @@ Add or change an association.
             }
 
 # Group Appointments
-A appointment has the following attributes:
+appointment has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -3170,7 +3360,7 @@ A appointment has the following attributes:
 * description (text)
 
 
-## List/Create Appointments [/appointments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Appointments [/appointments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Appointments [GET]
 
@@ -3228,47 +3418,47 @@ A appointment has the following attributes:
                         "color": ""
                     },
                     {
-                        "ID": "2564",
+                        "ID": "2567",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "94",
-                        "creationdate": "1420991261",
-                        "lastmodified": "1423669661",
+                        "creator": "98",
+                        "assigneduser": "98",
+                        "creationdate": "1421423261",
+                        "lastmodified": "1424360861",
                         "visibility": "0",
-                        "name": "Wedding Tom & Jane",
+                        "name": "Project Kickoff @Katayo Industries",
                         "location": "",
-                        "datefrom": "1430395200",
-                        "dateto": "1430397900",
+                        "datefrom": "1422805500",
+                        "dateto": "1422809100",
                         "recurrence": null,
                         "interval": "1",
                         "daterecurrence": null,
                         "description": "",
-                        "color": "FFC"
+                        "color": "CCF"
                     },
                     {
-                        "ID": "2565",
+                        "ID": "2568",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "96",
-                        "assigneduser": "96",
-                        "creationdate": "1423842461",
-                        "lastmodified": "1424101661",
+                        "creator": "98",
+                        "assigneduser": "98",
+                        "creationdate": "1420127261",
+                        "lastmodified": "1422546461",
                         "visibility": "0",
-                        "name": "Job Interview: Monica Whitrun",
+                        "name": "Training session with S. Fields",
                         "location": "",
-                        "datefrom": "1424957400",
-                        "dateto": "1424962800",
+                        "datefrom": "1422702000",
+                        "dateto": "1422702000",
                         "recurrence": null,
                         "interval": "1",
                         "daterecurrence": null,
                         "description": "",
-                        "color": "FCF"
+                        "color": "FCC"
                     }
                 ]
             }
 
-### Create a New Appointment [POST]
+### Create Appointment [PUT]
 
 + Parameters
 
@@ -3310,6 +3500,68 @@ A appointment has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Appointments specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `appointments.assigneduser` = `users.ID` |
+        | `creator` | `users` | `appointments.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `appointments.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `appointments.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `location`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "1",
+                "assigneduser": "1",
+                "creationdate": "1430975463",
+                "lastmodified": "1430975472",
+                "visibility": "0",
+                "name": "Test",
+                "location": "",
+                "datefrom": "1430978400",
+                "dateto": "1430982000",
+                "recurrence": null,
+                "interval": "1",
+                "daterecurrence": null,
+                "description": "",
+                "color": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Appointments [/appointments/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -3664,7 +3916,7 @@ Add or change an association.
             }
 
 # Group Associates
-A associate has the following attributes:
+associate has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -3679,7 +3931,7 @@ A associate has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Campaigns
-A campaign has the following attributes:
+campaign has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -3695,7 +3947,7 @@ A campaign has the following attributes:
 * description (text)
 
 
-## List/Create Campaigns [/campaigns/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Campaigns [/campaigns/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Campaigns [GET]
 
@@ -3777,7 +4029,7 @@ A campaign has the following attributes:
                 ]
             }
 
-### Create a New Campaign [POST]
+### Create Campaign [PUT]
 
 + Parameters
 
@@ -3814,6 +4066,62 @@ A campaign has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Campaigns specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `campaigns.assigneduser` = `users.ID` |
+        | `ownergroup` | `groups` | `campaigns.ownergroup` = `groups.ID` |
+        | `creator` | `users` | `campaigns.creator` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "94",
+                "assigneduser": "94",
+                "creationdate": "1424965661",
+                "lastmodified": "1426607261",
+                "visibility": "0",
+                "name": "Flyer campaign Munich",
+                "datefrom": "1422745200",
+                "dateto": "1427929200",
+                "status": "2",
+                "description": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Campaigns [/campaigns/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -4157,7 +4465,7 @@ Add or change an association.
             }
 
 # Group Categories
-A category has the following attributes:
+category has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -4168,7 +4476,7 @@ A category has the following attributes:
 * name (varchar)
 
 
-## List/Create Categories [/categories/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Categories [/categories/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Categories [GET]
 
@@ -4236,7 +4544,7 @@ A category has the following attributes:
                 ]
             }
 
-### Create a New Category [POST]
+### Create Category [PUT]
 
 + Parameters
 
@@ -4268,6 +4576,58 @@ A category has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Categories specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `categories.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `categories.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `categories.owneruser` = `users.ID` |
+        | `tag` | `tags` | `categories.entity` = `tags.entity` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": "1",
+                "ownergroup": null,
+                "creator": "1",
+                "creationdate": "1393858837",
+                "entity": "tasks",
+                "name": "Where\/Now"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Categories [/categories/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -4393,7 +4753,7 @@ A single Category object with all its details
             }
 
 # Group Comments
-A comment has the following attributes:
+comment has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -4403,7 +4763,7 @@ A comment has the following attributes:
 * text (text)
 
 
-## List/Create Comments [/comments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Comments [/comments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Comments [GET]
 
@@ -4439,20 +4799,12 @@ A comment has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "283",
-                        "creator": "1",
-                        "creationdate": "1429031793",
-                        "record": "12139",
+                        "ID": "267",
+                        "creator": "95",
+                        "creationdate": "1426719014",
+                        "record": "12106",
                         "sender": "",
-                        "text": "Yeah, sure"
-                    },
-                    {
-                        "ID": "284",
-                        "creator": "1",
-                        "creationdate": "1431357953",
-                        "record": "12150",
-                        "sender": "",
-                        "text": "Doppelt angelegt"
+                        "text": "Absolutely! :-) It's great doing business with them."
                     },
                     {
                         "ID": "266",
@@ -4461,11 +4813,19 @@ A comment has the following attributes:
                         "record": "12106",
                         "sender": "",
                         "text": "Yes, he's a charmer!"
+                    },
+                    {
+                        "ID": "269",
+                        "creator": "98",
+                        "creationdate": "1426818129",
+                        "record": "12107",
+                        "sender": "",
+                        "text": "That would be perfekt - thanks!"
                     }
                 ]
             }
 
-### Create a New Comment [POST]
+### Create Comment [PUT]
 
 + Parameters
 
@@ -4483,11 +4843,11 @@ A comment has the following attributes:
     + Body
 
             {
-                "creator": "1",
-                "creationdate": "1429031793",
-                "record": "12139",
+                "creator": "95",
+                "creationdate": "1426719014",
+                "record": "12106",
                 "sender": "",
-                "text": "Yeah, sure"
+                "text": "Absolutely! :-) It's great doing business with them."
             }
 
 + Response 201 (application/json)
@@ -4496,6 +4856,54 @@ A comment has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Comments specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `comments.creator` = `users.ID` |
+        | `record` | `records` | `comments.record` = `records.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": "95",
+                "creationdate": "1426719014",
+                "record": "12106",
+                "sender": "",
+                "text": "Absolutely! :-) It's great doing business with them."
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Comments [/comments/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -4549,12 +4957,12 @@ A single Comment object with all its details
 
             {
                 "result": {
-                    "ID": "283",
-                    "creator": "1",
-                    "creationdate": "1429031793",
-                    "record": "12139",
+                    "ID": "267",
+                    "creator": "95",
+                    "creationdate": "1426719014",
+                    "record": "12106",
                     "sender": "",
-                    "text": "Yeah, sure"
+                    "text": "Absolutely! :-) It's great doing business with them."
                 }
             }
 
@@ -4584,11 +4992,11 @@ A single Comment object with all its details
     + Body
 
             {
-                "creator": "1",
-                "creationdate": "1429031793",
-                "record": "12139",
+                "creator": "95",
+                "creationdate": "1426719014",
+                "record": "12106",
                 "sender": "",
-                "text": "Yeah, sure"
+                "text": "Absolutely! :-) It's great doing business with them."
             }
 
 + Response 200 (application/json)
@@ -4616,7 +5024,7 @@ A single Comment object with all its details
             }
 
 # Group Contacts
-A contact has the following attributes:
+contact has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -4651,7 +5059,7 @@ A contact has the following attributes:
 * picbinfile (int4)
 
 
-## List/Create Contacts [/contacts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Contacts [/contacts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Contacts [GET]
 
@@ -4723,75 +5131,75 @@ A contact has the following attributes:
                         "birthdate": null
                     },
                     {
-                        "ID": "12198",
+                        "ID": "13134",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": null,
-                        "assigneduser": null,
-                        "creationdate": "1427469160",
-                        "lastmodified": "1427469160",
+                        "creator": "96",
+                        "assigneduser": "96",
+                        "creationdate": "1415720861",
+                        "lastmodified": "1426088861",
                         "visibility": "0",
-                        "lastname": "Morris",
-                        "firstname": "Steve",
-                        "type": "1",
+                        "lastname": "XD Designs Internet Technologies",
+                        "firstname": "",
+                        "type": "0",
                         "title": "",
                         "company": "",
                         "position": "",
-                        "department": "Demo",
-                        "address": "",
-                        "postalcode": "",
-                        "city": "",
+                        "department": "",
+                        "address": "Data Street 01",
+                        "postalcode": "010101",
+                        "city": "Comtown",
                         "region": "",
-                        "country": "",
-                        "phone": "",
+                        "country": "ES",
+                        "phone": "0103493",
                         "phone2": "",
                         "cell": "",
                         "fax": "",
-                        "email": "steve.morris@katayo.com",
+                        "email": "info@xddesigns.biz",
                         "email2": "",
                         "website": "",
                         "description": "",
-                        "gravatar": "",
-                        "picbinfile": "1546073439",
+                        "gravatar": "2349693620a6287f6d61a407c5fdbfda",
+                        "picbinfile": null,
                         "birthdate": null
                     },
                     {
-                        "ID": "12199",
+                        "ID": "13135",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": null,
-                        "assigneduser": null,
-                        "creationdate": "1427469160",
-                        "lastmodified": "1427469160",
+                        "creator": "98",
+                        "assigneduser": "99",
+                        "creationdate": "1425570461",
+                        "lastmodified": "1425656861",
                         "visibility": "0",
-                        "lastname": "Schulz",
-                        "firstname": "Dirk",
-                        "type": "1",
+                        "lastname": "iCom Software Distributions",
+                        "firstname": "",
+                        "type": "0",
                         "title": "",
                         "company": "",
                         "position": "",
-                        "department": "Demo",
-                        "address": "",
-                        "postalcode": "",
-                        "city": "",
+                        "department": "",
+                        "address": "Internet Drive 10",
+                        "postalcode": "010101",
+                        "city": "Netcity",
                         "region": "",
-                        "country": "",
-                        "phone": "",
+                        "country": "DE",
+                        "phone": "010232473",
                         "phone2": "",
                         "cell": "",
-                        "fax": "",
-                        "email": "dirk.schulz@katayo.com",
+                        "fax": "010232474",
+                        "email": "contact@icom.biz",
                         "email2": "",
                         "website": "",
                         "description": "",
-                        "gravatar": "",
-                        "picbinfile": "1000015191",
+                        "gravatar": "68c3f4b9c50d25a352c8e2bdf426c99f",
+                        "picbinfile": null,
                         "birthdate": null
                     }
                 ]
             }
 
-### Create a New Contact [POST]
+### Create Contact [PUT]
 
 + Parameters
 
@@ -4847,6 +5255,82 @@ A contact has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Contacts specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `contacts.assigneduser` = `users.ID` |
+        | `creator` | `users` | `contacts.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `contacts.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `contacts.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `company`, `email`, `email2`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "94",
+                "assigneduser": "98",
+                "creationdate": "1412783261",
+                "lastmodified": "1428442725",
+                "visibility": "0",
+                "lastname": "RA Florian Wehner",
+                "firstname": "",
+                "type": "0",
+                "title": "",
+                "company": "",
+                "position": "",
+                "department": "",
+                "address": "Reiterstr. 19",
+                "postalcode": "80175",
+                "city": "Munich",
+                "region": "",
+                "country": "US",
+                "phone": "00364323",
+                "phone2": "",
+                "cell": "",
+                "fax": "00364311",
+                "email": "info@barcley1.com",
+                "email2": "",
+                "website": "",
+                "description": "",
+                "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
+                "picbinfile": null,
+                "birthdate": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Contacts [/contacts/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -5260,7 +5744,7 @@ Download pictures.
             }
 
 # Group Contracts
-A contract has the following attributes:
+contract has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -5280,7 +5764,7 @@ A contract has the following attributes:
 * items (json)
 
 
-## List/Create Contracts [/contracts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Contracts [/contracts/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Contracts [GET]
 
@@ -5319,25 +5803,6 @@ A contract has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "203",
-                        "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "94",
-                        "creationdate": "1418485661",
-                        "lastmodified": "1423756061",
-                        "account": "3631",
-                        "visibility": "0",
-                        "name": "Consulting contract",
-                        "contractnum": "C-00190",
-                        "datefrom": "1415679412",
-                        "dateto": "1462053600",
-                        "datecancel": null,
-                        "status": "2",
-                        "description": "",
-                        "itemsbinfile": null,
-                        "items": null
-                    },
-                    {
                         "ID": "204",
                         "ownergroup": null,
                         "creator": "97",
@@ -5353,7 +5818,6 @@ A contract has the following attributes:
                         "datecancel": null,
                         "status": "2",
                         "description": "",
-                        "itemsbinfile": null,
                         "items": null
                     },
                     {
@@ -5372,13 +5836,30 @@ A contract has the following attributes:
                         "datecancel": null,
                         "status": "3",
                         "description": "",
-                        "itemsbinfile": null,
+                        "items": null
+                    },
+                    {
+                        "ID": "206",
+                        "ownergroup": null,
+                        "creator": "96",
+                        "assigneduser": "96",
+                        "creationdate": "1422028061",
+                        "lastmodified": "1422719261",
+                        "account": "3626",
+                        "visibility": "0",
+                        "name": "Repair old conference table at",
+                        "contractnum": "C-00193",
+                        "datefrom": "1423095101",
+                        "dateto": "1435701600",
+                        "datecancel": null,
+                        "status": "3",
+                        "description": "",
                         "items": null
                     }
                 ]
             }
 
-### Create a New Contract [POST]
+### Create Contract [PUT]
 
 + Parameters
 
@@ -5397,20 +5878,19 @@ A contract has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1418485661",
-                "lastmodified": "1423756061",
-                "account": "3631",
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1413301661",
+                "lastmodified": "1422546461",
+                "account": "3614",
                 "visibility": "0",
-                "name": "Consulting contract",
-                "contractnum": "C-00190",
-                "datefrom": "1415679412",
-                "dateto": "1462053600",
+                "name": "New logo design",
+                "contractnum": "C-00191",
+                "datefrom": "1412497831",
+                "dateto": "1448924400",
                 "datecancel": null,
                 "status": "2",
                 "description": "",
-                "itemsbinfile": null,
                 "items": null
             }
 
@@ -5420,6 +5900,67 @@ A contract has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Contracts specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `contracts.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `contracts.assigneduser` = `users.ID` |
+        | `creator` | `users` | `contracts.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `contracts.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `contractnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1413301661",
+                "lastmodified": "1422546461",
+                "account": "3614",
+                "visibility": "0",
+                "name": "New logo design",
+                "contractnum": "C-00191",
+                "datefrom": "1412497831",
+                "dateto": "1448924400",
+                "datecancel": null,
+                "status": "2",
+                "description": "",
+                "items": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Contracts [/contracts/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -5476,22 +6017,21 @@ A single Contract object with all its details
 
             {
                 "result": {
-                    "ID": "203",
+                    "ID": "204",
                     "ownergroup": null,
-                    "creator": "94",
-                    "assigneduser": "94",
-                    "creationdate": "1418485661",
-                    "lastmodified": "1423756061",
-                    "account": "3631",
+                    "creator": "97",
+                    "assigneduser": "97",
+                    "creationdate": "1413301661",
+                    "lastmodified": "1422546461",
+                    "account": "3614",
                     "visibility": "0",
-                    "name": "Consulting contract",
-                    "contractnum": "C-00190",
-                    "datefrom": "1415679412",
-                    "dateto": "1462053600",
+                    "name": "New logo design",
+                    "contractnum": "C-00191",
+                    "datefrom": "1412497831",
+                    "dateto": "1448924400",
                     "datecancel": null,
                     "status": "2",
                     "description": "",
-                    "itemsbinfile": null,
                     "items": null
                 }
             }
@@ -5523,20 +6063,19 @@ A single Contract object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1418485661",
-                "lastmodified": "1423756061",
-                "account": "3631",
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1413301661",
+                "lastmodified": "1422546461",
+                "account": "3614",
                 "visibility": "0",
-                "name": "Consulting contract",
-                "contractnum": "C-00190",
-                "datefrom": "1415679412",
-                "dateto": "1462053600",
+                "name": "New logo design",
+                "contractnum": "C-00191",
+                "datefrom": "1412497831",
+                "dateto": "1448924400",
                 "datecancel": null,
                 "status": "2",
                 "description": "",
-                "itemsbinfile": null,
                 "items": null
             }
 
@@ -5774,7 +6313,7 @@ Add or change an association.
             }
 
 # Group Dunning
-A dunning note has the following attributes:
+dunning note has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -5789,7 +6328,7 @@ A dunning note has the following attributes:
 * level (int2)
 
 
-## List/Create Dunning notes [/dunning/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Dunning notes [/dunning/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Dunning notes [GET]
 
@@ -5869,7 +6408,7 @@ A dunning note has the following attributes:
                 ]
             }
 
-### Create a New Dunning note [POST]
+### Create Dunning note [PUT]
 
 + Parameters
 
@@ -5905,6 +6444,62 @@ A dunning note has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Dunning notes specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `dunning notes.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `dunning notes.assigneduser` = `users.ID` |
+        | `creator` | `users` | `dunning notes.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `dunning notes.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `dunningnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "1",
+                "assigneduser": "1",
+                "creationdate": "1362507966",
+                "lastmodified": "1362507966",
+                "account": null,
+                "dunningnum": "D.1303.0572",
+                "date": "1362438000",
+                "duedate": null,
+                "level": "0"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Dunning notes [/dunning/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -6038,7 +6633,7 @@ A single Dunning note object with all its details
             }
 
 # Group Events
-A event has the following attributes:
+event has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -6055,7 +6650,7 @@ A event has the following attributes:
 * meta (varchar)
 
 
-## List/Create Events [/events/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Events [/events/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Events [GET]
 
@@ -6104,13 +6699,13 @@ A event has the following attributes:
                         "name": "Nachverfolgung",
                         "datefrom": "1425549600",
                         "dateto": "1425553200",
-                        "meta": "",
-                        "color": ""
+                        "color": "",
+                        "meta": null
                     }
                 ]
             }
 
-### Create a New Event [POST]
+### Create Event [PUT]
 
 + Parameters
 
@@ -6138,8 +6733,8 @@ A event has the following attributes:
                 "name": "Nachverfolgung",
                 "datefrom": "1425549600",
                 "dateto": "1425553200",
-                "meta": "",
-                "color": ""
+                "color": "",
+                "meta": null
             }
 
 + Response 201 (application/json)
@@ -6148,6 +6743,63 @@ A event has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Events specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `events.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `events.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `events.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": null,
+                "creationdate": "1425550499",
+                "lastmodified": "1425550499",
+                "entity": "transactions",
+                "index": "16342",
+                "name": "Nachverfolgung",
+                "datefrom": "1425549600",
+                "dateto": "1425553200",
+                "color": "",
+                "meta": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Events [/events/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -6214,8 +6866,8 @@ A single Event object with all its details
                     "name": "Nachverfolgung",
                     "datefrom": "1425549600",
                     "dateto": "1425553200",
-                    "meta": "",
-                    "color": ""
+                    "color": "",
+                    "meta": null
                 }
             }
 
@@ -6255,8 +6907,8 @@ A single Event object with all its details
                 "name": "Nachverfolgung",
                 "datefrom": "1425549600",
                 "dateto": "1425553200",
-                "meta": "",
-                "color": ""
+                "color": "",
+                "meta": null
             }
 
 + Response 200 (application/json)
@@ -6493,7 +7145,7 @@ Add or change an association.
             }
 
 # Group Extdataforms
-A extdataform has the following attributes:
+extdataform has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -6510,7 +7162,7 @@ A extdataform has the following attributes:
 * langaliases (json)
 
 
-## List/Create Extdataforms [/extdataforms/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Extdataforms [/extdataforms/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Extdataforms [GET]
 
@@ -6547,24 +7199,54 @@ A extdataform has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "41",
-                        "owneruser": null,
-                        "ownergroup": null,
+                        "ID": "1605",
                         "creator": null,
-                        "creationdate": "1425550499",
-                        "lastmodified": "1425550499",
-                        "entity": "transactions",
-                        "index": "16342",
-                        "name": "Nachverfolgung",
-                        "datefrom": "1425549600",
-                        "dateto": "1425553200",
-                        "meta": "",
-                        "color": ""
+                        "creationdate": "0",
+                        "lastmodified": "1413817367",
+                        "application": "425",
+                        "activity": "0",
+                        "name": "Vacation days",
+                        "identifier": "net.zeyon.vacations-1000.vacationdays",
+                        "entity": "users",
+                        "expanded": "1",
+                        "masterdata": "0",
+                        "code": "...",
+                        "langaliases": null
+                    },
+                    {
+                        "ID": "1534",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1408632544",
+                        "application": "417",
+                        "activity": "0",
+                        "name": "Contract Masterdata",
+                        "identifier": "de.cmsit.contracts-1000.masterdata",
+                        "entity": "contracts",
+                        "expanded": "0",
+                        "masterdata": "1",
+                        "code": "...",
+                        "langaliases": null
+                    },
+                    {
+                        "ID": "1524",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1411454682",
+                        "application": "411",
+                        "activity": "0",
+                        "name": "Opportunities Masterdata",
+                        "identifier": "net.zeyon.mailapi-1000.opportunities-masterdata",
+                        "entity": "opportunities#instances",
+                        "expanded": "0",
+                        "masterdata": "1",
+                        "code": "...",
+                        "langaliases": "{}"
                     }
                 ]
             }
 
-### Create a New Extdataform [POST]
+### Create Extdataform [PUT]
 
 + Parameters
 
@@ -6582,18 +7264,18 @@ A extdataform has the following attributes:
     + Body
 
             {
-                "owneruser": null,
-                "ownergroup": null,
                 "creator": null,
-                "creationdate": "1425550499",
-                "lastmodified": "1425550499",
-                "entity": "transactions",
-                "index": "16342",
-                "name": "Nachverfolgung",
-                "datefrom": "1425549600",
-                "dateto": "1425553200",
-                "meta": "",
-                "color": ""
+                "creationdate": "0",
+                "lastmodified": "1413817367",
+                "application": "425",
+                "activity": "0",
+                "name": "Vacation days",
+                "identifier": "net.zeyon.vacations-1000.vacationdays",
+                "entity": "users",
+                "expanded": "1",
+                "masterdata": "0",
+                "code": "...",
+                "langaliases": null
             }
 
 + Response 201 (application/json)
@@ -6602,6 +7284,62 @@ A extdataform has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Extdataforms specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `application` | `applications` | `extdataforms.application` = `applications.ID` |
+        | `creator` | `users` | `extdataforms.creator` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": null,
+                "creationdate": "0",
+                "lastmodified": "1413817367",
+                "application": "425",
+                "activity": "0",
+                "name": "Vacation days",
+                "identifier": "net.zeyon.vacations-1000.vacationdays",
+                "entity": "users",
+                "expanded": "1",
+                "masterdata": "0",
+                "code": "...",
+                "langaliases": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Extdataforms [/extdataforms/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -6656,19 +7394,19 @@ A single Extdataform object with all its details
 
             {
                 "result": {
-                    "ID": "41",
-                    "owneruser": null,
-                    "ownergroup": null,
+                    "ID": "1605",
                     "creator": null,
-                    "creationdate": "1425550499",
-                    "lastmodified": "1425550499",
-                    "entity": "transactions",
-                    "index": "16342",
-                    "name": "Nachverfolgung",
-                    "datefrom": "1425549600",
-                    "dateto": "1425553200",
-                    "meta": "",
-                    "color": ""
+                    "creationdate": "0",
+                    "lastmodified": "1413817367",
+                    "application": "425",
+                    "activity": "0",
+                    "name": "Vacation days",
+                    "identifier": "net.zeyon.vacations-1000.vacationdays",
+                    "entity": "users",
+                    "expanded": "1",
+                    "masterdata": "0",
+                    "code": "...",
+                    "langaliases": null
                 }
             }
 
@@ -6698,18 +7436,18 @@ A single Extdataform object with all its details
     + Body
 
             {
-                "owneruser": null,
-                "ownergroup": null,
                 "creator": null,
-                "creationdate": "1425550499",
-                "lastmodified": "1425550499",
-                "entity": "transactions",
-                "index": "16342",
-                "name": "Nachverfolgung",
-                "datefrom": "1425549600",
-                "dateto": "1425553200",
-                "meta": "",
-                "color": ""
+                "creationdate": "0",
+                "lastmodified": "1413817367",
+                "application": "425",
+                "activity": "0",
+                "name": "Vacation days",
+                "identifier": "net.zeyon.vacations-1000.vacationdays",
+                "entity": "users",
+                "expanded": "1",
+                "masterdata": "0",
+                "code": "...",
+                "langaliases": null
             }
 
 + Response 200 (application/json)
@@ -6721,6 +7459,215 @@ A single Extdataform object with all its details
             }
 
 ### Remove Extdataform [DELETE]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+## List Tags [/extdataforms/{id}/tags]
+Lists all tags for a single Extdataform.
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the extdataform
+
+
+### Retrieve Tags [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
+## Edit/Create Tags [/extdataforms/{id}/tags/{tag}]
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the extdataform
+    + tag (required, string) ... The tag name
+
+
+### Check If a Tag Exists [HEAD]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200
+
+
++ Response 404
+
+
+### Retrieve a Tag [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "result": false
+            }
+
+### Add a Tag [PUT]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+### Remove a Tag  [DELETE]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+## List Associates [/extdataforms/{id}/associates/{?entity}]
+Lists all associated objects for a single Extdataform.
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Extdataform
+    + entity (optional, string) ... Limit the associates list to a specific entity
+
+
+### Retrieve Associates [GET]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": {
+                    "entity": "notes",
+                    "index": "32",
+                    "relation": "",
+                    "creationdate": "1418388147"
+                },
+                "0": {
+                    "entity": "campaigns",
+                    "index": "7",
+                    "relation": "Initial contact",
+                    "creationdate": "1418388156"
+                }
+            }
+
+## Edit/Create Associates [/extdataforms/{id}/associates/{entity}/{index}{?relation}]
+Add or change an association.
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Extdataform
+    + entity (required, string) ... Name of the associated entity
+    + index (required, string) ... ID of the associated resource
+    + relation (optional, string) ... Relationship description
+
+
+### Add an Association [PUT]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "result": 1
+            }
+
+### Update an Association [POST]
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+### Remove an Association [DELETE]
 + Request
 
     + Headers
@@ -6749,7 +7696,7 @@ PDFs, audio, video and image files can be requested as an attachment by specifyi
 Additionally, the response will include the headers `X-Content-Type-Options: nosniff` and `Content-Security-Policy: default-src 'self'; base-uri '.invalid'; referrer no-referrer;` which will instruct Chrome and Internet Explorer to not override the MIME type based on content and prevent current web browsers from executing scripts that may have been uploaded by users.
 
 
-A file has the following attributes:
+file has the following attributes:
 
 * ID (int8)
 * record (int8)
@@ -6759,7 +7706,7 @@ A file has the following attributes:
 * binfile (int4)
 
 
-## List/Create Files [/files/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Files [/files/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Files [GET]
 
@@ -6882,7 +7829,7 @@ A single File object with all its details
             }
 
 # Group Follows
-A follow has the following attributes:
+follow has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -6893,7 +7840,7 @@ A follow has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Groups
-A group has the following attributes:
+group has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -6904,7 +7851,7 @@ A group has the following attributes:
 * description (text)
 
 
-## List/Create Groups [/groups/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Groups [/groups/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Groups [GET]
 
@@ -6970,7 +7917,7 @@ A group has the following attributes:
                 ]
             }
 
-### Create a New Group [POST]
+### Create Group [PUT]
 
 + Parameters
 
@@ -7002,6 +7949,56 @@ A group has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Groups specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `groups.creator` = `users.ID` |
+        | `leader` | `users` | `groups.leader` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": "1",
+                "creationdate": "1359018678",
+                "lastmodified": "1359018730",
+                "leader": "1",
+                "name": "Guests",
+                "description": "only calendar"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Groups [/groups/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -7125,7 +8122,7 @@ A single Group object with all its details
             }
 
 # Group Invitations
-A invitation has the following attributes:
+invitation has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -7136,7 +8133,7 @@ A invitation has the following attributes:
 * flag (int2)
 
 
-## List/Create Invitations [/invitations/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Invitations [/invitations/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Invitations [GET]
 
@@ -7169,7 +8166,7 @@ A invitation has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Invitation [POST]
+### Create Invitation [PUT]
 
 + Parameters
 
@@ -7191,6 +8188,46 @@ A invitation has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Invitations specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `appointment` | `appointments` | `invitations.appointment` = `appointments.ID` |
+        | `contact` | `contacts` | `invitations.contact` = `contacts.ID` |
+        | `creator` | `users` | `invitations.creator` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Invitations [/invitations/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -7291,7 +8328,7 @@ A single Invitation object with all its details
             }
 
 # Group Items
-A item has the following attributes:
+item has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -7313,7 +8350,7 @@ A item has the following attributes:
 * picbinfile (int4)
 
 
-## List/Create Items [/items/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Items [/items/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Items [GET]
 
@@ -7350,60 +8387,60 @@ A item has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "20502",
+                        "ID": "20522",
                         "ownergroup": null,
                         "creator": "93",
-                        "creationdate": "1411919261",
-                        "lastmodified": "1422460061",
+                        "creationdate": "1423237661",
+                        "lastmodified": "1426261661",
                         "visibility": "0",
-                        "name": "Nails. 5a",
+                        "name": "Nails. 11c",
                         "manufacturer": "NPC Tech",
-                        "itemnum": "122233",
+                        "itemnum": "122253",
                         "barcode": "",
                         "type": "0",
                         "unit": "0",
-                        "sellingprice": "25.74",
-                        "purchaseprice": "2.9",
+                        "sellingprice": "41.62",
+                        "purchaseprice": "32.99",
                         "taxrate": "19",
                         "weight": "0",
                         "description": "",
                         "picbinfile": null
                     },
                     {
-                        "ID": "20503",
+                        "ID": "20523",
                         "ownergroup": null,
-                        "creator": "95",
-                        "creationdate": "1427125661",
-                        "lastmodified": "1427212061",
+                        "creator": "100",
+                        "creationdate": "1425138461",
+                        "lastmodified": "1425570461",
                         "visibility": "0",
-                        "name": "Nails. 5b",
+                        "name": "Nails. 12a",
                         "manufacturer": "NPC Tech",
-                        "itemnum": "122234",
+                        "itemnum": "122254",
                         "barcode": "",
                         "type": "0",
                         "unit": "0",
-                        "sellingprice": "40.91",
-                        "purchaseprice": "14.51",
+                        "sellingprice": "73.94",
+                        "purchaseprice": "34.43",
                         "taxrate": "19",
                         "weight": "0",
                         "description": "",
                         "picbinfile": null
                     },
                     {
-                        "ID": "20504",
+                        "ID": "20524",
                         "ownergroup": null,
-                        "creator": "99",
-                        "creationdate": "1417448861",
-                        "lastmodified": "1424101661",
+                        "creator": "96",
+                        "creationdate": "1420645661",
+                        "lastmodified": "1426261661",
                         "visibility": "0",
-                        "name": "Nails. 5c",
+                        "name": "Nails. 12b",
                         "manufacturer": "NPC Tech",
-                        "itemnum": "122235",
+                        "itemnum": "122255",
                         "barcode": "",
                         "type": "0",
                         "unit": "0",
-                        "sellingprice": "59.38",
-                        "purchaseprice": "18.78",
+                        "sellingprice": "34.58",
+                        "purchaseprice": "3.43",
                         "taxrate": "19",
                         "weight": "0",
                         "description": "",
@@ -7412,7 +8449,7 @@ A item has the following attributes:
                 ]
             }
 
-### Create a New Item [POST]
+### Create Item [PUT]
 
 + Parameters
 
@@ -7432,17 +8469,17 @@ A item has the following attributes:
             {
                 "ownergroup": null,
                 "creator": "93",
-                "creationdate": "1411919261",
-                "lastmodified": "1422460061",
+                "creationdate": "1423237661",
+                "lastmodified": "1426261661",
                 "visibility": "0",
-                "name": "Nails. 5a",
+                "name": "Nails. 11c",
                 "manufacturer": "NPC Tech",
-                "itemnum": "122233",
+                "itemnum": "122253",
                 "barcode": "",
                 "type": "0",
                 "unit": "0",
-                "sellingprice": "25.74",
-                "purchaseprice": "2.9",
+                "sellingprice": "41.62",
+                "purchaseprice": "32.99",
                 "taxrate": "19",
                 "weight": "0",
                 "description": "",
@@ -7455,6 +8492,67 @@ A item has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Items specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `items.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "93",
+                "creationdate": "1423237661",
+                "lastmodified": "1426261661",
+                "visibility": "0",
+                "name": "Nails. 11c",
+                "manufacturer": "NPC Tech",
+                "itemnum": "122253",
+                "barcode": "",
+                "type": "0",
+                "unit": "0",
+                "sellingprice": "41.62",
+                "purchaseprice": "32.99",
+                "taxrate": "19",
+                "weight": "0",
+                "description": "",
+                "picbinfile": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Items [/items/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -7509,20 +8607,20 @@ A single Item object with all its details
 
             {
                 "result": {
-                    "ID": "20502",
+                    "ID": "20522",
                     "ownergroup": null,
                     "creator": "93",
-                    "creationdate": "1411919261",
-                    "lastmodified": "1422460061",
+                    "creationdate": "1423237661",
+                    "lastmodified": "1426261661",
                     "visibility": "0",
-                    "name": "Nails. 5a",
+                    "name": "Nails. 11c",
                     "manufacturer": "NPC Tech",
-                    "itemnum": "122233",
+                    "itemnum": "122253",
                     "barcode": "",
                     "type": "0",
                     "unit": "0",
-                    "sellingprice": "25.74",
-                    "purchaseprice": "2.9",
+                    "sellingprice": "41.62",
+                    "purchaseprice": "32.99",
                     "taxrate": "19",
                     "weight": "0",
                     "description": "",
@@ -7558,17 +8656,17 @@ A single Item object with all its details
             {
                 "ownergroup": null,
                 "creator": "93",
-                "creationdate": "1411919261",
-                "lastmodified": "1422460061",
+                "creationdate": "1423237661",
+                "lastmodified": "1426261661",
                 "visibility": "0",
-                "name": "Nails. 5a",
+                "name": "Nails. 11c",
                 "manufacturer": "NPC Tech",
-                "itemnum": "122233",
+                "itemnum": "122253",
                 "barcode": "",
                 "type": "0",
                 "unit": "0",
-                "sellingprice": "25.74",
-                "purchaseprice": "2.9",
+                "sellingprice": "41.62",
+                "purchaseprice": "32.99",
                 "taxrate": "19",
                 "weight": "0",
                 "description": "",
@@ -7840,7 +8938,7 @@ Download pictures.
             }
 
 # Group Likes
-A like has the following attributes:
+like has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -7850,7 +8948,7 @@ A like has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Links
-A link has the following attributes:
+link has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -7868,7 +8966,7 @@ A link has the following attributes:
 * description (text)
 
 
-## List/Create Links [/links/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Links [/links/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Links [GET]
 
@@ -7957,7 +9055,7 @@ A link has the following attributes:
                 ]
             }
 
-### Create a New Link [POST]
+### Create Link [PUT]
 
 + Parameters
 
@@ -7996,6 +9094,65 @@ A link has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Links specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `links.assigneduser` = `users.ID` |
+        | `creator` | `users` | `links.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `links.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `links.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `url`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "95",
+                "assigneduser": "95",
+                "creationdate": "1418658461",
+                "lastmodified": "1421077661",
+                "visibility": "0",
+                "name": "ZeyConnect",
+                "url": "http:\/\/www.zeyconnect.com",
+                "visits": "40",
+                "description": "",
+                "username": "",
+                "password": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Links [/links/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -8135,7 +9292,7 @@ A single Link object with all its details
             }
 
 # Group Mailinglists
-A mailinglist has the following attributes:
+mailinglist has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -8150,7 +9307,7 @@ A mailinglist has the following attributes:
 * description (text)
 
 
-## List/Create Mailinglists [/mailinglists/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Mailinglists [/mailinglists/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Mailinglists [GET]
 
@@ -8185,7 +9342,7 @@ A mailinglist has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Mailinglist [POST]
+### Create Mailinglist [PUT]
 
 + Parameters
 
@@ -8207,6 +9364,48 @@ A mailinglist has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Mailinglists specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `mailinglists.assigneduser` = `users.ID` |
+        | `creator` | `users` | `mailinglists.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `mailinglists.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `mailinglists.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Mailinglists [/mailinglists/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -8518,7 +9717,7 @@ Add or change an association.
             }
 
 # Group Mailservers
-A mailserver has the following attributes:
+mailserver has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -8541,7 +9740,7 @@ A mailserver has the following attributes:
 * description (text)
 
 
-## List/Create Mailservers [/mailservers/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Mailservers [/mailservers/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Mailservers [GET]
 
@@ -8578,7 +9777,7 @@ A mailserver has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Mailserver [POST]
+### Create Mailserver [PUT]
 
 + Parameters
 
@@ -8600,6 +9799,50 @@ A mailserver has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Mailservers specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `mailservers.creator` = `users.ID` |
+        | `message` | `messages` | `mailservers.message` = `messages.ID` |
+        | `ownergroup` | `groups` | `mailservers.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `mailservers.owneruser` = `users.ID` |
+        | `recipientgroup` | `groups` | `mailservers.recipientgroup` = `groups.ID` |
+        | `recipientuser` | `users` | `mailservers.recipientuser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`, `serverin`, `serverout`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Mailservers [/mailservers/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -8913,7 +10156,7 @@ Add or change an association.
             }
 
 # Group Messages
-A message has the following attributes:
+message has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -8944,7 +10187,7 @@ A message has the following attributes:
 * binfile (int4)
 
 
-## List/Create Messages [/messages/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Messages [/messages/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Messages [GET]
 
@@ -9073,7 +10316,7 @@ A message has the following attributes:
                 ]
             }
 
-### Create a New Message [POST]
+### Create Message [PUT]
 
 + Parameters
 
@@ -9125,6 +10368,79 @@ A message has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Messages specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `messages.creator` = `users.ID` |
+        | `mailinglist` | `mailinglists` | `messages.mailinglist` = `mailinglists.ID` |
+        | `mailserver` | `mailservers` | `messages.mailserver` = `mailservers.ID` |
+        | `ownergroup` | `groups` | `messages.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `messages.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `subject`, `sender`, `to`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": "1",
+                "ownergroup": null,
+                "creator": null,
+                "creationdate": "1424773239",
+                "lastmodified": "1424773253",
+                "mailserver": null,
+                "mailinglist": null,
+                "mailbox": "0",
+                "flag": "1",
+                "date": "1424773177",
+                "subject": "[Ticket T3589] balh3",
+                "sender": "Peter Haider <pepehaider@yahoo.com>",
+                "sender_name": "Peter Haider",
+                "to": "\"user@example.com\" <user@example.com>",
+                "to_name": "user@example.com",
+                "to_count": "1",
+                "cc": "",
+                "bcc": "",
+                "contenttype": "multipart\/alternative",
+                "size": "3519",
+                "binfile": "-1377906974",
+                "text": "sdfsdf",
+                "uid": "48",
+                "sender_email": "pepehaider@yahoo.com",
+                "to_email": "user@example.com",
+                "ticket": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Messages [/messages/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -9291,7 +10607,7 @@ A single Message object with all its details
             }
 
 # Group Notes
-A note has the following attributes:
+note has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -9309,7 +10625,7 @@ A note has the following attributes:
 * binfile (int4)
 
 
-## List/Create Notes [/notes/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Notes [/notes/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Notes [GET]
 
@@ -9361,7 +10677,8 @@ A note has the following attributes:
                         "text": "JavaScript (sometimes abbreviated JS) is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. It is a multi-paradigm language, supporting object-oriented,[5] imperative, and functional[1][6] programming styles.\r\n\r\nJavaScript was formalized in the ECMAScript language standard and is primarily used in the form of client-side JavaScript, implemented as part of a Web browser in order to create enhanced user interfaces and dynamic websites. This enables programmatic access to computational objects within a host environment.\r\n\r\nJavaScript's use in applications outside Web pages' for example in PDF documents, site-specific browsers, and desktop widgets is also significant. Newer and faster JavaScript VMs and frameworks built upon them (notably Node.js) have also increased the popularity of JavaScript for server-side web applications.\r\n\r\nJavaScript uses syntax influenced by that of C. JavaScript copies many names and naming conventions from Java, but the two languages are otherwise unrelated and have very different semantics. The key design principles within JavaScript are taken from the Self and Scheme programming languages.[7]\r\n\r\nhttp:\/\/en.wikipedia.org\/wiki\/Javascript",
                         "contenttype": "",
                         "size": "0",
-                        "binfile": null
+                        "binfile": null,
+                        "description": ""
                     },
                     {
                         "ID": "280",
@@ -9377,7 +10694,8 @@ A note has the following attributes:
                         "text": "Scrum is an iterative and incremental agile software development method for managing software projects and product or application development. Scrum has not only reinforced the interest in project management,[citation needed] but also challenged the conventional ideas about such management. Scrum focuses on project management institutions where it is difficult to plan ahead. Mechanisms of empirical process control, where feedback loops that constitute the core management technique are used as opposed to traditional command-and-control oriented management.[citation needed] It represents a radically new approach for planning and managing projects, bringing decision-making authority to the level of operation properties and certainties.[1]\r\n\r\nScrum as applied to product development was first referred to in \"New New Product Development Game\"[2] (Harvard Business Review 86116:137�146, 1986) and later elaborated in \"The Knowledge Creating Company\"[3] both by Ikujiro Nonaka and Hirotaka Takeuchi (Oxford University Press, 1995). Today there are records of Scrum used to produce financial products, Internet products, and medical products.[citation needed]\r\nhttp:\/\/en.wikipedia.org\/wiki\/Scrum_(development)",
                         "contenttype": "",
                         "size": "0",
-                        "binfile": null
+                        "binfile": null,
+                        "description": ""
                     },
                     {
                         "ID": "281",
@@ -9393,12 +10711,13 @@ A note has the following attributes:
                         "text": "The waterfall model is a sequential design process, often used in software development processes, in which progress is seen as flowing steadily downwards (like a waterfall) through the phases of Conception, Initiation, Analysis, Design, Construction, Testing, Production\/Implementation, and Maintenance.\r\n\r\nThe waterfall development model originates in the manufacturing and construction industries: highly structured physical environments in which after-the-fact changes are prohibitively costly, if not impossible. Since no formal software development methodologies existed at the time, this hardware-oriented model was simply adapted for software development.[citation needed]\r\n\r\nThe first known presentation describing use of similar phases in software engineering was held by Herbert D. Benington at Symposium on advanced programming methods for digital computers on 29 June 1956.[1] This presentation was about the development of software for SAGE. In 1983 the paper was republished[2] with a foreword by Benington pointing out that the process was not in fact performed in strict top-down, but depended on a prototype.\r\n\r\nThe first formal description of the waterfall model is often cited as a 1970 article by Winston W. Royce,[3] [4] although Royce did not use the term \"waterfall\" in this article. Royce presented this model as an example of a flawed, non-working model.[5] This, in fact, is how the term is generally used in writing about software development�to describe a critical view of a commonly used software development practice.[6]\r\nhttp:\/\/en.wikipedia.org\/wiki\/Waterfall_model",
                         "contenttype": "",
                         "size": "0",
-                        "binfile": null
+                        "binfile": null,
+                        "description": ""
                     }
                 ]
             }
 
-### Create a New Note [POST]
+### Create Note [PUT]
 
 + Parameters
 
@@ -9428,7 +10747,8 @@ A note has the following attributes:
                 "text": "JavaScript (sometimes abbreviated JS) is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. It is a multi-paradigm language, supporting object-oriented,[5] imperative, and functional[1][6] programming styles.\r\n\r\nJavaScript was formalized in the ECMAScript language standard and is primarily used in the form of client-side JavaScript, implemented as part of a Web browser in order to create enhanced user interfaces and dynamic websites. This enables programmatic access to computational objects within a host environment.\r\n\r\nJavaScript's use in applications outside Web pages' for example in PDF documents, site-specific browsers, and desktop widgets is also significant. Newer and faster JavaScript VMs and frameworks built upon them (notably Node.js) have also increased the popularity of JavaScript for server-side web applications.\r\n\r\nJavaScript uses syntax influenced by that of C. JavaScript copies many names and naming conventions from Java, but the two languages are otherwise unrelated and have very different semantics. The key design principles within JavaScript are taken from the Self and Scheme programming languages.[7]\r\n\r\nhttp:\/\/en.wikipedia.org\/wiki\/Javascript",
                 "contenttype": "",
                 "size": "0",
-                "binfile": null
+                "binfile": null,
+                "description": ""
             }
 
 + Response 201 (application/json)
@@ -9437,6 +10757,66 @@ A note has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Notes specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `notes.assigneduser` = `users.ID` |
+        | `creator` | `users` | `notes.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `notes.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `notes.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "95",
+                "assigneduser": "95",
+                "creationdate": "1418312861",
+                "lastmodified": "1424879261",
+                "visibility": "0",
+                "name": "JavaScript",
+                "status": "0",
+                "text": "JavaScript (sometimes abbreviated JS) is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. It is a multi-paradigm language, supporting object-oriented,[5] imperative, and functional[1][6] programming styles.\r\n\r\nJavaScript was formalized in the ECMAScript language standard and is primarily used in the form of client-side JavaScript, implemented as part of a Web browser in order to create enhanced user interfaces and dynamic websites. This enables programmatic access to computational objects within a host environment.\r\n\r\nJavaScript's use in applications outside Web pages' for example in PDF documents, site-specific browsers, and desktop widgets is also significant. Newer and faster JavaScript VMs and frameworks built upon them (notably Node.js) have also increased the popularity of JavaScript for server-side web applications.\r\n\r\nJavaScript uses syntax influenced by that of C. JavaScript copies many names and naming conventions from Java, but the two languages are otherwise unrelated and have very different semantics. The key design principles within JavaScript are taken from the Self and Scheme programming languages.[7]\r\n\r\nhttp:\/\/en.wikipedia.org\/wiki\/Javascript",
+                "contenttype": "",
+                "size": "0",
+                "binfile": null,
+                "description": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Notes [/notes/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -9506,7 +10886,8 @@ A single Note object with all its details
                     "text": "JavaScript (sometimes abbreviated JS) is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. It is a multi-paradigm language, supporting object-oriented,[5] imperative, and functional[1][6] programming styles.\r\n\r\nJavaScript was formalized in the ECMAScript language standard and is primarily used in the form of client-side JavaScript, implemented as part of a Web browser in order to create enhanced user interfaces and dynamic websites. This enables programmatic access to computational objects within a host environment.\r\n\r\nJavaScript's use in applications outside Web pages' for example in PDF documents, site-specific browsers, and desktop widgets is also significant. Newer and faster JavaScript VMs and frameworks built upon them (notably Node.js) have also increased the popularity of JavaScript for server-side web applications.\r\n\r\nJavaScript uses syntax influenced by that of C. JavaScript copies many names and naming conventions from Java, but the two languages are otherwise unrelated and have very different semantics. The key design principles within JavaScript are taken from the Self and Scheme programming languages.[7]\r\n\r\nhttp:\/\/en.wikipedia.org\/wiki\/Javascript",
                     "contenttype": "",
                     "size": "0",
-                    "binfile": null
+                    "binfile": null,
+                    "description": ""
                 }
             }
 
@@ -9548,7 +10929,8 @@ A single Note object with all its details
                 "text": "JavaScript (sometimes abbreviated JS) is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. It is a multi-paradigm language, supporting object-oriented,[5] imperative, and functional[1][6] programming styles.\r\n\r\nJavaScript was formalized in the ECMAScript language standard and is primarily used in the form of client-side JavaScript, implemented as part of a Web browser in order to create enhanced user interfaces and dynamic websites. This enables programmatic access to computational objects within a host environment.\r\n\r\nJavaScript's use in applications outside Web pages' for example in PDF documents, site-specific browsers, and desktop widgets is also significant. Newer and faster JavaScript VMs and frameworks built upon them (notably Node.js) have also increased the popularity of JavaScript for server-side web applications.\r\n\r\nJavaScript uses syntax influenced by that of C. JavaScript copies many names and naming conventions from Java, but the two languages are otherwise unrelated and have very different semantics. The key design principles within JavaScript are taken from the Self and Scheme programming languages.[7]\r\n\r\nhttp:\/\/en.wikipedia.org\/wiki\/Javascript",
                 "contenttype": "",
                 "size": "0",
-                "binfile": null
+                "binfile": null,
+                "description": ""
             }
 
 + Response 200 (application/json)
@@ -9785,7 +11167,7 @@ Add or change an association.
             }
 
 # Group Objects
-A object has the following attributes:
+object has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -9801,7 +11183,7 @@ A object has the following attributes:
 * data (json)
 
 
-## List/Create Objects [/objects/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Objects [/objects/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Objects [GET]
 
@@ -9884,7 +11266,7 @@ A object has the following attributes:
                 ]
             }
 
-### Create a New Object [POST]
+### Create Object [PUT]
 
 + Parameters
 
@@ -9921,6 +11303,63 @@ A object has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Objects specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `objects.assigneduser` = `users.ID` |
+        | `creator` | `users` | `objects.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `objects.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `objects.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1360046421",
+                "lastmodified": "1360046421",
+                "visibility": "0",
+                "name": "test",
+                "description": "",
+                "entity": "printout_templates",
+                "data": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Objects [/objects/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -10265,7 +11704,7 @@ Add or change an association.
             }
 
 # Group Opportunities
-A opportunity has the following attributes:
+opportunity has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -10288,7 +11727,7 @@ A opportunity has the following attributes:
 * description (text)
 
 
-## List/Create Opportunities [/opportunities/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Opportunities [/opportunities/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Opportunities [GET]
 
@@ -10333,7 +11772,7 @@ A opportunity has the following attributes:
                         "creator": "93",
                         "assigneduser": "93",
                         "creationdate": "1422114461",
-                        "lastmodified": "1431357928",
+                        "lastmodified": "1432110716",
                         "account": "3619",
                         "contact": "13170",
                         "visibility": "0",
@@ -10393,7 +11832,7 @@ A opportunity has the following attributes:
                 ]
             }
 
-### Create a New Opportunity [POST]
+### Create Opportunity [PUT]
 
 + Parameters
 
@@ -10415,7 +11854,7 @@ A opportunity has the following attributes:
                 "creator": "93",
                 "assigneduser": "93",
                 "creationdate": "1422114461",
-                "lastmodified": "1431357928",
+                "lastmodified": "1432110716",
                 "account": "3619",
                 "contact": "13170",
                 "visibility": "0",
@@ -10437,6 +11876,71 @@ A opportunity has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Opportunities specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `opportunities.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `opportunities.assigneduser` = `users.ID` |
+        | `contact` | `contacts` | `opportunities.contact` = `contacts.ID` |
+        | `creator` | `users` | `opportunities.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `opportunities.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `opportunitynum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "93",
+                "assigneduser": "93",
+                "creationdate": "1422114461",
+                "lastmodified": "1432110716",
+                "account": "3619",
+                "contact": "13170",
+                "visibility": "0",
+                "name": "New office chairs for uOpen Workstations",
+                "opportunitynum": "",
+                "duedate": "1420559261",
+                "status": "0",
+                "priority": "0",
+                "probability": "95",
+                "worstcase": "934",
+                "mostlikely": "4823",
+                "upside": "9514",
+                "description": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Opportunities [/opportunities/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -10499,7 +12003,7 @@ A single Opportunity object with all its details
                     "creator": "93",
                     "assigneduser": "93",
                     "creationdate": "1422114461",
-                    "lastmodified": "1431357928",
+                    "lastmodified": "1432110716",
                     "account": "3619",
                     "contact": "13170",
                     "visibility": "0",
@@ -10546,7 +12050,7 @@ A single Opportunity object with all its details
                 "creator": "93",
                 "assigneduser": "93",
                 "creationdate": "1422114461",
-                "lastmodified": "1431357928",
+                "lastmodified": "1432110716",
                 "account": "3619",
                 "contact": "13170",
                 "visibility": "0",
@@ -10796,7 +12300,7 @@ Add or change an association.
             }
 
 # Group Payments
-A payment has the following attributes:
+payment has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -10812,7 +12316,7 @@ A payment has the following attributes:
 * description (text)
 
 
-## List/Create Payments [/payments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Payments [/payments/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Payments [GET]
 
@@ -10896,7 +12400,7 @@ A payment has the following attributes:
                 ]
             }
 
-### Create a New Payment [POST]
+### Create Payment [PUT]
 
 + Parameters
 
@@ -10934,6 +12438,62 @@ A payment has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Payments specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `payments.assigneduser` = `users.ID` |
+        | `creator` | `users` | `payments.creator` = `users.ID` |
+        | `transaction` | `transactions` | `payments.transaction` = `transactions.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": null,
+                "creationdate": "1428594016",
+                "transaction": null,
+                "date": "1418857200",
+                "reference": "",
+                "amount": "50",
+                "subject": "Kommanditeinlage",
+                "assigneduser": null,
+                "lastmodified": "1428594016",
+                "flag": "0",
+                "description": "",
+                "account": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Payments [/payments/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -11069,7 +12629,7 @@ A single Payment object with all its details
             }
 
 # Group Permissions
-A permission has the following attributes:
+permission has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -11082,7 +12642,7 @@ A permission has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Pricelists
-A pricelist has the following attributes:
+pricelist has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -11099,7 +12659,7 @@ A pricelist has the following attributes:
 * description (text)
 
 
-## List/Create Pricelists [/pricelists/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Pricelists [/pricelists/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Pricelists [GET]
 
@@ -11183,7 +12743,7 @@ A pricelist has the following attributes:
                 ]
             }
 
-### Create a New Pricelist [POST]
+### Create Pricelist [PUT]
 
 + Parameters
 
@@ -11221,6 +12781,62 @@ A pricelist has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Pricelists specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `pricelists.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `pricelists.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `name`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "99",
+                "creationdate": "1412524061",
+                "lastmodified": "1426175261",
+                "name": "Partner prices",
+                "type": "0",
+                "applytoall": "0",
+                "currency": "EUR",
+                "description": "",
+                "activity": "0",
+                "datefrom": null,
+                "dateto": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Pricelists [/pricelists/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -11565,7 +13181,7 @@ Add or change an association.
             }
 
 # Group Projects
-A project has the following attributes:
+project has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -11581,7 +13197,7 @@ A project has the following attributes:
 * description (text)
 
 
-## List/Create Projects [/projects/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Projects [/projects/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Projects [GET]
 
@@ -11664,7 +13280,7 @@ A project has the following attributes:
                 ]
             }
 
-### Create a New Project [POST]
+### Create Project [PUT]
 
 + Parameters
 
@@ -11701,6 +13317,63 @@ A project has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Projects specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `projects.assigneduser` = `users.ID` |
+        | `creator` | `users` | `projects.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `projects.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `projects.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `projectnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "100",
+                "assigneduser": null,
+                "creationdate": "1423928861",
+                "lastmodified": "1428442042",
+                "visibility": "2",
+                "name": "New Data Center",
+                "status": "0",
+                "description": "",
+                "projectnum": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Projects [/projects/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -12067,7 +13740,7 @@ The uploads will then be linked to the record, and the associated upload objects
 Upload objects will also expire automatically a day after creation.
 
 
-A record has the following attributes:
+record has the following attributes:
 
 * ID (int8)
 * owneruser (int4)
@@ -12085,7 +13758,7 @@ A record has the following attributes:
 * meta (json)
 
 
-## List/Create Records [/records/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Records [/records/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Records [GET]
 
@@ -12156,25 +13829,25 @@ A record has the following attributes:
                         "assigneduser": null
                     },
                     {
-                        "ID": "12139",
+                        "ID": "12149",
                         "owneruser": null,
-                        "ownergroup": "12",
+                        "ownergroup": null,
                         "creator": "1",
-                        "creationdate": "1429031776",
-                        "entity": "messages",
-                        "index": "3933",
-                        "flag": "0",
+                        "creationdate": "1431357926",
+                        "entity": "opportunities",
+                        "index": "1293",
+                        "flag": "3",
                         "sender": "",
-                        "text": "Can you answer this for me?",
-                        "lastmodified": "1429031776",
-                        "date": "1429031776",
-                        "meta": "null",
-                        "assigneduser": "94"
+                        "text": "MODIFY opportunities 1293 New office chairs for uOpen Workstations",
+                        "lastmodified": "1431357926",
+                        "date": "1431357926",
+                        "meta": null,
+                        "assigneduser": null
                     }
                 ]
             }
 
-### Create a New Record [POST]
+### Create Record [PUT]
 
 + Parameters
 
@@ -12213,6 +13886,65 @@ A record has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Records specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `records.assigneduser` = `users.ID` |
+        | `creator` | `users` | `records.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `records.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `records.owneruser` = `users.ID` |
+        | `recipient` | `users` | `records.recipient` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "100",
+                "creationdate": "1427477223",
+                "entity": "appointments",
+                "index": "2662",
+                "flag": "3",
+                "sender": "",
+                "text": "MODIFY appointments 2662 Seynet project team meeting",
+                "lastmodified": "1427477223",
+                "date": "1427477223",
+                "meta": null,
+                "assigneduser": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Records [/records/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -12646,7 +14378,7 @@ Manages a Record's likes.
             }
 
 # Group Resources
-A resource has the following attributes:
+resource has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -12660,7 +14392,7 @@ A resource has the following attributes:
 * code (text)
 
 
-## List/Create Resources [/resources/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Resources [/resources/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Resources [GET]
 
@@ -12696,15 +14428,15 @@ A resource has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "2209",
+                        "ID": "2700",
                         "creator": null,
-                        "creationdate": "1412866826",
-                        "lastmodified": "1412866826",
-                        "application": null,
+                        "creationdate": "1433140741",
+                        "lastmodified": "1433140741",
+                        "application": "459",
                         "activity": "0",
-                        "name": "PDF Template",
-                        "identifier": "template",
-                        "mimetype": "application\/ixml+xml",
+                        "name": "Duplicator - Language File en_US",
+                        "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                        "mimetype": "application\/json",
                         "code": "..."
                     },
                     {
@@ -12720,21 +14452,21 @@ A resource has the following attributes:
                         "code": "..."
                     },
                     {
-                        "ID": "2016",
+                        "ID": "2088",
                         "creator": null,
                         "creationdate": "0",
-                        "lastmodified": "1404214567",
-                        "application": "411",
+                        "lastmodified": "1408354812",
+                        "application": "418",
                         "activity": "0",
-                        "name": "E-Mail Template - Why did you leave?",
-                        "identifier": "net.zeyon.mailapi-1000.mail-whyleave",
+                        "name": "Contract CMS",
+                        "identifier": "net.zeyon.contract.print-1000.contract",
                         "mimetype": "text\/plain",
                         "code": "..."
                     }
                 ]
             }
 
-### Create a New Resource [POST]
+### Create Resource [PUT]
 
 + Parameters
 
@@ -12753,13 +14485,13 @@ A resource has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1412866826",
-                "lastmodified": "1412866826",
-                "application": null,
+                "creationdate": "1433140741",
+                "lastmodified": "1433140741",
+                "application": "459",
                 "activity": "0",
-                "name": "PDF Template",
-                "identifier": "template",
-                "mimetype": "application\/ixml+xml",
+                "name": "Duplicator - Language File en_US",
+                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                "mimetype": "application\/json",
                 "code": "..."
             }
 
@@ -12769,6 +14501,58 @@ A resource has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Resources specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `application` | `applications` | `resources.application` = `applications.ID` |
+        | `creator` | `users` | `resources.creator` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": null,
+                "creationdate": "1433140741",
+                "lastmodified": "1433140741",
+                "application": "459",
+                "activity": "0",
+                "name": "Duplicator - Language File en_US",
+                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                "mimetype": "application\/json",
+                "code": "..."
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Resources [/resources/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -12822,15 +14606,15 @@ A single Resource object with all its details
 
             {
                 "result": {
-                    "ID": "2209",
+                    "ID": "2700",
                     "creator": null,
-                    "creationdate": "1412866826",
-                    "lastmodified": "1412866826",
-                    "application": null,
+                    "creationdate": "1433140741",
+                    "lastmodified": "1433140741",
+                    "application": "459",
                     "activity": "0",
-                    "name": "PDF Template",
-                    "identifier": "template",
-                    "mimetype": "application\/ixml+xml",
+                    "name": "Duplicator - Language File en_US",
+                    "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                    "mimetype": "application\/json",
                     "code": "..."
                 }
             }
@@ -12862,13 +14646,13 @@ A single Resource object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1412866826",
-                "lastmodified": "1412866826",
-                "application": null,
+                "creationdate": "1433140741",
+                "lastmodified": "1433140741",
+                "application": "459",
                 "activity": "0",
-                "name": "PDF Template",
-                "identifier": "template",
-                "mimetype": "application\/ixml+xml",
+                "name": "Duplicator - Language File en_US",
+                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                "mimetype": "application\/json",
                 "code": "..."
             }
 
@@ -13106,7 +14890,7 @@ Add or change an association.
             }
 
 # Group Serials
-A serial has the following attributes:
+serial has the following attributes:
 
 * ID (int8)
 * transaction (int8)
@@ -13115,7 +14899,7 @@ A serial has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Services
-A service has the following attributes:
+service has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -13133,7 +14917,7 @@ A service has the following attributes:
 * code (text)
 
 
-## List/Create Services [/services/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Services [/services/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Services [GET]
 
@@ -13169,6 +14953,23 @@ A service has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "1241",
+                        "creator": null,
+                        "creationdate": "1433140742",
+                        "lastmodified": "1433140742",
+                        "application": "459",
+                        "activity": "0",
+                        "name": "Duplicate Transaction",
+                        "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                        "type": "1",
+                        "accesskey": "adsfsdgfdsa",
+                        "entity": "",
+                        "schedule": "0",
+                        "interval": "1",
+                        "code": "...",
+                        "url": ""
+                    },
+                    {
                         "ID": "1040",
                         "creator": null,
                         "creationdate": "1404131368",
@@ -13201,28 +15002,11 @@ A service has the following attributes:
                         "interval": "1",
                         "code": "...",
                         "url": ""
-                    },
-                    {
-                        "ID": "671",
-                        "creator": "1",
-                        "creationdate": "1365693425",
-                        "lastmodified": "1365693501",
-                        "application": null,
-                        "activity": "0",
-                        "name": "Test Data Loss",
-                        "identifier": "test.dataloss",
-                        "type": null,
-                        "accesskey": "",
-                        "entity": "",
-                        "schedule": "0",
-                        "interval": "1",
-                        "code": "...",
-                        "url": ""
                     }
                 ]
             }
 
-### Create a New Service [POST]
+### Create Service [PUT]
 
 + Parameters
 
@@ -13241,14 +15025,14 @@ A service has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1404131368",
-                "lastmodified": "1404131368",
-                "application": "411",
+                "creationdate": "1433140742",
+                "lastmodified": "1433140742",
+                "application": "459",
                 "activity": "0",
-                "name": "Notifications",
-                "identifier": "net.zeyon.mailapi-1000.notifier",
-                "type": null,
-                "accesskey": "",
+                "name": "Duplicate Transaction",
+                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                "type": "1",
+                "accesskey": "adsfsdgfdsa",
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
@@ -13262,6 +15046,63 @@ A service has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Services specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `application` | `applications` | `services.application` = `applications.ID` |
+        | `creator` | `users` | `services.creator` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "creator": null,
+                "creationdate": "1433140742",
+                "lastmodified": "1433140742",
+                "application": "459",
+                "activity": "0",
+                "name": "Duplicate Transaction",
+                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                "type": "1",
+                "accesskey": "adsfsdgfdsa",
+                "entity": "",
+                "schedule": "0",
+                "interval": "1",
+                "code": "...",
+                "url": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Services [/services/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -13315,16 +15156,16 @@ A single Service object with all its details
 
             {
                 "result": {
-                    "ID": "1040",
+                    "ID": "1241",
                     "creator": null,
-                    "creationdate": "1404131368",
-                    "lastmodified": "1404131368",
-                    "application": "411",
+                    "creationdate": "1433140742",
+                    "lastmodified": "1433140742",
+                    "application": "459",
                     "activity": "0",
-                    "name": "Notifications",
-                    "identifier": "net.zeyon.mailapi-1000.notifier",
-                    "type": null,
-                    "accesskey": "",
+                    "name": "Duplicate Transaction",
+                    "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                    "type": "1",
+                    "accesskey": "adsfsdgfdsa",
                     "entity": "",
                     "schedule": "0",
                     "interval": "1",
@@ -13360,14 +15201,14 @@ A single Service object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1404131368",
-                "lastmodified": "1404131368",
-                "application": "411",
+                "creationdate": "1433140742",
+                "lastmodified": "1433140742",
+                "application": "459",
                 "activity": "0",
-                "name": "Notifications",
-                "identifier": "net.zeyon.mailapi-1000.notifier",
-                "type": null,
-                "accesskey": "",
+                "name": "Duplicate Transaction",
+                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                "type": "1",
+                "accesskey": "adsfsdgfdsa",
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
@@ -13609,7 +15450,7 @@ Add or change an association.
             }
 
 # Group Stocktransactions
-A stocktransaction has the following attributes:
+stocktransaction has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -13630,7 +15471,7 @@ A stocktransaction has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Storages
-A storage has the following attributes:
+storage has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -13642,7 +15483,7 @@ A storage has the following attributes:
 * description (text)
 
 
-## List/Create Storages [/storages/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Storages [/storages/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Storages [GET]
 
@@ -13710,7 +15551,7 @@ A storage has the following attributes:
                 ]
             }
 
-### Create a New Storage [POST]
+### Create Storage [PUT]
 
 + Parameters
 
@@ -13743,6 +15584,56 @@ A storage has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Storages specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `storages.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `storages.ownergroup` = `groups.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "1",
+                "creationdate": "1382964296",
+                "lastmodified": "1382964296",
+                "visibility": "0",
+                "name": "Test1",
+                "description": ""
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Storages [/storages/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
@@ -13867,7 +15758,7 @@ A single Storage object with all its details
             }
 
 # Group Suppliers
-A supplier has the following attributes:
+supplier has the following attributes:
 
 * ID (int8)
 * creator (int4)
@@ -13884,7 +15775,7 @@ A supplier has the following attributes:
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
 # Group Tasks
-A task has the following attributes:
+task has the following attributes:
 
 * ID (int4)
 * owneruser (int4)
@@ -13906,7 +15797,7 @@ A task has the following attributes:
 * description (text)
 
 
-## List/Create Tasks [/tasks/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Tasks [/tasks/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Tasks [GET]
 
@@ -14008,7 +15899,7 @@ A task has the following attributes:
                 ]
             }
 
-### Create a New Task [POST]
+### Create Task [PUT]
 
 + Parameters
 
@@ -14051,6 +15942,70 @@ A task has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Tasks specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `assigneduser` | `users` | `tasks.assigneduser` = `users.ID` |
+        | `creator` | `users` | `tasks.creator` = `users.ID` |
+        | `project` | `projects` | `tasks.project` = `projects.ID` |
+        | `ownergroup` | `groups` | `tasks.ownergroup` = `groups.ID` |
+        | `owneruser` | `users` | `tasks.owneruser` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `tasknum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "owneruser": null,
+                "ownergroup": null,
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1429031955",
+                "lastmodified": "1429031955",
+                "project": null,
+                "visibility": "0",
+                "name": "Create quote",
+                "datefrom": "1429031955",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "projectedeffort": "0",
+                "description": "",
+                "tasknum": "T.00032",
+                "ticket": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Tasks [/tasks/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -14408,7 +16363,7 @@ Add or change an association.
             }
 
 # Group Tickets
-A ticket has the following attributes:
+ticket has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -14428,7 +16383,7 @@ A ticket has the following attributes:
 * items (json)
 
 
-## List/Create Tickets [/tickets/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Tickets [/tickets/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Tickets [GET]
 
@@ -14481,7 +16436,6 @@ A ticket has the following attributes:
                         "status": "6",
                         "priority": "3",
                         "description": "",
-                        "itemsbinfile": null,
                         "duedate": null,
                         "items": null,
                         "project": null
@@ -14500,7 +16454,6 @@ A ticket has the following attributes:
                         "status": "1",
                         "priority": "3",
                         "description": "",
-                        "itemsbinfile": null,
                         "duedate": null,
                         "items": null,
                         "project": null
@@ -14519,7 +16472,6 @@ A ticket has the following attributes:
                         "status": "1",
                         "priority": "2",
                         "description": "",
-                        "itemsbinfile": null,
                         "duedate": null,
                         "items": null,
                         "project": null
@@ -14527,7 +16479,7 @@ A ticket has the following attributes:
                 ]
             }
 
-### Create a New Ticket [POST]
+### Create Ticket [PUT]
 
 + Parameters
 
@@ -14557,7 +16509,6 @@ A ticket has the following attributes:
                 "status": "6",
                 "priority": "3",
                 "description": "",
-                "itemsbinfile": null,
                 "duedate": null,
                 "items": null,
                 "project": null
@@ -14569,6 +16520,68 @@ A ticket has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Tickets specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `tickets.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `tickets.assigneduser` = `users.ID` |
+        | `contact` | `contacts` | `tickets.contact` = `contacts.ID` |
+        | `ownergroup` | `groups` | `tickets.ownergroup` = `groups.ID` |
+        | `creator` | `users` | `tickets.creator` = `users.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `ticketnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "ownergroup": null,
+                "creator": "93",
+                "assigneduser": "93",
+                "creationdate": "1424015261",
+                "lastmodified": "1424360861",
+                "account": "3629",
+                "visibility": "0",
+                "name": "Wrong delivery for X-Net",
+                "ticketnum": "T3841",
+                "status": "6",
+                "priority": "3",
+                "description": "",
+                "duedate": null,
+                "items": null,
+                "project": null
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Tickets [/tickets/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -14639,7 +16652,6 @@ A single Ticket object with all its details
                     "status": "6",
                     "priority": "3",
                     "description": "",
-                    "itemsbinfile": null,
                     "duedate": null,
                     "items": null,
                     "project": null
@@ -14684,7 +16696,6 @@ A single Ticket object with all its details
                 "status": "6",
                 "priority": "3",
                 "description": "",
-                "itemsbinfile": null,
                 "duedate": null,
                 "items": null,
                 "project": null
@@ -14924,7 +16935,7 @@ Add or change an association.
             }
 
 # Group Transactions
-A transaction has the following attributes:
+transaction has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -14960,7 +16971,7 @@ A transaction has the following attributes:
 * items (json)
 
 
-## List/Create Transactions [/transactions/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Transactions [/transactions/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Transactions [GET]
 
@@ -14995,7 +17006,7 @@ A transaction has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Transaction [POST]
+### Create Transaction [PUT]
 
 + Parameters
 
@@ -15017,6 +17028,48 @@ A transaction has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Transactions specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `account` | `accounts` | `transactions.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `transactions.assigneduser` = `users.ID` |
+        | `creator` | `users` | `transactions.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `transactions.ownergroup` = `groups.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in column `transactionnum`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Transactions [/transactions/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -15328,7 +17381,7 @@ Add or change an association.
             }
 
 # Group Users
-A user has the following attributes:
+user has the following attributes:
 
 * ID (int4)
 * contact (int4)
@@ -15338,7 +17391,7 @@ A user has the following attributes:
 * expdate (int8)
 
 
-## List/Create Users [/users/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Users [/users/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
 ### Select Users [GET]
 
@@ -15374,20 +17427,20 @@ A user has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "100",
-                        "contact": "12205",
-                        "activity": "0",
-                        "name": "cathy.winters",
-                        "expdate": null,
-                        "email": "cathy.winters@katayo.com"
-                    },
-                    {
                         "ID": "1",
                         "contact": null,
                         "activity": "0",
                         "name": "Admin",
                         "expdate": null,
                         "email": "peter.haider@mx.zeyon.net"
+                    },
+                    {
+                        "ID": "100",
+                        "contact": "12205",
+                        "activity": "0",
+                        "name": "cathy.winters",
+                        "expdate": null,
+                        "email": "cathy.winters@katayo.com"
                     },
                     {
                         "ID": "99",
@@ -15400,7 +17453,7 @@ A user has the following attributes:
                 ]
             }
 
-### Create a New User [POST]
+### Create User [PUT]
 
 + Parameters
 
@@ -15418,11 +17471,11 @@ A user has the following attributes:
     + Body
 
             {
-                "contact": "12205",
+                "contact": null,
                 "activity": "0",
-                "name": "cathy.winters",
+                "name": "Admin",
                 "expdate": null,
-                "email": "cathy.winters@katayo.com"
+                "email": "peter.haider@mx.zeyon.net"
             }
 
 + Response 201 (application/json)
@@ -15431,6 +17484,54 @@ A user has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Users specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `contact` | `contacts` | `users.contact` = `contacts.ID` |
+        
+    + m (optional, string) ... Case-insensitive text search in columns `name`, `email`
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "contact": null,
+                "activity": "0",
+                "name": "Admin",
+                "expdate": null,
+                "email": "peter.haider@mx.zeyon.net"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Users [/users/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -15484,12 +17585,12 @@ A single User object with all its details
 
             {
                 "result": {
-                    "ID": "100",
-                    "contact": "12205",
+                    "ID": "1",
+                    "contact": null,
                     "activity": "0",
-                    "name": "cathy.winters",
+                    "name": "Admin",
                     "expdate": null,
-                    "email": "cathy.winters@katayo.com"
+                    "email": "peter.haider@mx.zeyon.net"
                 }
             }
 
@@ -15519,11 +17620,11 @@ A single User object with all its details
     + Body
 
             {
-                "contact": "12205",
+                "contact": null,
                 "activity": "0",
-                "name": "cathy.winters",
+                "name": "Admin",
                 "expdate": null,
-                "email": "cathy.winters@katayo.com"
+                "email": "peter.haider@mx.zeyon.net"
             }
 
 + Response 200 (application/json)
@@ -15760,7 +17861,7 @@ Add or change an association.
             }
 
 # Group Weblets
-A weblet has the following attributes:
+weblet has the following attributes:
 
 * ID (int4)
 * creator (int4)
@@ -15782,7 +17883,7 @@ A weblet has the following attributes:
 * color (varchar)
 
 
-## List/Create Weblets [/weblets/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+## List/Create/Update Weblets [/weblets/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 
 ### Select Weblets [GET]
 
@@ -15814,7 +17915,7 @@ A weblet has the following attributes:
 + Response 200 (application/json)
 
 
-### Create a New Weblet [POST]
+### Create Weblet [PUT]
 
 + Parameters
 
@@ -15836,6 +17937,45 @@ A weblet has the following attributes:
 
             {
                 "result": 2645
+            }
+
+### Update Weblets specified by query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `application` | `applications` | `weblets.application` = `applications.ID` |
+        | `creator` | `users` | `weblets.creator` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
             }
 
 ## Edit Weblets [/weblets/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
