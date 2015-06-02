@@ -1632,11 +1632,11 @@ account has the following attributes:
 * lastmodified (int8)
 * contact (int4)
 * visibility (int2)
-* lastname (varchar)
-* firstname (varchar)
+* lastname (text)
+* firstname (text)
 * type (int2)
-* customernum (varchar)
-* suppliernum (varchar)
+* customernum (text)
+* suppliernum (text)
 * currency (varchar)
 * locked (int2)
 * excludetax (int2)
@@ -2227,9 +2227,10 @@ actionstep has the following attributes:
 * ticket (int4)
 * account (int4)
 * transaction (int4)
-* name (varchar)
-* actionnum (varchar)
+* name (text)
+* actionnum (text)
 * date (int8)
+* duedate (int8)
 * status (int2)
 * effort (int4)
 * description (text)
@@ -2832,10 +2833,10 @@ application has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * activity (int2)
-* name (varchar)
-* identifier (varchar)
-* vendor (varchar)
-* accesskey (varchar)
+* name (text)
+* identifier (text)
+* vendor (text)
+* accesskey (text)
 * zeyconnectid (varchar)
 * defaultsettings (json)
 * settings (json)
@@ -3394,8 +3395,8 @@ appointment has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* location (varchar)
+* name (text)
+* location (text)
 * color (varchar)
 * datefrom (int8)
 * dateto (int8)
@@ -3981,11 +3982,11 @@ associate has the following attributes:
 * ID (int8)
 * creator (int4)
 * creationdate (int8)
-* entity1 (varchar)
+* entity1 (text)
 * index1 (int8)
-* entity2 (varchar)
+* entity2 (text)
 * index2 (int8)
-* relation (varchar)
+* relation (text)
 * meta (json)
 
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
@@ -4000,7 +4001,7 @@ campaign has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
+* name (text)
 * datefrom (int8)
 * dateto (int8)
 * status (int2)
@@ -4547,8 +4548,8 @@ category has the following attributes:
 * ownergroup (int4)
 * creator (int4)
 * creationdate (int8)
-* entity (varchar)
-* name (varchar)
+* entity (text)
+* name (text)
 
 
 ## List/Create/Update Categories [/categories/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -4840,7 +4841,7 @@ comment has the following attributes:
 * creator (int4)
 * creationdate (int8)
 * record (int8)
-* sender (varchar)
+* sender (text)
 * text (text)
 
 
@@ -5121,25 +5122,25 @@ contact has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* lastname (varchar)
-* firstname (varchar)
+* lastname (text)
+* firstname (text)
 * type (int2)
-* title (varchar)
-* company (varchar)
-* position (varchar)
-* department (varchar)
-* address (varchar)
-* postalcode (varchar)
-* city (varchar)
-* region (varchar)
+* title (text)
+* company (text)
+* position (text)
+* department (text)
+* address (text)
+* postalcode (text)
+* city (text)
+* region (text)
 * country (varchar)
-* phone (varchar)
-* phone2 (varchar)
-* cell (varchar)
-* fax (varchar)
-* email (varchar)
-* email2 (varchar)
-* website (varchar)
+* phone (text)
+* phone2 (text)
+* cell (text)
+* fax (text)
+* email (text)
+* email2 (text)
+* website (text)
 * birthdate (int8)
 * description (text)
 * gravatar (varchar)
@@ -5857,8 +5858,8 @@ contract has the following attributes:
 * lastmodified (int8)
 * account (int4)
 * visibility (int2)
-* name (varchar)
-* contractnum (varchar)
+* name (text)
+* contractnum (text)
 * datefrom (int8)
 * dateto (int8)
 * datecancel (int8)
@@ -6440,7 +6441,7 @@ dunning note has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * account (int4)
-* dunningnum (varchar)
+* dunningnum (text)
 * date (int8)
 * duedate (int8)
 * level (int2)
@@ -6765,13 +6766,13 @@ event has the following attributes:
 * creator (int4)
 * creationdate (int8)
 * lastmodified (int8)
-* entity (varchar)
+* entity (text)
 * index (int8)
-* name (varchar)
+* name (text)
 * color (varchar)
 * datefrom (int8)
 * dateto (int8)
-* meta (varchar)
+* meta (json)
 
 
 ## List/Create/Update Events [/events/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -7292,9 +7293,9 @@ extdataform has the following attributes:
 * lastmodified (int8)
 * application (int4)
 * activity (int2)
-* name (varchar)
-* identifier (varchar)
-* entity (varchar)
+* name (text)
+* identifier (text)
+* entity (text)
 * expanded (int2)
 * masterdata (int2)
 * code (text)
@@ -7854,8 +7855,8 @@ file has the following attributes:
 
 * ID (int8)
 * record (int8)
-* filename (varchar)
-* mimetype (varchar)
+* filename (text)
+* mimetype (text)
 * size (int4)
 * binfile (int4)
 
@@ -7993,7 +7994,7 @@ follow has the following attributes:
 * ID (int8)
 * creator (int4)
 * creationdate (int8)
-* entity (varchar)
+* entity (text)
 * index (int8)
 
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
@@ -8006,7 +8007,7 @@ group has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * leader (int4)
-* name (varchar)
+* name (text)
 * description (text)
 
 
@@ -8507,10 +8508,10 @@ item has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* manufacturer (varchar)
-* itemnum (varchar)
-* barcode (varchar)
+* name (text)
+* manufacturer (text)
+* itemnum (text)
+* barcode (text)
 * type (int2)
 * unit (varchar)
 * sellingprice (float8)
@@ -9145,10 +9146,10 @@ link has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* url (varchar)
-* username (varchar)
-* password (varchar)
+* name (text)
+* url (text)
+* username (text)
+* password (text)
 * visits (int4)
 * description (text)
 
@@ -9495,8 +9496,8 @@ mailinglist has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* sender (varchar)
+* name (text)
+* sender (text)
 * description (text)
 
 
@@ -9937,12 +9938,12 @@ mailserver has the following attributes:
 * recipientuser (int4)
 * recipientgroup (int4)
 * activity (int2)
-* name (varchar)
-* sender (varchar)
-* serverin (varchar)
-* usernamein (varchar)
-* serverout (varchar)
-* usernameout (varchar)
+* name (text)
+* sender (text)
+* serverin (text)
+* usernamein (text)
+* serverout (text)
+* usernameout (text)
 * lastfetch (int8)
 * uidvalidity (int4)
 * description (text)
@@ -10393,17 +10394,17 @@ message has the following attributes:
 * mailbox (int2)
 * flag (int2)
 * date (int8)
-* subject (varchar)
+* subject (text)
 * sender (text)
-* sender_email (varchar)
-* sender_name (varchar)
+* sender_email (text)
+* sender_name (text)
 * to (text)
-* to_email (varchar)
-* to_name (varchar)
+* to_email (text)
+* to_name (text)
 * to_count (int4)
 * cc (text)
 * bcc (text)
-* contenttype (varchar)
+* contenttype (text)
 * size (int4)
 * text (text)
 * uid (int4)
@@ -10846,11 +10847,12 @@ note has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
+* name (text)
 * status (int2)
-* contenttype (varchar)
+* contenttype (text)
 * size (int4)
 * text (text)
+* description (text)
 * binfile (int4)
 
 
@@ -11410,6 +11412,275 @@ Add or change an association.
             }
 
 
+# Group Notifications
+notification has the following attributes:
+
+* ID (int8)
+* user (int4)
+* record (int8)
+* date (int8)
+* flag (int2)
+
+
+## List/Create/Update Notifications [/notifications/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+
+### Select Notifications [GET]
+
++ Parameters
+
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `record` | `records` | `notifications.record` = `records.ID` |
+        | `user` | `users` | `notifications.user` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    {
+                        "ID": "2",
+                        "user": "1",
+                        "record": "12109",
+                        "date": "1432110997",
+                        "flag": "0"
+                    },
+                    {
+                        "ID": "3",
+                        "user": "1",
+                        "record": "12158",
+                        "date": "1432110840",
+                        "flag": "0"
+                    },
+                    {
+                        "ID": "4",
+                        "user": "1",
+                        "record": "12157",
+                        "date": "1432110838",
+                        "flag": "0"
+                    }
+                ]
+            }
+
+### Create Notification [PUT]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "user": "1",
+                "record": "12109",
+                "date": "1432110997",
+                "flag": "0"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "result": 2645
+            }
+
+### Update Notifications Specified by Query [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `record` | `records` | `notifications.record` = `records.ID` |
+        | `user` | `users` | `notifications.user` = `users.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "user": "1",
+                "record": "12109",
+                "date": "1432110997",
+                "flag": "0"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+## Edit Notifications [/notifications/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+A single Notification object with all its details
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Notification
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `record` | `records` | `notifications.record` = `records.ID` |
+        | `user` | `users` | `notifications.user` = `users.ID` |
+        
+
+
+### Check If Notification Exists [HEAD]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200
+
+
++ Response 404
+
+
+### Retrieve Notification [GET]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": {
+                    "ID": "2",
+                    "user": "1",
+                    "record": "12109",
+                    "date": "1432110997",
+                    "flag": "0"
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "Could not find item #2645 in notifications (or no permission to access it)."
+            }
+
+### Update Notification [POST]
+
++ Parameters
+
+    + monitor (optional, bool, `1`) ... If `0`, no monitor record will be created to log the operation.
+    + object (optional, bool, `0`) ... If `1`, the entire object will be returned.
+
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "user": "1",
+                "record": "12109",
+                "date": "1432110997",
+                "flag": "0"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+### Remove Notification [DELETE]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
+
 # Group Objects
 object has the following attributes:
 
@@ -11421,8 +11692,8 @@ object has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* entity (varchar)
+* name (text)
+* entity (text)
 * description (text)
 * data (json)
 
@@ -11974,8 +12245,8 @@ opportunity has the following attributes:
 * account (int4)
 * contact (int4)
 * visibility (int2)
-* name (varchar)
-* opportunitynum (varchar)
+* name (text)
+* opportunitynum (text)
 * duedate (int8)
 * status (int2)
 * priority (int2)
@@ -12582,10 +12853,11 @@ payment has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * transaction (int4)
+* account (int4)
 * flag (int2)
 * date (int8)
-* subject (varchar)
-* reference (varchar)
+* subject (text)
+* reference (text)
 * amount (float8)
 * description (text)
 
@@ -12916,7 +13188,7 @@ permission has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * group (int4)
-* identifier (varchar)
+* identifier (text)
 * writable (int2)
 
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
@@ -12930,7 +13202,7 @@ pricelist has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * activity (int2)
-* name (varchar)
+* name (text)
 * type (int2)
 * currency (varchar)
 * datefrom (int8)
@@ -13486,8 +13758,8 @@ project has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
-* projectnum (varchar)
+* name (text)
+* projectnum (text)
 * status (int2)
 * description (text)
 
@@ -14059,11 +14331,11 @@ record has the following attributes:
 * assigneduser (int4)
 * creationdate (int8)
 * lastmodified (int8)
-* entity (varchar)
+* entity (text)
 * index (int8)
 * flag (int2)
 * date (int8)
-* sender (varchar)
+* sender (text)
 * text (text)
 * meta (json)
 
@@ -14714,9 +14986,9 @@ resource has the following attributes:
 * lastmodified (int8)
 * application (int4)
 * activity (int2)
-* name (varchar)
-* identifier (varchar)
-* mimetype (varchar)
+* name (text)
+* identifier (text)
+* mimetype (text)
 * code (text)
 
 
@@ -15237,7 +15509,7 @@ serial has the following attributes:
 
 * ID (int8)
 * transaction (int8)
-* serial (varchar)
+* serial (text)
 
 This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
 
@@ -15250,13 +15522,14 @@ service has the following attributes:
 * lastmodified (int8)
 * application (int4)
 * activity (int2)
-* name (varchar)
-* identifier (varchar)
+* name (text)
+* identifier (text)
 * type (int2)
-* accesskey (varchar)
-* entity (varchar)
+* accesskey (text)
+* entity (text)
 * schedule (int4)
 * interval (int2)
+* url (text)
 * code (text)
 
 
@@ -15817,11 +16090,12 @@ stocktransaction has the following attributes:
 * item (int4)
 * storage (int4)
 * transaction (int4)
+* transfer (int4)
 * flag (int2)
 * date (int8)
-* chargenum (varchar)
-* location (varchar)
-* reference (varchar)
+* chargenum (text)
+* location (text)
+* reference (text)
 * amount (int4)
 * sellingprice (float8)
 * purchaseprice (float8)
@@ -15837,7 +16111,7 @@ storage has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
-* name (varchar)
+* name (text)
 * description (text)
 
 
@@ -16130,7 +16404,7 @@ supplier has the following attributes:
 * lastmodified (int8)
 * item (int4)
 * account (int4)
-* itemnum (varchar)
+* itemnum (text)
 * price (float8)
 * minamount (int4)
 * deliverytime (int4)
@@ -16151,8 +16425,8 @@ task has the following attributes:
 * project (int4)
 * ticket (int4)
 * visibility (int2)
-* name (varchar)
-* tasknum (varchar)
+* name (text)
+* tasknum (text)
 * datefrom (int8)
 * duedate (int8)
 * status (int2)
@@ -16753,8 +17027,8 @@ ticket has the following attributes:
 * project (int4)
 * account (int4)
 * visibility (int2)
-* name (varchar)
-* ticketnum (varchar)
+* name (text)
+* ticketnum (text)
 * duedate (int8)
 * status (int2)
 * priority (int2)
@@ -17338,24 +17612,24 @@ transaction has the following attributes:
 * creationdate (int8)
 * lastmodified (int8)
 * account (int4)
-* transactionnum (varchar)
+* transactionnum (text)
 * type (int2)
 * date (int8)
 * duedate (int8)
 * status (int2)
 * currency (varchar)
 * exchangerate (float8)
-* shippingrecipient (varchar)
-* shippingaddress (varchar)
-* shippingpostalcode (varchar)
-* shippingcity (varchar)
-* shippingregion (varchar)
+* shippingrecipient (text)
+* shippingaddress (text)
+* shippingpostalcode (text)
+* shippingcity (text)
+* shippingregion (text)
 * shippingcountry (varchar)
-* billingrecipient (varchar)
-* billingaddress (varchar)
-* billingpostalcode (varchar)
-* billingcity (varchar)
-* billingregion (varchar)
+* billingrecipient (text)
+* billingaddress (text)
+* billingpostalcode (text)
+* billingcity (text)
+* billingregion (text)
 * billingcountry (varchar)
 * discount (float8)
 * netamount (float8)
@@ -17795,8 +18069,8 @@ user has the following attributes:
 * ID (int4)
 * contact (int4)
 * activity (int2)
-* name (varchar)
-* email (varchar)
+* name (text)
+* email (text)
 * expdate (int8)
 
 
@@ -18293,13 +18567,13 @@ weblet has the following attributes:
 * lastmodified (int8)
 * application (int4)
 * activity (int2)
-* name (varchar)
-* identifier (varchar)
-* view (varchar)
+* name (text)
+* identifier (text)
+* view (text)
 * type (int2)
 * width (int2)
 * height (int2)
-* url (varchar)
+* url (text)
 * expanded (int2)
 * code (text)
 * langaliases (json)
