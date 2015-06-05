@@ -63,6 +63,9 @@ Sometimes it may not be possible to use the proper HTTP method, for example beca
 
 For such cases, the REST API will check any `POST` request for an `X-HTTP-Method-Override` header or a `__method` form variable that specifies the actual intended method, in that order, and use the first non-empty value to route the request.
 
+REST clients, browsers, proxies, web servers and security systems (firewalls, IDS/IPS...) may impose length restrictions on the URL, and thus on URL query parameters.
+If your full REST API call URL exceeds 255 characters when using URL query parameters, we therefore recommend to specify the query parameters in a `POST` form variable `__query` and perform an HTTP `POST` with `X-HTTP-Method-Override: GET` (or whatever method you want to use).
+
 ## Return Values and Error Handling
 
 The REST API currently only returns JSON data and an HTTP status code indicating the outcome of a request.
@@ -2897,22 +2900,6 @@ application has the following attributes:
                         "zeyconnectid": ""
                     },
                     {
-                        "ID": "459",
-                        "creator": null,
-                        "creationdate": "1433140741",
-                        "lastmodified": "1433140743",
-                        "activity": "0",
-                        "name": "net.zeyon.duplicate.transactions-1010",
-                        "identifier": "net.zeyon.duplicate.transactions-1010",
-                        "vendor": "",
-                        "accesskey": "",
-                        "defaultsettings": "{}",
-                        "settings": "{\n\t\"convert\": {\n\t\t\"billing2procurement\": 1,\n\t\t\"procurement2billing\": 1\n\t} \n}",
-                        "settingscode": "",
-                        "usersettingscode": "",
-                        "zeyconnectid": ""
-                    },
-                    {
                         "ID": "397",
                         "creator": null,
                         "creationdate": "1401202396",
@@ -2927,6 +2914,22 @@ application has the following attributes:
                         "settingscode": "",
                         "usersettingscode": "",
                         "zeyconnectid": ""
+                    },
+                    {
+                        "ID": "404",
+                        "creator": null,
+                        "creationdate": "1402052884",
+                        "lastmodified": "1433320244",
+                        "activity": "0",
+                        "name": "Events libraries",
+                        "identifier": "net.zeyon.lib.events-1000",
+                        "vendor": "",
+                        "accesskey": "",
+                        "defaultsettings": null,
+                        "settings": null,
+                        "settingscode": "",
+                        "usersettingscode": "",
+                        "zeyconnectid": "9530314183a1f872072549605ca507ef68e69de2"
                     }
                 ]
             }
@@ -15029,18 +15032,6 @@ resource has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "2700",
-                        "creator": null,
-                        "creationdate": "1433140741",
-                        "lastmodified": "1433140741",
-                        "application": "459",
-                        "activity": "0",
-                        "name": "Duplicator - Language File en_US",
-                        "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
-                        "mimetype": "application\/json",
-                        "code": "..."
-                    },
-                    {
                         "ID": "2077",
                         "creator": null,
                         "creationdate": "0",
@@ -15062,6 +15053,18 @@ resource has the following attributes:
                         "name": "Contract CMS",
                         "identifier": "net.zeyon.contract.print-1000.contract",
                         "mimetype": "text\/plain",
+                        "code": "..."
+                    },
+                    {
+                        "ID": "2700",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1433344342",
+                        "application": "459",
+                        "activity": "0",
+                        "name": "Duplicator - Language File en_US",
+                        "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
+                        "mimetype": "application\/json",
                         "code": "..."
                     }
                 ]
@@ -15086,13 +15089,13 @@ resource has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1433140741",
-                "lastmodified": "1433140741",
-                "application": "459",
+                "creationdate": "0",
+                "lastmodified": "1415800508",
+                "application": "416",
                 "activity": "0",
-                "name": "Duplicator - Language File en_US",
-                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
-                "mimetype": "application\/json",
+                "name": "Select lists",
+                "identifier": "net.zeyon.zeytimer-1000.lists",
+                "mimetype": "application\/ixml+xml",
                 "code": "..."
             }
 
@@ -15138,13 +15141,13 @@ resource has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1433140741",
-                "lastmodified": "1433140741",
-                "application": "459",
+                "creationdate": "0",
+                "lastmodified": "1415800508",
+                "application": "416",
                 "activity": "0",
-                "name": "Duplicator - Language File en_US",
-                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
-                "mimetype": "application\/json",
+                "name": "Select lists",
+                "identifier": "net.zeyon.zeytimer-1000.lists",
+                "mimetype": "application\/ixml+xml",
                 "code": "..."
             }
 
@@ -15209,15 +15212,15 @@ A single Resource object with all its details
 
             {
                 "result": {
-                    "ID": "2700",
+                    "ID": "2077",
                     "creator": null,
-                    "creationdate": "1433140741",
-                    "lastmodified": "1433140741",
-                    "application": "459",
+                    "creationdate": "0",
+                    "lastmodified": "1415800508",
+                    "application": "416",
                     "activity": "0",
-                    "name": "Duplicator - Language File en_US",
-                    "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
-                    "mimetype": "application\/json",
+                    "name": "Select lists",
+                    "identifier": "net.zeyon.zeytimer-1000.lists",
+                    "mimetype": "application\/ixml+xml",
                     "code": "..."
                 }
             }
@@ -15250,13 +15253,13 @@ A single Resource object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1433140741",
-                "lastmodified": "1433140741",
-                "application": "459",
+                "creationdate": "0",
+                "lastmodified": "1415800508",
+                "application": "416",
                 "activity": "0",
-                "name": "Duplicator - Language File en_US",
-                "identifier": "net.zeyon.duplicate.transactions-1010.locale-en_US",
-                "mimetype": "application\/json",
+                "name": "Select lists",
+                "identifier": "net.zeyon.zeytimer-1000.lists",
+                "mimetype": "application\/ixml+xml",
                 "code": "..."
             }
 
@@ -15570,23 +15573,6 @@ service has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1241",
-                        "creator": null,
-                        "creationdate": "1433140742",
-                        "lastmodified": "1433140742",
-                        "application": "459",
-                        "activity": "0",
-                        "name": "Duplicate Transaction",
-                        "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
-                        "type": "1",
-                        "accesskey": "adsfsdgfdsa",
-                        "entity": "",
-                        "schedule": "0",
-                        "interval": "1",
-                        "code": "...",
-                        "url": ""
-                    },
-                    {
                         "ID": "1040",
                         "creator": null,
                         "creationdate": "1404131368",
@@ -15619,6 +15605,23 @@ service has the following attributes:
                         "interval": "1",
                         "code": "...",
                         "url": ""
+                    },
+                    {
+                        "ID": "1241",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1433429034",
+                        "application": "459",
+                        "activity": "0",
+                        "name": "Duplicate Transaction",
+                        "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                        "type": "1",
+                        "accesskey": "adsfsdgfdsa",
+                        "entity": "",
+                        "schedule": "0",
+                        "interval": "1",
+                        "code": "...",
+                        "url": ""
                     }
                 ]
             }
@@ -15642,14 +15645,14 @@ service has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1433140742",
-                "lastmodified": "1433140742",
-                "application": "459",
+                "creationdate": "1404131368",
+                "lastmodified": "1404131368",
+                "application": "411",
                 "activity": "0",
-                "name": "Duplicate Transaction",
-                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
-                "type": "1",
-                "accesskey": "adsfsdgfdsa",
+                "name": "Notifications",
+                "identifier": "net.zeyon.mailapi-1000.notifier",
+                "type": null,
+                "accesskey": "",
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
@@ -15699,14 +15702,14 @@ service has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1433140742",
-                "lastmodified": "1433140742",
-                "application": "459",
+                "creationdate": "1404131368",
+                "lastmodified": "1404131368",
+                "application": "411",
                 "activity": "0",
-                "name": "Duplicate Transaction",
-                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
-                "type": "1",
-                "accesskey": "adsfsdgfdsa",
+                "name": "Notifications",
+                "identifier": "net.zeyon.mailapi-1000.notifier",
+                "type": null,
+                "accesskey": "",
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
@@ -15775,16 +15778,16 @@ A single Service object with all its details
 
             {
                 "result": {
-                    "ID": "1241",
+                    "ID": "1040",
                     "creator": null,
-                    "creationdate": "1433140742",
-                    "lastmodified": "1433140742",
-                    "application": "459",
+                    "creationdate": "1404131368",
+                    "lastmodified": "1404131368",
+                    "application": "411",
                     "activity": "0",
-                    "name": "Duplicate Transaction",
-                    "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
-                    "type": "1",
-                    "accesskey": "adsfsdgfdsa",
+                    "name": "Notifications",
+                    "identifier": "net.zeyon.mailapi-1000.notifier",
+                    "type": null,
+                    "accesskey": "",
                     "entity": "",
                     "schedule": "0",
                     "interval": "1",
@@ -15821,14 +15824,14 @@ A single Service object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1433140742",
-                "lastmodified": "1433140742",
-                "application": "459",
+                "creationdate": "1404131368",
+                "lastmodified": "1404131368",
+                "application": "411",
                 "activity": "0",
-                "name": "Duplicate Transaction",
-                "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
-                "type": "1",
-                "accesskey": "adsfsdgfdsa",
+                "name": "Notifications",
+                "identifier": "net.zeyon.mailapi-1000.notifier",
+                "type": null,
+                "accesskey": "",
                 "entity": "",
                 "schedule": "0",
                 "interval": "1",
