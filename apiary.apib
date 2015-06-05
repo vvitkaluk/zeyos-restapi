@@ -622,6 +622,30 @@ Parameters:
             "error": "Invalid credentials or user locked."
         }
 
+### Verify Authentication Token [HEAD]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200
+
++ Response 410
+
+### Invalidate Authentication Token [DELETE]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        true
+
 ## User Settings [/auth/settings]
 
 ### Get Settings for Authenticated User [GET]
