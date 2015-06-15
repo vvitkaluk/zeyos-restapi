@@ -1,0 +1,1054 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "ZeyOS REST API: Mailservers",
+        "description": "ZeyOS REST API: Mailservers",
+        "termsOfService": "https://www.zeyos.com/termsofservice/",
+        "contact": {
+            "name": "ZeyOS API Team",
+            "email": "info@zeyos.com",
+            "url": "https://www.zeyos.com/"
+        },
+        "license": {
+            "name": "Proprietary License",
+            "url": "https://www.zeyos.com/"
+        }
+    },
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "host": "api.zeyos.com",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic"
+        },
+        "tokenAuth": {
+            "type": "apiKey",
+            "name": "Zeyos-Api-Token",
+            "in": "header"
+        }
+    },
+    "security": [
+        {
+            "basicAuth": [],
+            "tokenAuth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "REST"
+        }
+    ],
+    "paths": {
+        "/{platform}/1.0/mailservers": {
+            "get": {
+                "description": "Retrieves mailservers",
+                "operationId": "getMailservers",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "a",
+                        "in": "query",
+                        "description": "Table alias",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "s",
+                        "in": "query",
+                        "description": "SELECT fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "w",
+                        "in": "query",
+                        "description": "WHERE fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "g",
+                        "in": "query",
+                        "description": "GROUP BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "o",
+                        "in": "query",
+                        "description": "ORDER BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "n",
+                        "in": "query",
+                        "description": "LIMIT",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "i",
+                        "in": "query",
+                        "description": "OFFSET",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/mailserverObjects"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Creates a mailserver",
+                "operationId": "createMailserver",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "The request body's content type",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json"
+                    },
+                    {
+                        "name": "extdata",
+                        "in": "query",
+                        "description": "If true, extensional data will be included in the result object as a sub-object",
+                        "required": false,
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    {
+                        "name": "object",
+                        "in": "query",
+                        "description": "If true, the object will be returned rather than a boolean result in case of success",
+                        "required": false,
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mailserverObject"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/objectResult"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    }
+                }
+            }
+        },
+        "/{platform}/1.0/mailservers/{id}": {
+            "delete": {
+                "description": "Deletes the mailserver with the specified ID",
+                "operationId": "deleteMailserverById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The record's ID column value",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "1"
+                    },
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "a",
+                        "in": "query",
+                        "description": "Table alias",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "s",
+                        "in": "query",
+                        "description": "SELECT fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "w",
+                        "in": "query",
+                        "description": "WHERE fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "g",
+                        "in": "query",
+                        "description": "GROUP BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "o",
+                        "in": "query",
+                        "description": "ORDER BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "n",
+                        "in": "query",
+                        "description": "LIMIT",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "i",
+                        "in": "query",
+                        "description": "OFFSET",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/objectResult"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Retrieves the mailserver with the specified ID",
+                "operationId": "getMailserverById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The record's ID column value",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "1"
+                    },
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "a",
+                        "in": "query",
+                        "description": "Table alias",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "s",
+                        "in": "query",
+                        "description": "SELECT fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "w",
+                        "in": "query",
+                        "description": "WHERE fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "g",
+                        "in": "query",
+                        "description": "GROUP BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "o",
+                        "in": "query",
+                        "description": "ORDER BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "n",
+                        "in": "query",
+                        "description": "LIMIT",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "i",
+                        "in": "query",
+                        "description": "OFFSET",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/mailserverObject"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    }
+                }
+            },
+            "head": {
+                "description": "Checks if the mailserver with the specified ID exists",
+                "operationId": "mailserverExists",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The record's ID column value",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "1"
+                    },
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "a",
+                        "in": "query",
+                        "description": "Table alias",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "s",
+                        "in": "query",
+                        "description": "SELECT fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "w",
+                        "in": "query",
+                        "description": "WHERE fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "g",
+                        "in": "query",
+                        "description": "GROUP BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "o",
+                        "in": "query",
+                        "description": "ORDER BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "n",
+                        "in": "query",
+                        "description": "LIMIT",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "i",
+                        "in": "query",
+                        "description": "OFFSET",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/emptyResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Updates the mailserver with the specified ID",
+                "operationId": "updateMailserverById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The record's ID column value",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64",
+                        "default": "1"
+                    },
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The name of your platform",
+                        "required": true,
+                        "type": "string",
+                        "default": "sandbox"
+                    },
+                    {
+                        "name": "Zeyos-Api-Token",
+                        "in": "header",
+                        "description": "The app and device identifier, a colon and the corresponding authentication token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "a",
+                        "in": "query",
+                        "description": "Table alias",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "s",
+                        "in": "query",
+                        "description": "SELECT fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "w",
+                        "in": "query",
+                        "description": "WHERE fields",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "g",
+                        "in": "query",
+                        "description": "GROUP BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "o",
+                        "in": "query",
+                        "description": "ORDER BY clause",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "n",
+                        "in": "query",
+                        "description": "LIMIT",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "i",
+                        "in": "query",
+                        "description": "OFFSET",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "The request body's content type",
+                        "required": true,
+                        "type": "string",
+                        "default": "application/json"
+                    },
+                    {
+                        "name": "extdata",
+                        "in": "query",
+                        "description": "If true, extensional data will be included in the result object as a sub-object",
+                        "required": false,
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    {
+                        "name": "object",
+                        "in": "query",
+                        "description": "If true, the object will be returned rather than a boolean result in case of success",
+                        "required": false,
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mailserverObject"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/objectResult"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/defaultError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "parameters": {
+        "authToken": {
+            "name": "Zeyos-Api-Token",
+            "in": "header",
+            "description": "The ZeyOS API concatenated token identifier, a colon \":\" and the authentication token value",
+            "required": true,
+            "type": "string"
+        },
+        "platform": {
+            "name": "platform",
+            "in": "path",
+            "description": "The name of your platform",
+            "required": true,
+            "type": "string",
+            "default": "sandbox"
+        },
+        "id": {
+            "name": "id",
+            "in": "path",
+            "description": "The record's ID column value",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "default": 1
+        },
+        "extDataQuery": {
+            "name": "extdata",
+            "in": "query",
+            "description": "If true, extensional data will be included in the result object as a sub-object",
+            "required": false,
+            "type": "boolean",
+            "default": false
+        },
+        "object": {
+            "name": "object",
+            "in": "query",
+            "description": "If true, the object will be returned rather than a boolean result in case of success",
+            "required": false,
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "definitions": {
+        "authObject": {
+            "type": "object",
+            "required": [
+                "user",
+                "password",
+                "identifier"
+            ],
+            "properties": {
+                "user": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "queryObject": {
+            "type": "object",
+            "required": [
+                "user",
+                "password",
+                "identifier"
+            ],
+            "properties": {
+                "a": {
+                    "type": "string"
+                },
+                "d": {
+                    "type": "boolean",
+                    "default": "false"
+                },
+                "g": {
+                    "$ref": "#/definitions/groupBy"
+                },
+                "h": {
+                    "$ref": "#/definitions/conditions"
+                },
+                "i": {
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 0
+                },
+                "m": {
+                    "type": "string"
+                },
+                "n": {
+                    "type": "integer",
+                    "format": "int64",
+                    "minimum": 0
+                },
+                "o": {
+                    "$ref": "#/definitions/orderBy"
+                },
+                "q": {
+                    "type": "string"
+                },
+                "s": {
+                    "$ref": "#/definitions/columns"
+                },
+                "w": {
+                    "$ref": "#/definitions/conditions"
+                },
+                "x": {
+                    "type": "boolean",
+                    "default": "false"
+                }
+            }
+        },
+        "joins": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "conditions": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "defaultError": {
+            "type": "object",
+            "required": [
+                "error"
+            ],
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "true": {
+            "type": "boolean",
+            "default": "true"
+        },
+        "trueResponse": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "$ref": "#/definitions/true"
+                }
+            }
+        },
+        "trueOrErrorResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "boolean",
+                    "default": "true"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "objectResult": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "type": "object"
+                }
+            }
+        },
+        "response": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "object"
+                },
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "authResult": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "$ref": "#/definitions/authResultObject"
+                }
+            }
+        },
+        "authResultObject": {
+            "type": "object",
+            "required": [
+                "ID"
+            ],
+            "properties": {
+                "ID": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "creator": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "mailserverObject": {
+            "properties": {
+                "ID": {
+                    "type": "string"
+                },
+                "owneruser": {
+                    "type": "string"
+                },
+                "ownergroup": {
+                    "type": "string"
+                },
+                "creator": {
+                    "type": "string"
+                },
+                "creationdate": {
+                    "type": "string"
+                },
+                "lastmodified": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "recipientuser": {
+                    "type": "string"
+                },
+                "recipientgroup": {
+                    "type": "string"
+                },
+                "activity": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "sender": {
+                    "type": "string"
+                },
+                "serverin": {
+                    "type": "string"
+                },
+                "usernamein": {
+                    "type": "string"
+                },
+                "serverout": {
+                    "type": "string"
+                },
+                "usernameout": {
+                    "type": "string"
+                },
+                "lastfetch": {
+                    "type": "string"
+                },
+                "uidvalidity": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            }
+        },
+        "mailserverObjects": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/mailserverObject"
+            }
+        }
+    }
+}
