@@ -8014,6 +8014,23 @@ A single File object with all its details
                 "error": "Could not find item #2645 in files (or no permission to access it)."
             }
 
+### Remove File [DELETE]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": true
+            }
+
 
 # Group Follows
 follow has the following attributes:
@@ -11481,33 +11498,6 @@ notification has the following attributes:
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": [
-                    {
-                        "ID": "2",
-                        "user": "1",
-                        "record": "12109",
-                        "date": "1432110997",
-                        "flag": "0"
-                    },
-                    {
-                        "ID": "3",
-                        "user": "1",
-                        "record": "12158",
-                        "date": "1432110840",
-                        "flag": "0"
-                    },
-                    {
-                        "ID": "4",
-                        "user": "1",
-                        "record": "12157",
-                        "date": "1432110838",
-                        "flag": "0"
-                    }
-                ]
-            }
 
 ### Create Notification [PUT]
 
@@ -11524,14 +11514,6 @@ notification has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "user": "1",
-                "record": "12109",
-                "date": "1432110997",
-                "flag": "0"
-            }
 
 + Response 201 (application/json)
 
@@ -11571,14 +11553,6 @@ notification has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "user": "1",
-                "record": "12109",
-                "date": "1432110997",
-                "flag": "0"
-            }
 
 + Response 200 (application/json)
 
@@ -11637,17 +11611,6 @@ A single Notification object with all its details
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": {
-                    "ID": "2",
-                    "user": "1",
-                    "record": "12109",
-                    "date": "1432110997",
-                    "flag": "0"
-                }
-            }
 
 + Response 404 (application/json)
 
@@ -11673,14 +11636,6 @@ A single Notification object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "user": "1",
-                "record": "12109",
-                "date": "1432110997",
-                "flag": "0"
-            }
 
 + Response 200 (application/json)
 
