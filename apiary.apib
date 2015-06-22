@@ -2021,8 +2021,7 @@ A single Account object with all its details
                 "result": true
             }
 
-## List Tags [/accounts/{id}/tags]
-Lists all tags for a single Account.
+## List/Add/Replace Tags [/accounts/{id}/tags]
 
 + Parameters
 
@@ -2050,7 +2049,63 @@ Lists all tags for a single Account.
                 ]
             }
 
-## Edit/Create Tags [/accounts/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/accounts/{id}/tags/{tag}]
 
 + Parameters
 
@@ -2633,8 +2688,7 @@ A single Actionstep object with all its details
                 "result": true
             }
 
-## List Tags [/actionsteps/{id}/tags]
-Lists all tags for a single Actionstep.
+## List/Add/Replace Tags [/actionsteps/{id}/tags]
 
 + Parameters
 
@@ -2662,7 +2716,63 @@ Lists all tags for a single Actionstep.
                 ]
             }
 
-## Edit/Create Tags [/actionsteps/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/actionsteps/{id}/tags/{tag}]
 
 + Parameters
 
@@ -3192,8 +3302,7 @@ A single Application object with all its details
                 "result": true
             }
 
-## List Tags [/applications/{id}/tags]
-Lists all tags for a single Application.
+## List/Add/Replace Tags [/applications/{id}/tags]
 
 + Parameters
 
@@ -3221,7 +3330,63 @@ Lists all tags for a single Application.
                 ]
             }
 
-## Edit/Create Tags [/applications/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/applications/{id}/tags/{tag}]
 
 + Parameters
 
@@ -3784,8 +3949,7 @@ A single Appointment object with all its details
                 "result": true
             }
 
-## List Tags [/appointments/{id}/tags]
-Lists all tags for a single Appointment.
+## List/Add/Replace Tags [/appointments/{id}/tags]
 
 + Parameters
 
@@ -3813,7 +3977,63 @@ Lists all tags for a single Appointment.
                 ]
             }
 
-## Edit/Create Tags [/appointments/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/appointments/{id}/tags/{tag}]
 
 + Parameters
 
@@ -4348,8 +4568,7 @@ A single Campaign object with all its details
                 "result": true
             }
 
-## List Tags [/campaigns/{id}/tags]
-Lists all tags for a single Campaign.
+## List/Add/Replace Tags [/campaigns/{id}/tags]
 
 + Parameters
 
@@ -4377,7 +4596,63 @@ Lists all tags for a single Campaign.
                 ]
             }
 
-## Edit/Create Tags [/campaigns/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/campaigns/{id}/tags/{tag}]
 
 + Parameters
 
@@ -5623,8 +5898,7 @@ A single Contact object with all its details
                 "result": true
             }
 
-## List Tags [/contacts/{id}/tags]
-Lists all tags for a single Contact.
+## List/Add/Replace Tags [/contacts/{id}/tags]
 
 + Parameters
 
@@ -5652,7 +5926,63 @@ Lists all tags for a single Contact.
                 ]
             }
 
-## Edit/Create Tags [/contacts/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/contacts/{id}/tags/{tag}]
 
 + Parameters
 
@@ -6239,8 +6569,7 @@ A single Contract object with all its details
                 "result": true
             }
 
-## List Tags [/contracts/{id}/tags]
-Lists all tags for a single Contract.
+## List/Add/Replace Tags [/contracts/{id}/tags]
 
 + Parameters
 
@@ -6268,7 +6597,63 @@ Lists all tags for a single Contract.
                 ]
             }
 
-## Edit/Create Tags [/contracts/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/contracts/{id}/tags/{tag}]
 
 + Parameters
 
@@ -6854,6 +7239,21 @@ event has the following attributes:
                         "dateto": "1425553200",
                         "color": "",
                         "meta": null
+                    },
+                    {
+                        "ID": "51",
+                        "owneruser": "1",
+                        "ownergroup": null,
+                        "creator": null,
+                        "creationdate": "1434726334",
+                        "lastmodified": "1434726334",
+                        "entity": "tasks",
+                        "index": "2046",
+                        "name": "Due date",
+                        "datefrom": "1434899040",
+                        "dateto": "1434899040",
+                        "color": "",
+                        "meta": "{\"type\":\"duedate\"}"
                     }
                 ]
             }
@@ -7092,8 +7492,7 @@ A single Event object with all its details
                 "result": true
             }
 
-## List Tags [/events/{id}/tags]
-Lists all tags for a single Event.
+## List/Add/Replace Tags [/events/{id}/tags]
 
 + Parameters
 
@@ -7121,7 +7520,63 @@ Lists all tags for a single Event.
                 ]
             }
 
-## Edit/Create Tags [/events/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/events/{id}/tags/{tag}]
 
 + Parameters
 
@@ -7646,8 +8101,7 @@ A single Extdataform object with all its details
                 "result": true
             }
 
-## List Tags [/extdataforms/{id}/tags]
-Lists all tags for a single Extdataform.
+## List/Add/Replace Tags [/extdataforms/{id}/tags]
 
 + Parameters
 
@@ -7675,7 +8129,63 @@ Lists all tags for a single Extdataform.
                 ]
             }
 
-## Edit/Create Tags [/extdataforms/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/extdataforms/{id}/tags/{tag}]
 
 + Parameters
 
@@ -8918,8 +9428,7 @@ A single Item object with all its details
                 "result": true
             }
 
-## List Tags [/items/{id}/tags]
-Lists all tags for a single Item.
+## List/Add/Replace Tags [/items/{id}/tags]
 
 + Parameters
 
@@ -8947,7 +9456,63 @@ Lists all tags for a single Item.
                 ]
             }
 
-## Edit/Create Tags [/items/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/items/{id}/tags/{tag}]
 
 + Parameters
 
@@ -9750,8 +10315,7 @@ A single Mailinglist object with all its details
                 "result": true
             }
 
-## List Tags [/mailinglists/{id}/tags]
-Lists all tags for a single Mailinglist.
+## List/Add/Replace Tags [/mailinglists/{id}/tags]
 
 + Parameters
 
@@ -9779,7 +10343,63 @@ Lists all tags for a single Mailinglist.
                 ]
             }
 
-## Edit/Create Tags [/mailinglists/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/mailinglists/{id}/tags/{tag}]
 
 + Parameters
 
@@ -10204,8 +10824,7 @@ A single Mailserver object with all its details
                 "result": true
             }
 
-## List Tags [/mailservers/{id}/tags]
-Lists all tags for a single Mailserver.
+## List/Add/Replace Tags [/mailservers/{id}/tags]
 
 + Parameters
 
@@ -10233,7 +10852,63 @@ Lists all tags for a single Mailserver.
                 ]
             }
 
-## Edit/Create Tags [/mailservers/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/mailservers/{id}/tags/{tag}]
 
 + Parameters
 
@@ -11237,8 +11912,7 @@ A single Note object with all its details
                 "result": true
             }
 
-## List Tags [/notes/{id}/tags]
-Lists all tags for a single Note.
+## List/Add/Replace Tags [/notes/{id}/tags]
 
 + Parameters
 
@@ -11266,7 +11940,63 @@ Lists all tags for a single Note.
                 ]
             }
 
-## Edit/Create Tags [/notes/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/notes/{id}/tags/{tag}]
 
 + Parameters
 
@@ -11498,6 +12228,33 @@ notification has the following attributes:
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": [
+                    {
+                        "ID": "1",
+                        "user": "1",
+                        "record": "12212",
+                        "date": "1434462091",
+                        "flag": "0"
+                    },
+                    {
+                        "ID": "2",
+                        "user": "1",
+                        "record": "12109",
+                        "date": "1432110997",
+                        "flag": "0"
+                    },
+                    {
+                        "ID": "3",
+                        "user": "1",
+                        "record": "12158",
+                        "date": "1432110840",
+                        "flag": "0"
+                    }
+                ]
+            }
 
 ### Create Notification [PUT]
 
@@ -11514,6 +12271,14 @@ notification has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
+    + Body
+
+            {
+                "user": "1",
+                "record": "12212",
+                "date": "1434462091",
+                "flag": "0"
+            }
 
 + Response 201 (application/json)
 
@@ -11553,6 +12318,14 @@ notification has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
+    + Body
+
+            {
+                "user": "1",
+                "record": "12212",
+                "date": "1434462091",
+                "flag": "0"
+            }
 
 + Response 200 (application/json)
 
@@ -11611,6 +12384,17 @@ A single Notification object with all its details
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": {
+                    "ID": "1",
+                    "user": "1",
+                    "record": "12212",
+                    "date": "1434462091",
+                    "flag": "0"
+                }
+            }
 
 + Response 404 (application/json)
 
@@ -11636,6 +12420,14 @@ A single Notification object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
+    + Body
+
+            {
+                "user": "1",
+                "record": "12212",
+                "date": "1434462091",
+                "flag": "0"
+            }
 
 + Response 200 (application/json)
 
@@ -11996,8 +12788,7 @@ A single Object object with all its details
                 "result": true
             }
 
-## List Tags [/objects/{id}/tags]
-Lists all tags for a single Object.
+## List/Add/Replace Tags [/objects/{id}/tags]
 
 + Parameters
 
@@ -12025,7 +12816,63 @@ Lists all tags for a single Object.
                 ]
             }
 
-## Edit/Create Tags [/objects/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/objects/{id}/tags/{tag}]
 
 + Parameters
 
@@ -12607,8 +13454,7 @@ A single Opportunity object with all its details
                 "result": true
             }
 
-## List Tags [/opportunities/{id}/tags]
-Lists all tags for a single Opportunity.
+## List/Add/Replace Tags [/opportunities/{id}/tags]
 
 + Parameters
 
@@ -12636,7 +13482,63 @@ Lists all tags for a single Opportunity.
                 ]
             }
 
-## Edit/Create Tags [/opportunities/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/opportunities/{id}/tags/{tag}]
 
 + Parameters
 
@@ -13510,8 +14412,7 @@ A single Pricelist object with all its details
                 "result": true
             }
 
-## List Tags [/pricelists/{id}/tags]
-Lists all tags for a single Pricelist.
+## List/Add/Replace Tags [/pricelists/{id}/tags]
 
 + Parameters
 
@@ -13539,7 +14440,63 @@ Lists all tags for a single Pricelist.
                 ]
             }
 
-## Edit/Create Tags [/pricelists/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/pricelists/{id}/tags/{tag}]
 
 + Parameters
 
@@ -14062,8 +15019,7 @@ A single Project object with all its details
                 "result": true
             }
 
-## List Tags [/projects/{id}/tags]
-Lists all tags for a single Project.
+## List/Add/Replace Tags [/projects/{id}/tags]
 
 + Parameters
 
@@ -14091,7 +15047,63 @@ Lists all tags for a single Project.
                 ]
             }
 
-## Edit/Create Tags [/projects/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/projects/{id}/tags/{tag}]
 
 + Parameters
 
@@ -14652,8 +15664,7 @@ A single Record object with all its details
                 "result": true
             }
 
-## List Tags [/records/{id}/tags]
-Lists all tags for a single Record.
+## List/Add/Replace Tags [/records/{id}/tags]
 
 + Parameters
 
@@ -14681,7 +15692,63 @@ Lists all tags for a single Record.
                 ]
             }
 
-## Edit/Create Tags [/records/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/records/{id}/tags/{tag}]
 
 + Parameters
 
@@ -15267,8 +16334,7 @@ A single Resource object with all its details
                 "result": true
             }
 
-## List Tags [/resources/{id}/tags]
-Lists all tags for a single Resource.
+## List/Add/Replace Tags [/resources/{id}/tags]
 
 + Parameters
 
@@ -15296,7 +16362,63 @@ Lists all tags for a single Resource.
                 ]
             }
 
-## Edit/Create Tags [/resources/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/resources/{id}/tags/{tag}]
 
 + Parameters
 
@@ -15843,8 +16965,7 @@ A single Service object with all its details
                 "result": true
             }
 
-## List Tags [/services/{id}/tags]
-Lists all tags for a single Service.
+## List/Add/Replace Tags [/services/{id}/tags]
 
 + Parameters
 
@@ -15872,7 +16993,63 @@ Lists all tags for a single Service.
                 ]
             }
 
-## Edit/Create Tags [/services/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/services/{id}/tags/{tag}]
 
 + Parameters
 
@@ -16778,8 +17955,7 @@ A single Task object with all its details
                 "result": true
             }
 
-## List Tags [/tasks/{id}/tags]
-Lists all tags for a single Task.
+## List/Add/Replace Tags [/tasks/{id}/tags]
 
 + Parameters
 
@@ -16807,7 +17983,63 @@ Lists all tags for a single Task.
                 ]
             }
 
-## Edit/Create Tags [/tasks/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/tasks/{id}/tags/{tag}]
 
 + Parameters
 
@@ -17365,8 +18597,7 @@ A single Ticket object with all its details
                 "result": true
             }
 
-## List Tags [/tickets/{id}/tags]
-Lists all tags for a single Ticket.
+## List/Add/Replace Tags [/tickets/{id}/tags]
 
 + Parameters
 
@@ -17394,7 +18625,63 @@ Lists all tags for a single Ticket.
                 ]
             }
 
-## Edit/Create Tags [/tickets/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/tickets/{id}/tags/{tag}]
 
 + Parameters
 
@@ -17826,8 +19113,7 @@ A single Transaction object with all its details
                 "result": true
             }
 
-## List Tags [/transactions/{id}/tags]
-Lists all tags for a single Transaction.
+## List/Add/Replace Tags [/transactions/{id}/tags]
 
 + Parameters
 
@@ -17855,7 +19141,63 @@ Lists all tags for a single Transaction.
                 ]
             }
 
-## Edit/Create Tags [/transactions/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/transactions/{id}/tags/{tag}]
 
 + Parameters
 
@@ -18321,8 +19663,7 @@ A single User object with all its details
                 "result": true
             }
 
-## List Tags [/users/{id}/tags]
-Lists all tags for a single User.
+## List/Add/Replace Tags [/users/{id}/tags]
 
 + Parameters
 
@@ -18350,7 +19691,63 @@ Lists all tags for a single User.
                 ]
             }
 
-## Edit/Create Tags [/users/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/users/{id}/tags/{tag}]
 
 + Parameters
 
@@ -18759,8 +20156,7 @@ A single Weblet object with all its details
                 "result": true
             }
 
-## List Tags [/weblets/{id}/tags]
-Lists all tags for a single Weblet.
+## List/Add/Replace Tags [/weblets/{id}/tags]
 
 + Parameters
 
@@ -18788,7 +20184,63 @@ Lists all tags for a single Weblet.
                 ]
             }
 
-## Edit/Create Tags [/weblets/{id}/tags/{tag}]
+### Add Tags [POST]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag1",
+                    "tag2",
+                    "tag3"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+### Replace Tags [PUT]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "tags": [
+                    "tag4"
+                ]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    true
+                ]
+            }
+
+## Manage Tags [/weblets/{id}/tags/{tag}]
 
 + Parameters
 
