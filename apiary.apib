@@ -1692,6 +1692,7 @@ account has the following attributes:
         | `contact` | `contacts` | `accounts.contact` = `contacts.ID` |
         | `creator` | `users` | `accounts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `accounts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'accounts'` = `tags.entity` AND<br />`accounts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `customernum`, `suppliernum`
 
@@ -1835,6 +1836,7 @@ account has the following attributes:
         | `contact` | `contacts` | `accounts.contact` = `contacts.ID` |
         | `creator` | `users` | `accounts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `accounts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'accounts'` = `tags.entity` AND<br />`accounts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `customernum`, `suppliernum`
 
@@ -1897,6 +1899,7 @@ A single Account object with all its details
         | `contact` | `contacts` | `accounts.contact` = `contacts.ID` |
         | `creator` | `users` | `accounts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `accounts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'accounts'` = `tags.entity` AND<br />`accounts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `customernum`, `suppliernum`
 
@@ -2344,6 +2347,7 @@ actionstep has the following attributes:
         | `task` | `tasks` | `actionsteps.task` = `tasks.ID` |
         | `ticket` | `tickets` | `actionsteps.ticket` = `tickets.ID` |
         | `transaction` | `transactions` | `actionsteps.transaction` = `transactions.ID` |
+        | `tags` | `tags` | `'actionsteps'` = `tags.entity` AND<br />`actionsteps.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `actionnum`
 
@@ -2495,6 +2499,7 @@ actionstep has the following attributes:
         | `task` | `tasks` | `actionsteps.task` = `tasks.ID` |
         | `ticket` | `tickets` | `actionsteps.ticket` = `tickets.ID` |
         | `transaction` | `transactions` | `actionsteps.transaction` = `transactions.ID` |
+        | `tags` | `tags` | `'actionsteps'` = `tags.entity` AND<br />`actionsteps.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `actionnum`
 
@@ -2562,6 +2567,7 @@ A single Actionstep object with all its details
         | `task` | `tasks` | `actionsteps.task` = `tasks.ID` |
         | `ticket` | `tickets` | `actionsteps.ticket` = `tickets.ID` |
         | `transaction` | `transactions` | `actionsteps.transaction` = `transactions.ID` |
+        | `tags` | `tags` | `'actionsteps'` = `tags.entity` AND<br />`actionsteps.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `actionnum`
 
@@ -3000,6 +3006,7 @@ application has the following attributes:
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `applications.creator` = `users.ID` |
+        | `tags` | `tags` | `'applications'` = `tags.entity` AND<br />`applications.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -3128,6 +3135,7 @@ application has the following attributes:
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `applications.creator` = `users.ID` |
+        | `tags` | `tags` | `'applications'` = `tags.entity` AND<br />`applications.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -3184,6 +3192,7 @@ A single Application object with all its details
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `applications.creator` = `users.ID` |
+        | `tags` | `tags` | `'applications'` = `tags.entity` AND<br />`applications.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -3620,6 +3629,7 @@ appointment has the following attributes:
         | `creator` | `users` | `appointments.creator` = `users.ID` |
         | `ownergroup` | `groups` | `appointments.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `appointments.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'appointments'` = `tags.entity` AND<br />`appointments.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `location`
 
@@ -3763,6 +3773,7 @@ appointment has the following attributes:
         | `creator` | `users` | `appointments.creator` = `users.ID` |
         | `ownergroup` | `groups` | `appointments.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `appointments.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'appointments'` = `tags.entity` AND<br />`appointments.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `location`
 
@@ -3825,6 +3836,7 @@ A single Appointment object with all its details
         | `creator` | `users` | `appointments.creator` = `users.ID` |
         | `ownergroup` | `groups` | `appointments.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `appointments.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'appointments'` = `tags.entity` AND<br />`appointments.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `location`
 
@@ -4276,6 +4288,7 @@ campaign has the following attributes:
         | `assigneduser` | `users` | `campaigns.assigneduser` = `users.ID` |
         | `ownergroup` | `groups` | `campaigns.ownergroup` = `groups.ID` |
         | `creator` | `users` | `campaigns.creator` = `users.ID` |
+        | `tags` | `tags` | `'campaigns'` = `tags.entity` AND<br />`campaigns.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -4398,6 +4411,7 @@ campaign has the following attributes:
         | `assigneduser` | `users` | `campaigns.assigneduser` = `users.ID` |
         | `ownergroup` | `groups` | `campaigns.ownergroup` = `groups.ID` |
         | `creator` | `users` | `campaigns.creator` = `users.ID` |
+        | `tags` | `tags` | `'campaigns'` = `tags.entity` AND<br />`campaigns.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -4454,6 +4468,7 @@ A single Campaign object with all its details
         | `assigneduser` | `users` | `campaigns.assigneduser` = `users.ID` |
         | `ownergroup` | `groups` | `campaigns.ownergroup` = `groups.ID` |
         | `creator` | `users` | `campaigns.creator` = `users.ID` |
+        | `tags` | `tags` | `'campaigns'` = `tags.entity` AND<br />`campaigns.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -5471,6 +5486,7 @@ contact has the following attributes:
         | `creator` | `users` | `contacts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contacts.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `contacts.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'contacts'` = `tags.entity` AND<br />`contacts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `company`, `email`, `email2`
 
@@ -5670,6 +5686,7 @@ contact has the following attributes:
         | `creator` | `users` | `contacts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contacts.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `contacts.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'contacts'` = `tags.entity` AND<br />`contacts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `company`, `email`, `email2`
 
@@ -5746,6 +5763,7 @@ A single Contact object with all its details
         | `creator` | `users` | `contacts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contacts.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `contacts.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'contacts'` = `tags.entity` AND<br />`contacts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `lastname`, `firstname`, `company`, `email`, `email2`
 
@@ -6247,6 +6265,7 @@ contract has the following attributes:
         | `assigneduser` | `users` | `contracts.assigneduser` = `users.ID` |
         | `creator` | `users` | `contracts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contracts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'contracts'` = `tags.entity` AND<br />`contracts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `contractnum`
 
@@ -6386,6 +6405,7 @@ contract has the following attributes:
         | `assigneduser` | `users` | `contracts.assigneduser` = `users.ID` |
         | `creator` | `users` | `contracts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contracts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'contracts'` = `tags.entity` AND<br />`contracts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `contractnum`
 
@@ -6447,6 +6467,7 @@ A single Contract object with all its details
         | `assigneduser` | `users` | `contracts.assigneduser` = `users.ID` |
         | `creator` | `users` | `contracts.creator` = `users.ID` |
         | `ownergroup` | `groups` | `contracts.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'contracts'` = `tags.entity` AND<br />`contracts.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `contractnum`
 
@@ -7208,6 +7229,7 @@ event has the following attributes:
         | `creator` | `users` | `events.creator` = `users.ID` |
         | `ownergroup` | `groups` | `events.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `events.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'events'` = `tags.entity` AND<br />`events.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -7319,6 +7341,7 @@ event has the following attributes:
         | `creator` | `users` | `events.creator` = `users.ID` |
         | `ownergroup` | `groups` | `events.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `events.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'events'` = `tags.entity` AND<br />`events.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -7376,6 +7399,7 @@ A single Event object with all its details
         | `creator` | `users` | `events.creator` = `users.ID` |
         | `ownergroup` | `groups` | `events.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `events.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'events'` = `tags.entity` AND<br />`events.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -7804,6 +7828,7 @@ extdataform has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `extdataforms.application` = `applications.ID` |
         | `creator` | `users` | `extdataforms.creator` = `users.ID` |
+        | `tags` | `tags` | `'extdataforms'` = `tags.entity` AND<br />`extdataforms.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -7929,6 +7954,7 @@ extdataform has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `extdataforms.application` = `applications.ID` |
         | `creator` | `users` | `extdataforms.creator` = `users.ID` |
+        | `tags` | `tags` | `'extdataforms'` = `tags.entity` AND<br />`extdataforms.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -7985,6 +8011,7 @@ A single Extdataform object with all its details
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `extdataforms.application` = `applications.ID` |
         | `creator` | `users` | `extdataforms.creator` = `users.ID` |
+        | `tags` | `tags` | `'extdataforms'` = `tags.entity` AND<br />`extdataforms.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `identifier`, `name`
 
@@ -9096,6 +9123,7 @@ item has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `items.creator` = `users.ID` |
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
 
@@ -9241,6 +9269,7 @@ item has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `items.creator` = `users.ID` |
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
 
@@ -9302,6 +9331,7 @@ A single Item object with all its details
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `items.creator` = `users.ID` |
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
 
@@ -10132,6 +10162,7 @@ mailinglist has the following attributes:
         | `creator` | `users` | `mailinglists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `mailinglists.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `mailinglists.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'mailinglists'` = `tags.entity` AND<br />`mailinglists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`
 
@@ -10192,6 +10223,7 @@ mailinglist has the following attributes:
         | `creator` | `users` | `mailinglists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `mailinglists.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `mailinglists.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'mailinglists'` = `tags.entity` AND<br />`mailinglists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`
 
@@ -10234,6 +10266,7 @@ A single Mailinglist object with all its details
         | `creator` | `users` | `mailinglists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `mailinglists.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `mailinglists.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'mailinglists'` = `tags.entity` AND<br />`mailinglists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`
 
@@ -10637,6 +10670,7 @@ mailserver has the following attributes:
         | `owneruser` | `users` | `mailservers.owneruser` = `users.ID` |
         | `recipientgroup` | `groups` | `mailservers.recipientgroup` = `groups.ID` |
         | `recipientuser` | `users` | `mailservers.recipientuser` = `users.ID` |
+        | `tags` | `tags` | `'mailservers'` = `tags.entity` AND<br />`mailservers.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`, `serverin`, `serverout`
 
@@ -10699,6 +10733,7 @@ mailserver has the following attributes:
         | `owneruser` | `users` | `mailservers.owneruser` = `users.ID` |
         | `recipientgroup` | `groups` | `mailservers.recipientgroup` = `groups.ID` |
         | `recipientuser` | `users` | `mailservers.recipientuser` = `users.ID` |
+        | `tags` | `tags` | `'mailservers'` = `tags.entity` AND<br />`mailservers.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`, `serverin`, `serverout`
 
@@ -10743,6 +10778,7 @@ A single Mailserver object with all its details
         | `owneruser` | `users` | `mailservers.owneruser` = `users.ID` |
         | `recipientgroup` | `groups` | `mailservers.recipientgroup` = `groups.ID` |
         | `recipientuser` | `users` | `mailservers.recipientuser` = `users.ID` |
+        | `tags` | `tags` | `'mailservers'` = `tags.entity` AND<br />`mailservers.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `sender`, `serverin`, `serverout`
 
@@ -11597,6 +11633,7 @@ note has the following attributes:
         | `creator` | `users` | `notes.creator` = `users.ID` |
         | `ownergroup` | `groups` | `notes.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `notes.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'notes'` = `tags.entity` AND<br />`notes.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -11732,6 +11769,7 @@ note has the following attributes:
         | `creator` | `users` | `notes.creator` = `users.ID` |
         | `ownergroup` | `groups` | `notes.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `notes.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'notes'` = `tags.entity` AND<br />`notes.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -11792,6 +11830,7 @@ A single Note object with all its details
         | `creator` | `users` | `notes.creator` = `users.ID` |
         | `ownergroup` | `groups` | `notes.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `notes.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'notes'` = `tags.entity` AND<br />`notes.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -12494,6 +12533,7 @@ object has the following attributes:
         | `creator` | `users` | `objects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `objects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `objects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'objects'` = `tags.entity` AND<br />`objects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -12617,6 +12657,7 @@ object has the following attributes:
         | `creator` | `users` | `objects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `objects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `objects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'objects'` = `tags.entity` AND<br />`objects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -12674,6 +12715,7 @@ A single Object object with all its details
         | `creator` | `users` | `objects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `objects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `objects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'objects'` = `tags.entity` AND<br />`objects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -13109,6 +13151,7 @@ opportunity has the following attributes:
         | `contact` | `contacts` | `opportunities.contact` = `contacts.ID` |
         | `creator` | `users` | `opportunities.creator` = `users.ID` |
         | `ownergroup` | `groups` | `opportunities.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'opportunities'` = `tags.entity` AND<br />`opportunities.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `opportunitynum`
 
@@ -13261,6 +13304,7 @@ opportunity has the following attributes:
         | `contact` | `contacts` | `opportunities.contact` = `contacts.ID` |
         | `creator` | `users` | `opportunities.creator` = `users.ID` |
         | `ownergroup` | `groups` | `opportunities.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'opportunities'` = `tags.entity` AND<br />`opportunities.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `opportunitynum`
 
@@ -13326,6 +13370,7 @@ A single Opportunity object with all its details
         | `contact` | `contacts` | `opportunities.contact` = `contacts.ID` |
         | `creator` | `users` | `opportunities.creator` = `users.ID` |
         | `ownergroup` | `groups` | `opportunities.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'opportunities'` = `tags.entity` AND<br />`opportunities.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `opportunitynum`
 
@@ -14115,6 +14160,7 @@ pricelist has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `pricelists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `pricelists.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'pricelists'` = `tags.entity` AND<br />`pricelists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -14240,6 +14286,7 @@ pricelist has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `pricelists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `pricelists.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'pricelists'` = `tags.entity` AND<br />`pricelists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -14296,6 +14343,7 @@ A single Pricelist object with all its details
         | ------------------ | ------------ | ---------- |
         | `creator` | `users` | `pricelists.creator` = `users.ID` |
         | `ownergroup` | `groups` | `pricelists.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'pricelists'` = `tags.entity` AND<br />`pricelists.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `name`
 
@@ -14725,6 +14773,7 @@ project has the following attributes:
         | `creator` | `users` | `projects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `projects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `projects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'projects'` = `tags.entity` AND<br />`projects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `projectnum`
 
@@ -14848,6 +14897,7 @@ project has the following attributes:
         | `creator` | `users` | `projects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `projects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `projects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'projects'` = `tags.entity` AND<br />`projects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `projectnum`
 
@@ -14905,6 +14955,7 @@ A single Project object with all its details
         | `creator` | `users` | `projects.creator` = `users.ID` |
         | `ownergroup` | `groups` | `projects.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `projects.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'projects'` = `tags.entity` AND<br />`projects.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `projectnum`
 
@@ -15357,6 +15408,7 @@ record has the following attributes:
         | `ownergroup` | `groups` | `records.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `records.owneruser` = `users.ID` |
         | `recipient` | `users` | `records.recipient` = `users.ID` |
+        | `tags` | `tags` | `'records'` = `tags.entity` AND<br />`records.ID` = `tags.index` |
         
 
 
@@ -15488,6 +15540,7 @@ record has the following attributes:
         | `ownergroup` | `groups` | `records.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `records.owneruser` = `users.ID` |
         | `recipient` | `users` | `records.recipient` = `users.ID` |
+        | `tags` | `tags` | `'records'` = `tags.entity` AND<br />`records.ID` = `tags.index` |
         
 
 
@@ -15547,6 +15600,7 @@ A single Record object with all its details
         | `ownergroup` | `groups` | `records.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `records.owneruser` = `users.ID` |
         | `recipient` | `users` | `records.recipient` = `users.ID` |
+        | `tags` | `tags` | `'records'` = `tags.entity` AND<br />`records.ID` = `tags.index` |
         
 
 
@@ -16061,6 +16115,7 @@ resource has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `resources.application` = `applications.ID` |
         | `creator` | `users` | `resources.creator` = `users.ID` |
+        | `tags` | `tags` | `'resources'` = `tags.entity` AND<br />`resources.ID` = `tags.index` |
         
 
 
@@ -16173,6 +16228,7 @@ resource has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `resources.application` = `applications.ID` |
         | `creator` | `users` | `resources.creator` = `users.ID` |
+        | `tags` | `tags` | `'resources'` = `tags.entity` AND<br />`resources.ID` = `tags.index` |
         
 
 
@@ -16225,6 +16281,7 @@ A single Resource object with all its details
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `resources.application` = `applications.ID` |
         | `creator` | `users` | `resources.creator` = `users.ID` |
+        | `tags` | `tags` | `'resources'` = `tags.entity` AND<br />`resources.ID` = `tags.index` |
         
 
 
@@ -16657,6 +16714,7 @@ service has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `services.application` = `applications.ID` |
         | `creator` | `users` | `services.creator` = `users.ID` |
+        | `tags` | `tags` | `'services'` = `tags.entity` AND<br />`services.ID` = `tags.index` |
         
 
 
@@ -16789,6 +16847,7 @@ service has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `services.application` = `applications.ID` |
         | `creator` | `users` | `services.creator` = `users.ID` |
+        | `tags` | `tags` | `'services'` = `tags.entity` AND<br />`services.ID` = `tags.index` |
         
 
 
@@ -16846,6 +16905,7 @@ A single Service object with all its details
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `services.application` = `applications.ID` |
         | `creator` | `users` | `services.creator` = `users.ID` |
+        | `tags` | `tags` | `'services'` = `tags.entity` AND<br />`services.ID` = `tags.index` |
         
 
 
@@ -17617,6 +17677,7 @@ task has the following attributes:
         | `project` | `projects` | `tasks.project` = `projects.ID` |
         | `ownergroup` | `groups` | `tasks.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `tasks.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'tasks'` = `tags.entity` AND<br />`tasks.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `tasknum`
 
@@ -17765,6 +17826,7 @@ task has the following attributes:
         | `project` | `projects` | `tasks.project` = `projects.ID` |
         | `ownergroup` | `groups` | `tasks.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `tasks.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'tasks'` = `tags.entity` AND<br />`tasks.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `tasknum`
 
@@ -17829,6 +17891,7 @@ A single Task object with all its details
         | `project` | `projects` | `tasks.project` = `projects.ID` |
         | `ownergroup` | `groups` | `tasks.ownergroup` = `groups.ID` |
         | `owneruser` | `users` | `tasks.owneruser` = `users.ID` |
+        | `tags` | `tags` | `'tasks'` = `tags.entity` AND<br />`tasks.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `tasknum`
 
@@ -18273,6 +18336,7 @@ ticket has the following attributes:
         | `contact` | `contacts` | `tickets.contact` = `contacts.ID` |
         | `ownergroup` | `groups` | `tickets.ownergroup` = `groups.ID` |
         | `creator` | `users` | `tickets.creator` = `users.ID` |
+        | `tags` | `tags` | `'tickets'` = `tags.entity` AND<br />`tickets.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `ticketnum`
 
@@ -18413,6 +18477,7 @@ ticket has the following attributes:
         | `contact` | `contacts` | `tickets.contact` = `contacts.ID` |
         | `ownergroup` | `groups` | `tickets.ownergroup` = `groups.ID` |
         | `creator` | `users` | `tickets.creator` = `users.ID` |
+        | `tags` | `tags` | `'tickets'` = `tags.entity` AND<br />`tickets.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `ticketnum`
 
@@ -18475,6 +18540,7 @@ A single Ticket object with all its details
         | `contact` | `contacts` | `tickets.contact` = `contacts.ID` |
         | `ownergroup` | `groups` | `tickets.ownergroup` = `groups.ID` |
         | `creator` | `users` | `tickets.creator` = `users.ID` |
+        | `tags` | `tags` | `'tickets'` = `tags.entity` AND<br />`tickets.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `ticketnum`
 
@@ -18930,6 +18996,7 @@ transaction has the following attributes:
         | `assigneduser` | `users` | `transactions.assigneduser` = `users.ID` |
         | `creator` | `users` | `transactions.creator` = `users.ID` |
         | `ownergroup` | `groups` | `transactions.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'transactions'` = `tags.entity` AND<br />`transactions.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `transactionnum`
 
@@ -18990,6 +19057,7 @@ transaction has the following attributes:
         | `assigneduser` | `users` | `transactions.assigneduser` = `users.ID` |
         | `creator` | `users` | `transactions.creator` = `users.ID` |
         | `ownergroup` | `groups` | `transactions.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'transactions'` = `tags.entity` AND<br />`transactions.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `transactionnum`
 
@@ -19032,6 +19100,7 @@ A single Transaction object with all its details
         | `assigneduser` | `users` | `transactions.assigneduser` = `users.ID` |
         | `creator` | `users` | `transactions.creator` = `users.ID` |
         | `ownergroup` | `groups` | `transactions.ownergroup` = `groups.ID` |
+        | `tags` | `tags` | `'transactions'` = `tags.entity` AND<br />`transactions.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in column `transactionnum`
 
@@ -19417,6 +19486,7 @@ user has the following attributes:
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `contact` | `contacts` | `users.contact` = `contacts.ID` |
+        | `tags` | `tags` | `'users'` = `tags.entity` AND<br />`users.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `email`
 
@@ -19513,6 +19583,7 @@ user has the following attributes:
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `contact` | `contacts` | `users.contact` = `contacts.ID` |
+        | `tags` | `tags` | `'users'` = `tags.entity` AND<br />`users.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `email`
 
@@ -19561,6 +19632,7 @@ A single User object with all its details
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
         | `contact` | `contacts` | `users.contact` = `contacts.ID` |
+        | `tags` | `tags` | `'users'` = `tags.entity` AND<br />`users.ID` = `tags.index` |
         
     + m (optional, string) ... Case-insensitive text search in columns `name`, `email`
 
@@ -19980,6 +20052,7 @@ weblet has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `weblets.application` = `applications.ID` |
         | `creator` | `users` | `weblets.creator` = `users.ID` |
+        | `tags` | `tags` | `'weblets'` = `tags.entity` AND<br />`weblets.ID` = `tags.index` |
         
 
 
@@ -20037,6 +20110,7 @@ weblet has the following attributes:
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `weblets.application` = `applications.ID` |
         | `creator` | `users` | `weblets.creator` = `users.ID` |
+        | `tags` | `tags` | `'weblets'` = `tags.entity` AND<br />`weblets.ID` = `tags.index` |
         
 
 
@@ -20076,6 +20150,7 @@ A single Weblet object with all its details
         | ------------------ | ------------ | ---------- |
         | `application` | `applications` | `weblets.application` = `applications.ID` |
         | `creator` | `users` | `weblets.creator` = `users.ID` |
+        | `tags` | `tags` | `'weblets'` = `tags.entity` AND<br />`weblets.ID` = `tags.index` |
         
 
 
