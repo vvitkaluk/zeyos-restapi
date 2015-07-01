@@ -1145,6 +1145,61 @@
                 }
             }
         },
+        "timezoneResult": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "$ref": "#/definitions/versionResultObject"
+                }
+            }
+        },
+        "timezoneResultObject": {
+            "type": "object",
+            "required": [
+                "name",
+                "offset"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "versionResult": {
+            "type": "object",
+            "required": [
+                "result"
+            ],
+            "properties": {
+                "result": {
+                    "$ref": "#/definitions/versionResultObject"
+                }
+            }
+        },
+        "versionResultObject": {
+            "type": "object",
+            "required": [
+                "zeyos",
+                "api"
+            ],
+            "properties": {
+                "zeyos": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "api": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "extdataformObject": {
             "properties": {
                 "ID": {

@@ -1314,6 +1314,94 @@ Returns an object with web page metadata, or `null` if the web page does not hav
             "result": null
         }
 
+# Group Timezone
+
+## Retrieving the Current Timezone [/timezone]
+
+Returns the timezone configured for the platform as an object with the properties `name`, the timezone name, and `offset` with the timezone offset in seconds.
+
+### Get Platform Timezone Name and Offset [GET]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        {
+            "result": {
+                "name"  : "Europe\\/Berlin",
+                "offset": 7200
+            }
+        }
+
+## Retrieving the Current Timezone Name [/timezone/name]
+
+Returns the name of the timezone configured for the platform.
+
+### Get Platform Timezone Name [GET]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        {
+            "result": "Europe\\/Berlin"
+        }
+
+## Retrieving the Current Timezone Offset [/timezone]
+
+Returns the offset for the platform's timezone.
+
+### Get Platform Timezone Offset in Seconds [GET]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        {
+            "result": 7200
+        }
+
+# Group ZeyOS and REST API Version
+
+## Retrieving ZeyOS and REST API Version [/version]
+
+Returns the platform's ZeyOS and REST API version.
+
+Both versions are returned as integer numbers in the format `M*mmbb`, where `M*` are zero or more digits for the major version, `mm` represent the minor version and `bb` the build number.
+Backward-compatible changes are logged in the build number alone while minor schema or semantic changes may result in an increase in the minor version.
+Changes to the major version denote major changes in the database schema, user interface and / or API.
+
+### Get ZeyOS and REST API Version [GET]
+
+Returns an object with the numeric versions in the properties `zeyos` and `api`.
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
++ Response 200 (application/json)
+
+        {
+            "result": {
+                "zeyos": 9982,
+                "api"  : 10000
+            }
+        }
+
 # Group Batch Requests
 
 ## Specifying Commands
@@ -6284,12 +6372,30 @@ contract has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "214",
+                        "ownergroup": null,
+                        "creator": "1",
+                        "assigneduser": null,
+                        "creationdate": "1435593264",
+                        "lastmodified": "1435593327",
+                        "account": "3631",
+                        "visibility": "2",
+                        "name": "test",
+                        "contractnum": "C-00196",
+                        "datefrom": "1435528800",
+                        "dateto": null,
+                        "datecancel": null,
+                        "status": "0",
+                        "description": "",
+                        "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
+                    },
+                    {
                         "ID": "204",
                         "ownergroup": null,
                         "creator": "97",
                         "assigneduser": "97",
                         "creationdate": "1413301661",
-                        "lastmodified": "1422546461",
+                        "lastmodified": "1435593718",
                         "account": "3614",
                         "visibility": "0",
                         "name": "New logo design",
@@ -6299,41 +6405,23 @@ contract has the following attributes:
                         "datecancel": null,
                         "status": "2",
                         "description": "",
-                        "items": null
+                        "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":3,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Glass Pannel, Ø 0.5cm, 30x50 cm, green\",\"manufacturer\":\"FLAWLESS\",\"itemnum\":\"527313\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":4,\"amounttaken\":0,\"sellingprice\":61,\"purchaseprice\":0.94,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20565,\"reservation\":null,\"transactions\":[]}]"
                     },
                     {
-                        "ID": "205",
+                        "ID": "216",
                         "ownergroup": null,
-                        "creator": "100",
-                        "assigneduser": "100",
-                        "creationdate": "1418399261",
-                        "lastmodified": "1424188061",
-                        "account": "3622",
-                        "visibility": "0",
-                        "name": "Custom furniture design",
-                        "contractnum": "C-00192",
-                        "datefrom": "1416234911",
-                        "dateto": "1425164400",
+                        "creator": "1",
+                        "assigneduser": null,
+                        "creationdate": "1435593798",
+                        "lastmodified": "1435593812",
+                        "account": null,
+                        "visibility": "2",
+                        "name": "test - Copy",
+                        "contractnum": "C-00198",
+                        "datefrom": "1435528800",
+                        "dateto": null,
                         "datecancel": null,
-                        "status": "3",
-                        "description": "",
-                        "items": null
-                    },
-                    {
-                        "ID": "206",
-                        "ownergroup": null,
-                        "creator": "96",
-                        "assigneduser": "96",
-                        "creationdate": "1422028061",
-                        "lastmodified": "1422719261",
-                        "account": "3626",
-                        "visibility": "0",
-                        "name": "Repair old conference table at",
-                        "contractnum": "C-00193",
-                        "datefrom": "1423095101",
-                        "dateto": "1435701600",
-                        "datecancel": null,
-                        "status": "3",
+                        "status": "0",
                         "description": "",
                         "items": null
                     }
@@ -6359,20 +6447,20 @@ contract has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "97",
-                "assigneduser": "97",
-                "creationdate": "1413301661",
-                "lastmodified": "1422546461",
-                "account": "3614",
-                "visibility": "0",
-                "name": "New logo design",
-                "contractnum": "C-00191",
-                "datefrom": "1412497831",
-                "dateto": "1448924400",
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1435593264",
+                "lastmodified": "1435593327",
+                "account": "3631",
+                "visibility": "2",
+                "name": "test",
+                "contractnum": "C-00196",
+                "datefrom": "1435528800",
+                "dateto": null,
                 "datecancel": null,
-                "status": "2",
+                "status": "0",
                 "description": "",
-                "items": null
+                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
             }
 
 + Response 201 (application/json)
@@ -6421,20 +6509,20 @@ contract has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "97",
-                "assigneduser": "97",
-                "creationdate": "1413301661",
-                "lastmodified": "1422546461",
-                "account": "3614",
-                "visibility": "0",
-                "name": "New logo design",
-                "contractnum": "C-00191",
-                "datefrom": "1412497831",
-                "dateto": "1448924400",
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1435593264",
+                "lastmodified": "1435593327",
+                "account": "3631",
+                "visibility": "2",
+                "name": "test",
+                "contractnum": "C-00196",
+                "datefrom": "1435528800",
+                "dateto": null,
                 "datecancel": null,
-                "status": "2",
+                "status": "0",
                 "description": "",
-                "items": null
+                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
             }
 
 + Response 200 (application/json)
@@ -6502,22 +6590,22 @@ A single Contract object with all its details
 
             {
                 "result": {
-                    "ID": "204",
+                    "ID": "214",
                     "ownergroup": null,
-                    "creator": "97",
-                    "assigneduser": "97",
-                    "creationdate": "1413301661",
-                    "lastmodified": "1422546461",
-                    "account": "3614",
-                    "visibility": "0",
-                    "name": "New logo design",
-                    "contractnum": "C-00191",
-                    "datefrom": "1412497831",
-                    "dateto": "1448924400",
+                    "creator": "1",
+                    "assigneduser": null,
+                    "creationdate": "1435593264",
+                    "lastmodified": "1435593327",
+                    "account": "3631",
+                    "visibility": "2",
+                    "name": "test",
+                    "contractnum": "C-00196",
+                    "datefrom": "1435528800",
+                    "dateto": null,
                     "datecancel": null,
-                    "status": "2",
+                    "status": "0",
                     "description": "",
-                    "items": null
+                    "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
                 }
             }
 
@@ -6549,20 +6637,20 @@ A single Contract object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "97",
-                "assigneduser": "97",
-                "creationdate": "1413301661",
-                "lastmodified": "1422546461",
-                "account": "3614",
-                "visibility": "0",
-                "name": "New logo design",
-                "contractnum": "C-00191",
-                "datefrom": "1412497831",
-                "dateto": "1448924400",
+                "creator": "1",
+                "assigneduser": null,
+                "creationdate": "1435593264",
+                "lastmodified": "1435593327",
+                "account": "3631",
+                "visibility": "2",
+                "name": "test",
+                "contractnum": "C-00196",
+                "datefrom": "1435528800",
+                "dateto": null,
                 "datecancel": null,
-                "status": "2",
+                "status": "0",
                 "description": "",
-                "items": null
+                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
             }
 
 + Response 200 (application/json)
@@ -12274,22 +12362,22 @@ notification has the following attributes:
                     {
                         "ID": "1",
                         "user": "1",
-                        "record": "12212",
-                        "date": "1434462091",
-                        "flag": "0"
-                    },
-                    {
-                        "ID": "2",
-                        "user": "1",
                         "record": "12109",
                         "date": "1432110997",
                         "flag": "0"
                     },
                     {
-                        "ID": "3",
+                        "ID": "2",
                         "user": "1",
                         "record": "12158",
                         "date": "1432110840",
+                        "flag": "0"
+                    },
+                    {
+                        "ID": "3",
+                        "user": "1",
+                        "record": "12157",
+                        "date": "1432110838",
                         "flag": "0"
                     }
                 ]
@@ -12314,8 +12402,8 @@ notification has the following attributes:
 
             {
                 "user": "1",
-                "record": "12212",
-                "date": "1434462091",
+                "record": "12109",
+                "date": "1432110997",
                 "flag": "0"
             }
 
@@ -12361,8 +12449,8 @@ notification has the following attributes:
 
             {
                 "user": "1",
-                "record": "12212",
-                "date": "1434462091",
+                "record": "12109",
+                "date": "1432110997",
                 "flag": "0"
             }
 
@@ -12429,8 +12517,8 @@ A single Notification object with all its details
                 "result": {
                     "ID": "1",
                     "user": "1",
-                    "record": "12212",
-                    "date": "1434462091",
+                    "record": "12109",
+                    "date": "1432110997",
                     "flag": "0"
                 }
             }
@@ -12463,8 +12551,8 @@ A single Notification object with all its details
 
             {
                 "user": "1",
-                "record": "12212",
-                "date": "1434462091",
+                "record": "12109",
+                "date": "1432110997",
                 "flag": "0"
             }
 
@@ -16160,7 +16248,7 @@ resource has the following attributes:
                         "ID": "2700",
                         "creator": null,
                         "creationdate": "0",
-                        "lastmodified": "1433344342",
+                        "lastmodified": "1435588975",
                         "application": "459",
                         "activity": "0",
                         "name": "Duplicator - Language File en_US",
@@ -16766,16 +16854,16 @@ service has the following attributes:
                         "url": ""
                     },
                     {
-                        "ID": "1241",
+                        "ID": "1152",
                         "creator": null,
                         "creationdate": "0",
-                        "lastmodified": "1433429034",
-                        "application": "459",
+                        "lastmodified": "1433745216",
+                        "application": "448",
                         "activity": "0",
-                        "name": "Duplicate Transaction",
-                        "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                        "name": "REST API",
+                        "identifier": "net.zeyon.numcounter-1000.api",
                         "type": "1",
-                        "accesskey": "adsfsdgfdsa",
+                        "accesskey": "",
                         "entity": "",
                         "schedule": "0",
                         "interval": "1",
