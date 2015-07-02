@@ -1354,7 +1354,7 @@ Returns the name of the timezone configured for the platform.
             "result": "Europe\\/Berlin"
         }
 
-## Retrieving the Current Timezone Offset [/timezone]
+## Retrieving the Current Timezone Offset [/timezone/offset]
 
 Returns the offset for the platform's timezone.
 
@@ -7363,6 +7363,21 @@ event has the following attributes:
                         "dateto": "1434899040",
                         "color": "",
                         "meta": "{\"type\":\"duedate\"}"
+                    },
+                    {
+                        "ID": "52",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": null,
+                        "creationdate": "1435759697",
+                        "lastmodified": "1435759697",
+                        "entity": "transactions",
+                        "index": "16387",
+                        "name": "Deadline Auftragsvergabe",
+                        "datefrom": "1435759200",
+                        "dateto": "1435762800",
+                        "color": "",
+                        "meta": null
                     }
                 ]
             }
@@ -8543,6 +8558,21 @@ file has the following attributes:
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": [
+                    {
+                        "ID": "8",
+                        "record": "12239",
+                        "filename": "ZeyOS_MktgProposal_PF2.pdf",
+                        "mimetype": "application\/pdf",
+                        "size": "254534",
+                        "binfile": "334671366",
+                        "comment": null
+                    }
+                ]
+            }
 
 ## Edit Files [/files/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 A single File object with all its details
@@ -8592,6 +8622,19 @@ A single File object with all its details
 
 + Response 200 (application/json)
 
+    + Body
+
+            {
+                "result": {
+                    "ID": "8",
+                    "record": "12239",
+                    "filename": "ZeyOS_MktgProposal_PF2.pdf",
+                    "mimetype": "application\/pdf",
+                    "size": "254534",
+                    "binfile": "334671366",
+                    "comment": null
+                }
+            }
 
 + Response 404 (application/json)
 
