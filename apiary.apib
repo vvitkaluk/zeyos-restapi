@@ -5239,6 +5239,26 @@ A single Category object with all its details
 
 
 # Group Comments
+To add file attachments to a record, upload your files send a `POST` request with `Content-Type: multipart/form-data` to `https://cloud.zeyos.com/upload`, one file at a time.
+
+You will receive a JSON-encoded object that looks like this for each uploaded file:
+
+```json
+{
+    "name": "logo.png",
+    "type": "image/png",
+    "size": 15302,
+    "tempfile": "zeyosk2x5jv"
+}
+```
+
+Once all your attachments have been uploaded, send your `PUT` or `POST` to create or update your `comments` object and supply a sub-array `files` of all objects you received before.
+
+The uploads will then be linked to the record, and the associated upload objects will be invalidated upon successful return and cannot be used any more.
+
+Upload objects will also expire automatically a day after creation.
+
+
 comment has the following attributes:
 
 * ID (int8)
