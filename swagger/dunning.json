@@ -3,7 +3,7 @@
     "info": {
         "version": "1.0",
         "title": "ZeyOS: Dunning",
-        "description": "This endpoint lets you list, create, delete and update dunning notes. If you want to learn more about queries and data filters, read our documentation at http://docs.zeyos.apiary.io/#introduction/sql-via-rest and http://docs.zeyos.apiary.io/reference/dunning notes",
+        "description": "This endpoint lets you list, create, delete and update dunning. If you want to learn more about queries and data filters, read our documentation at http://docs.zeyos.apiary.io/#introduction/sql-via-rest and http://docs.zeyos.apiary.io/reference/dunning",
         "termsOfService": "https://www.zeyos.com/termsofservice/",
         "contact": {
             "name": "ZeyOS API Team",
@@ -52,10 +52,10 @@
         }
     ],
     "paths": {
-        "/{platform}/1.0/dunning notes": {
+        "/{platform}/1.0/dunning": {
             "get": {
-                "description": "Retrieves dunning notes",
-                "operationId": "getDunning notes",
+                "description": "Retrieves dunning",
+                "operationId": "getDunning",
                 "parameters": [
                     {
                         "name": "platform",
@@ -128,7 +128,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/dunning noteObjects"
+                            "$ref": "#/definitions/dunningObjects"
                         }
                     },
                     "401": {
@@ -170,8 +170,8 @@
                 }
             },
             "post": {
-                "description": "Updates dunning notes specified by query",
-                "operationId": "updateDunning notesByQuery",
+                "description": "Updates dunning specified by query",
+                "operationId": "updateDunningByQuery",
                 "parameters": [
                     {
                         "name": "id",
@@ -278,7 +278,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dunning noteObject"
+                            "$ref": "#/definitions/dunningObject"
                         }
                     }
                 ],
@@ -328,8 +328,8 @@
                 }
             },
             "put": {
-                "description": "Creates a dunning note",
-                "operationId": "createDunning note",
+                "description": "Creates a dunning",
+                "operationId": "createDunning",
                 "parameters": [
                     {
                         "name": "platform",
@@ -376,7 +376,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dunning noteObject"
+                            "$ref": "#/definitions/dunningObject"
                         }
                     }
                 ],
@@ -426,10 +426,10 @@
                 }
             }
         },
-        "/{platform}/1.0/dunning notes/{id}": {
+        "/{platform}/1.0/dunning/{id}": {
             "delete": {
-                "description": "Deletes the dunning note with the specified ID",
-                "operationId": "deleteDunning noteById",
+                "description": "Deletes the dunning with the specified ID",
+                "operationId": "deleteDunningById",
                 "parameters": [
                     {
                         "name": "id",
@@ -553,8 +553,8 @@
                 }
             },
             "get": {
-                "description": "Retrieves the dunning note with the specified ID",
-                "operationId": "getDunning noteById",
+                "description": "Retrieves the dunning with the specified ID",
+                "operationId": "getDunningById",
                 "parameters": [
                     {
                         "name": "id",
@@ -636,7 +636,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/dunning noteObject"
+                            "$ref": "#/definitions/dunningObject"
                         }
                     },
                     "401": {
@@ -678,8 +678,8 @@
                 }
             },
             "head": {
-                "description": "Checks if the dunning note with the specified ID exists",
-                "operationId": "dunning noteExists",
+                "description": "Checks if the dunning with the specified ID exists",
+                "operationId": "dunningExists",
                 "parameters": [
                     {
                         "name": "id",
@@ -767,8 +767,8 @@
                 }
             },
             "post": {
-                "description": "Updates the dunning note with the specified ID",
-                "operationId": "updateDunning noteById",
+                "description": "Updates the dunning with the specified ID",
+                "operationId": "updateDunningById",
                 "parameters": [
                     {
                         "name": "id",
@@ -875,7 +875,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dunning noteObject"
+                            "$ref": "#/definitions/dunningObject"
                         }
                     }
                 ],
@@ -1200,7 +1200,7 @@
                 }
             }
         },
-        "dunning noteObject": {
+        "dunningObject": {
             "properties": {
                 "ID": {
                     "type": "string"
@@ -1237,10 +1237,10 @@
                 }
             }
         },
-        "dunning noteObjects": {
+        "dunningObjects": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/dunning noteObject"
+                "$ref": "#/definitions/dunningObject"
             }
         }
     }

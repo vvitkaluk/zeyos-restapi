@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0",
-        "title": "ZeyOS: Payments",
-        "description": "This endpoint lets you list, create, delete and update payments. If you want to learn more about queries and data filters, read our documentation at http://docs.zeyos.apiary.io/#introduction/sql-via-rest and http://docs.zeyos.apiary.io/reference/payments",
+        "title": "ZeyOS: Participants",
+        "description": "This endpoint lets you list, create, delete and update participants. If you want to learn more about queries and data filters, read our documentation at http://docs.zeyos.apiary.io/#introduction/sql-via-rest and http://docs.zeyos.apiary.io/reference/participants",
         "termsOfService": "https://www.zeyos.com/termsofservice/",
         "contact": {
             "name": "ZeyOS API Team",
@@ -52,10 +52,10 @@
         }
     ],
     "paths": {
-        "/{platform}/1.0/payments": {
+        "/{platform}/1.0/participants": {
             "get": {
-                "description": "Retrieves payments",
-                "operationId": "getPayments",
+                "description": "Retrieves participants",
+                "operationId": "getParticipants",
                 "parameters": [
                     {
                         "name": "platform",
@@ -128,7 +128,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/paymentObjects"
+                            "$ref": "#/definitions/participantObjects"
                         }
                     },
                     "401": {
@@ -170,8 +170,8 @@
                 }
             },
             "post": {
-                "description": "Updates payments specified by query",
-                "operationId": "updatePaymentsByQuery",
+                "description": "Updates participants specified by query",
+                "operationId": "updateParticipantsByQuery",
                 "parameters": [
                     {
                         "name": "id",
@@ -278,7 +278,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/paymentObject"
+                            "$ref": "#/definitions/participantObject"
                         }
                     }
                 ],
@@ -328,8 +328,8 @@
                 }
             },
             "put": {
-                "description": "Creates a payment",
-                "operationId": "createPayment",
+                "description": "Creates a participant",
+                "operationId": "createParticipant",
                 "parameters": [
                     {
                         "name": "platform",
@@ -376,7 +376,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/paymentObject"
+                            "$ref": "#/definitions/participantObject"
                         }
                     }
                 ],
@@ -426,10 +426,10 @@
                 }
             }
         },
-        "/{platform}/1.0/payments/{id}": {
+        "/{platform}/1.0/participants/{id}": {
             "delete": {
-                "description": "Deletes the payment with the specified ID",
-                "operationId": "deletePaymentById",
+                "description": "Deletes the participant with the specified ID",
+                "operationId": "deleteParticipantById",
                 "parameters": [
                     {
                         "name": "id",
@@ -553,8 +553,8 @@
                 }
             },
             "get": {
-                "description": "Retrieves the payment with the specified ID",
-                "operationId": "getPaymentById",
+                "description": "Retrieves the participant with the specified ID",
+                "operationId": "getParticipantById",
                 "parameters": [
                     {
                         "name": "id",
@@ -636,7 +636,7 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/paymentObject"
+                            "$ref": "#/definitions/participantObject"
                         }
                     },
                     "401": {
@@ -678,8 +678,8 @@
                 }
             },
             "head": {
-                "description": "Checks if the payment with the specified ID exists",
-                "operationId": "paymentExists",
+                "description": "Checks if the participant with the specified ID exists",
+                "operationId": "participantExists",
                 "parameters": [
                     {
                         "name": "id",
@@ -767,8 +767,8 @@
                 }
             },
             "post": {
-                "description": "Updates the payment with the specified ID",
-                "operationId": "updatePaymentById",
+                "description": "Updates the participant with the specified ID",
+                "operationId": "updateParticipantById",
                 "parameters": [
                     {
                         "name": "id",
@@ -875,7 +875,7 @@
                         "description": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/paymentObject"
+                            "$ref": "#/definitions/participantObject"
                         }
                     }
                 ],
@@ -1200,18 +1200,12 @@
                 }
             }
         },
-        "paymentObject": {
+        "participantObject": {
             "properties": {
                 "ID": {
                     "type": "string"
                 },
-                "ownergroup": {
-                    "type": "string"
-                },
                 "creator": {
-                    "type": "string"
-                },
-                "assigneduser": {
                     "type": "string"
                 },
                 "creationdate": {
@@ -1220,33 +1214,30 @@
                 "lastmodified": {
                     "type": "string"
                 },
-                "transaction": {
+                "mailinglist": {
                     "type": "string"
                 },
-                "account": {
+                "campaign": {
                     "type": "string"
                 },
-                "date": {
+                "contact": {
                     "type": "string"
                 },
-                "subject": {
+                "name": {
                     "type": "string"
                 },
-                "status": {
+                "phone": {
                     "type": "string"
                 },
-                "amount": {
-                    "type": "string"
-                },
-                "description": {
+                "email": {
                     "type": "string"
                 }
             }
         },
-        "paymentObjects": {
+        "participantObjects": {
             "type": "array",
             "items": {
-                "$ref": "#/definitions/paymentObject"
+                "$ref": "#/definitions/participantObject"
             }
         }
     }

@@ -1217,6 +1217,9 @@
                 "assigneduser": {
                     "type": "string"
                 },
+                "campaign": {
+                    "type": "string"
+                },
                 "creationdate": {
                     "type": "string"
                 },

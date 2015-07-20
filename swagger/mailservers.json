@@ -1250,13 +1250,13 @@
                 "usernameout": {
                     "type": "string"
                 },
+                "description": {
+                    "type": "string"
+                },
                 "lastfetch": {
                     "type": "string"
                 },
                 "uidvalidity": {
-                    "type": "string"
-                },
-                "description": {
                     "type": "string"
                 }
             }

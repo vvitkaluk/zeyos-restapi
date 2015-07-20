@@ -6952,7 +6952,7 @@ Add or change an association.
 
 
 # Group Dunning
-dunning note has the following attributes:
+dunning has the following attributes:
 
 * ID (int4)
 * ownergroup (int4)
@@ -6967,9 +6967,9 @@ dunning note has the following attributes:
 * level (int2)
 
 
-## List/Create/Update Dunning notes [/dunning/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+## List/Create/Update Dunning [/dunning/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
 
-### Select Dunning notes [GET]
+### Select Dunning [GET]
 
 + Parameters
 
@@ -6985,10 +6985,10 @@ dunning note has the following attributes:
         
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
-        | `account` | `accounts` | `dunning notes.account` = `accounts.ID` |
-        | `assigneduser` | `users` | `dunning notes.assigneduser` = `users.ID` |
-        | `creator` | `users` | `dunning notes.creator` = `users.ID` |
-        | `ownergroup` | `groups` | `dunning notes.ownergroup` = `groups.ID` |
+        | `account` | `accounts` | `dunning.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `dunning.assigneduser` = `users.ID` |
+        | `creator` | `users` | `dunning.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `dunning.ownergroup` = `groups.ID` |
         
     + m (optional, string) ... Case-insensitive text search in column `dunningnum`
 
@@ -7048,7 +7048,7 @@ dunning note has the following attributes:
                 ]
             }
 
-### Create Dunning note [PUT]
+### Create Dunning [PUT]
 
 + Parameters
 
@@ -7086,7 +7086,7 @@ dunning note has the following attributes:
                 "result": 2645
             }
 
-### Update Dunning notes Specified by Query [POST]
+### Update Dunning Specified by Query [POST]
 
 + Parameters
 
@@ -7104,10 +7104,10 @@ dunning note has the following attributes:
         
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
-        | `account` | `accounts` | `dunning notes.account` = `accounts.ID` |
-        | `assigneduser` | `users` | `dunning notes.assigneduser` = `users.ID` |
-        | `creator` | `users` | `dunning notes.creator` = `users.ID` |
-        | `ownergroup` | `groups` | `dunning notes.ownergroup` = `groups.ID` |
+        | `account` | `accounts` | `dunning.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `dunning.assigneduser` = `users.ID` |
+        | `creator` | `users` | `dunning.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `dunning.ownergroup` = `groups.ID` |
         
     + m (optional, string) ... Case-insensitive text search in column `dunningnum`
 
@@ -7142,12 +7142,12 @@ dunning note has the following attributes:
                 "result": true
             }
 
-## Edit Dunning notes [/dunning/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
-A single Dunning note object with all its details
+## Edit Dunning [/dunning/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
+A single Dunning object with all its details
 
 + Parameters
 
-    + id (required, number) ... Numeric `id` of the Dunning note
+    + id (required, number) ... Numeric `id` of the Dunning
     + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
     + a (optional, string) ... Table alias
     + s (optional, array) ... SELECT fields
@@ -7160,15 +7160,15 @@ A single Dunning note object with all its details
         
         | Column / JOIN name | Joined Table | Conditions |
         | ------------------ | ------------ | ---------- |
-        | `account` | `accounts` | `dunning notes.account` = `accounts.ID` |
-        | `assigneduser` | `users` | `dunning notes.assigneduser` = `users.ID` |
-        | `creator` | `users` | `dunning notes.creator` = `users.ID` |
-        | `ownergroup` | `groups` | `dunning notes.ownergroup` = `groups.ID` |
+        | `account` | `accounts` | `dunning.account` = `accounts.ID` |
+        | `assigneduser` | `users` | `dunning.assigneduser` = `users.ID` |
+        | `creator` | `users` | `dunning.creator` = `users.ID` |
+        | `ownergroup` | `groups` | `dunning.ownergroup` = `groups.ID` |
         
     + m (optional, string) ... Case-insensitive text search in column `dunningnum`
 
 
-### Check If Dunning note Exists [HEAD]
+### Check If Dunning Exists [HEAD]
 
 + Request
 
@@ -7183,7 +7183,7 @@ A single Dunning note object with all its details
 + Response 404
 
 
-### Retrieve Dunning note [GET]
+### Retrieve Dunning [GET]
 
 + Request
 
@@ -7220,7 +7220,7 @@ A single Dunning note object with all its details
                 "error": "Could not find item #2645 in dunning (or no permission to access it)."
             }
 
-### Update Dunning note [POST]
+### Update Dunning [POST]
 
 + Parameters
 
@@ -7259,7 +7259,7 @@ A single Dunning note object with all its details
                 "result": true
             }
 
-### Remove Dunning note [DELETE]
+### Remove Dunning [DELETE]
 
 + Request
 
@@ -8521,6 +8521,7 @@ file has the following attributes:
 
 * ID (int8)
 * record (int8)
+* comment (int8)
 * filename (text)
 * mimetype (text)
 * size (int4)
@@ -9255,7 +9256,7 @@ item has the following attributes:
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
         | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
-    + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
+    + m (optional, string) ... Case-insensitive text search in columns `barcode`, `itemnum`, `name`
 
 
 + Request
@@ -9401,7 +9402,7 @@ item has the following attributes:
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
         | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
-    + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
+    + m (optional, string) ... Case-insensitive text search in columns `barcode`, `itemnum`, `name`
 
 
 + Request
@@ -9463,7 +9464,7 @@ A single Item object with all its details
         | `ownergroup` | `groups` | `items.ownergroup` = `groups.ID` |
         | `tags` | `tags` | `'items'` = `tags.entity` AND<br />`items.ID` = `tags.index` |
         
-    + m (optional, string) ... Case-insensitive text search in columns `itemnum`, `name`
+    + m (optional, string) ... Case-insensitive text search in columns `barcode`, `itemnum`, `name`
 
 
 ### Check If Item Exists [HEAD]
@@ -9902,7 +9903,132 @@ like has the following attributes:
 * creationdate (int8)
 * record (int8)
 
-This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
+
+## List/Create/Update Likes [/likes/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+
+### Select Likes [GET]
+
++ Parameters
+
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `likes.creator` = `users.ID` |
+        | `record` | `records` | `likes.record` = `records.ID` |
+        
+
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": [
+                    {
+                        "ID": "688",
+                        "creator": "1",
+                        "creationdate": "1435759551",
+                        "record": "12239"
+                    },
+                    {
+                        "ID": "646",
+                        "creator": "95",
+                        "creationdate": "1426353042",
+                        "record": "12106"
+                    },
+                    {
+                        "ID": "647",
+                        "creator": "93",
+                        "creationdate": "1426519880",
+                        "record": "12106"
+                    }
+                ]
+            }
+
+## Edit Likes [/likes/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
+A single Like object with all its details
+
++ Parameters
+
+    + id (required, number) ... Numeric `id` of the Like
+    + extdata (optional, bool, `1`) ... If `1`, extensional data fields will be returned in a sub-object. If `0`, no extensional data fields will be loaded.
+    + a (optional, string) ... Table alias
+    + s (optional, array) ... SELECT fields
+    + w (optional, array) ... WHERE fields
+    + g (optional, array) ... GROUP BY clause
+    + o (optional, array) ... ORDER BY clause
+    + n (optional, int) ... LIMIT
+    + i (optional, int) ... OFFSET
+    + j (optional, array) ... JOIN table
+        
+        | Column / JOIN name | Joined Table | Conditions |
+        | ------------------ | ------------ | ---------- |
+        | `creator` | `users` | `likes.creator` = `users.ID` |
+        | `record` | `records` | `likes.record` = `records.ID` |
+        
+
+
+### Check If Like Exists [HEAD]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200
+
+
++ Response 404
+
+
+### Retrieve Like [GET]
+
++ Request
+
+    + Headers
+
+            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "result": {
+                    "ID": "688",
+                    "creator": "1",
+                    "creationdate": "1435759551",
+                    "record": "12239"
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "error": "Could not find item #2645 in likes (or no permission to access it)."
+            }
+
 
 # Group Links
 link has the following attributes:
@@ -10262,6 +10388,7 @@ mailinglist has the following attributes:
 * ownergroup (int4)
 * creator (int4)
 * assigneduser (int4)
+* campaign (int4)
 * creationdate (int8)
 * lastmodified (int8)
 * visibility (int2)
@@ -10771,9 +10898,9 @@ mailserver has the following attributes:
 * usernamein (text)
 * serverout (text)
 * usernameout (text)
+* description (text)
 * lastfetch (int8)
 * uidvalidity (int4)
-* description (text)
 
 
 ## List/Create/Update Mailservers [/mailservers/{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?m}{?disposition}]
@@ -13903,20 +14030,36 @@ Add or change an association.
             }
 
 
+# Group Participants
+participant has the following attributes:
+
+* ID (int8)
+* creator (int4)
+* creationdate (int8)
+* lastmodified (int8)
+* mailinglist (int4)
+* campaign (int4)
+* contact (int4)
+* name (text)
+* phone (text)
+* email (text)
+
+This table cannot be queried on its own but can be specified in a `JOIN` clause via `j[]=...`.
+
 # Group Payments
 payment has the following attributes:
 
 * ID (int8)
+* ownergroup (int4)
 * creator (int4)
 * assigneduser (int4)
 * creationdate (int8)
 * lastmodified (int8)
 * transaction (int4)
 * account (int4)
-* flag (int2)
 * date (int8)
 * subject (text)
-* reference (text)
+* status (int2)
 * amount (float8)
 * description (text)
 
@@ -13964,14 +14107,14 @@ payment has the following attributes:
                         "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
-                        "reference": "",
                         "amount": "50",
                         "subject": "Kommanditeinlage",
                         "assigneduser": null,
                         "lastmodified": "1428594016",
-                        "flag": "0",
                         "description": "",
-                        "account": null
+                        "account": null,
+                        "ownergroup": null,
+                        "status": "1"
                     },
                     {
                         "ID": "57",
@@ -13979,14 +14122,14 @@ payment has the following attributes:
                         "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
-                        "reference": "",
                         "amount": "500000",
                         "subject": "Gesellschafterdarlehen",
                         "assigneduser": null,
                         "lastmodified": "1428594016",
-                        "flag": "0",
                         "description": "",
-                        "account": "3627"
+                        "account": "3627",
+                        "ownergroup": null,
+                        "status": "1"
                     },
                     {
                         "ID": "58",
@@ -13994,14 +14137,14 @@ payment has the following attributes:
                         "creationdate": "1428594016",
                         "transaction": null,
                         "date": "1418857200",
-                        "reference": "",
                         "amount": "-498500",
                         "subject": "Kaufpreiszahlung",
                         "assigneduser": null,
                         "lastmodified": "1428594016",
-                        "flag": "0",
                         "description": "",
-                        "account": null
+                        "account": null,
+                        "ownergroup": null,
+                        "status": "1"
                     }
                 ]
             }
@@ -14028,14 +14171,14 @@ payment has the following attributes:
                 "creationdate": "1428594016",
                 "transaction": null,
                 "date": "1418857200",
-                "reference": "",
                 "amount": "50",
                 "subject": "Kommanditeinlage",
                 "assigneduser": null,
                 "lastmodified": "1428594016",
-                "flag": "0",
                 "description": "",
-                "account": null
+                "account": null,
+                "ownergroup": null,
+                "status": "1"
             }
 
 + Response 201 (application/json)
@@ -14084,14 +14227,14 @@ payment has the following attributes:
                 "creationdate": "1428594016",
                 "transaction": null,
                 "date": "1418857200",
-                "reference": "",
                 "amount": "50",
                 "subject": "Kommanditeinlage",
                 "assigneduser": null,
                 "lastmodified": "1428594016",
-                "flag": "0",
                 "description": "",
-                "account": null
+                "account": null,
+                "ownergroup": null,
+                "status": "1"
             }
 
 + Response 200 (application/json)
@@ -14161,14 +14304,14 @@ A single Payment object with all its details
                     "creationdate": "1428594016",
                     "transaction": null,
                     "date": "1418857200",
-                    "reference": "",
                     "amount": "50",
                     "subject": "Kommanditeinlage",
                     "assigneduser": null,
                     "lastmodified": "1428594016",
-                    "flag": "0",
                     "description": "",
-                    "account": null
+                    "account": null,
+                    "ownergroup": null,
+                    "status": "1"
                 }
             }
 
@@ -14203,14 +14346,14 @@ A single Payment object with all its details
                 "creationdate": "1428594016",
                 "transaction": null,
                 "date": "1418857200",
-                "reference": "",
                 "amount": "50",
                 "subject": "Kommanditeinlage",
                 "assigneduser": null,
                 "lastmodified": "1428594016",
-                "flag": "0",
                 "description": "",
-                "account": null
+                "account": null,
+                "ownergroup": null,
+                "status": "1"
             }
 
 + Response 200 (application/json)
@@ -16862,6 +17005,40 @@ service has the following attributes:
             {
                 "result": [
                     {
+                        "ID": "1248",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1436344864",
+                        "application": null,
+                        "activity": "0",
+                        "name": "test",
+                        "identifier": "test",
+                        "type": "1",
+                        "accesskey": "",
+                        "entity": "",
+                        "schedule": "0",
+                        "interval": "1",
+                        "code": "...",
+                        "url": ""
+                    },
+                    {
+                        "ID": "1241",
+                        "creator": null,
+                        "creationdate": "0",
+                        "lastmodified": "1437137898",
+                        "application": "459",
+                        "activity": "0",
+                        "name": "Duplicate Transaction",
+                        "identifier": "net.zeyon.duplicate.transactions-1010.duplicate",
+                        "type": "1",
+                        "accesskey": "adsfsdgfdsa",
+                        "entity": "",
+                        "schedule": "0",
+                        "interval": "1",
+                        "code": "...",
+                        "url": ""
+                    },
+                    {
                         "ID": "1040",
                         "creator": null,
                         "creationdate": "1404131368",
@@ -16871,40 +17048,6 @@ service has the following attributes:
                         "name": "Notifications",
                         "identifier": "net.zeyon.mailapi-1000.notifier",
                         "type": null,
-                        "accesskey": "",
-                        "entity": "",
-                        "schedule": "0",
-                        "interval": "1",
-                        "code": "...",
-                        "url": ""
-                    },
-                    {
-                        "ID": "1042",
-                        "creator": null,
-                        "creationdate": "1405520052",
-                        "lastmodified": "1405520052",
-                        "application": null,
-                        "activity": "0",
-                        "name": "Web form API",
-                        "identifier": "webform",
-                        "type": "1",
-                        "accesskey": "",
-                        "entity": "",
-                        "schedule": "0",
-                        "interval": "1",
-                        "code": "...",
-                        "url": ""
-                    },
-                    {
-                        "ID": "1152",
-                        "creator": null,
-                        "creationdate": "0",
-                        "lastmodified": "1433745216",
-                        "application": "448",
-                        "activity": "0",
-                        "name": "REST API",
-                        "identifier": "net.zeyon.numcounter-1000.api",
-                        "type": "1",
                         "accesskey": "",
                         "entity": "",
                         "schedule": "0",
@@ -16934,13 +17077,13 @@ service has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1404131368",
-                "lastmodified": "1404131368",
-                "application": "411",
+                "creationdate": "0",
+                "lastmodified": "1436344864",
+                "application": null,
                 "activity": "0",
-                "name": "Notifications",
-                "identifier": "net.zeyon.mailapi-1000.notifier",
-                "type": null,
+                "name": "test",
+                "identifier": "test",
+                "type": "1",
                 "accesskey": "",
                 "entity": "",
                 "schedule": "0",
@@ -16992,13 +17135,13 @@ service has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "1404131368",
-                "lastmodified": "1404131368",
-                "application": "411",
+                "creationdate": "0",
+                "lastmodified": "1436344864",
+                "application": null,
                 "activity": "0",
-                "name": "Notifications",
-                "identifier": "net.zeyon.mailapi-1000.notifier",
-                "type": null,
+                "name": "test",
+                "identifier": "test",
+                "type": "1",
                 "accesskey": "",
                 "entity": "",
                 "schedule": "0",
@@ -17069,15 +17212,15 @@ A single Service object with all its details
 
             {
                 "result": {
-                    "ID": "1040",
+                    "ID": "1248",
                     "creator": null,
-                    "creationdate": "1404131368",
-                    "lastmodified": "1404131368",
-                    "application": "411",
+                    "creationdate": "0",
+                    "lastmodified": "1436344864",
+                    "application": null,
                     "activity": "0",
-                    "name": "Notifications",
-                    "identifier": "net.zeyon.mailapi-1000.notifier",
-                    "type": null,
+                    "name": "test",
+                    "identifier": "test",
+                    "type": "1",
                     "accesskey": "",
                     "entity": "",
                     "schedule": "0",
@@ -17115,13 +17258,13 @@ A single Service object with all its details
 
             {
                 "creator": null,
-                "creationdate": "1404131368",
-                "lastmodified": "1404131368",
-                "application": "411",
+                "creationdate": "0",
+                "lastmodified": "1436344864",
+                "application": null,
                 "activity": "0",
-                "name": "Notifications",
-                "identifier": "net.zeyon.mailapi-1000.notifier",
-                "type": null,
+                "name": "test",
+                "identifier": "test",
+                "type": "1",
                 "accesskey": "",
                 "entity": "",
                 "schedule": "0",
