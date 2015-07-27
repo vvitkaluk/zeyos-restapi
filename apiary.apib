@@ -101,11 +101,10 @@ HTTP status codes commonly used by the REST API to indicate failures:
 
 ## Authentication and Session Management
 
-The REST API provides two means of authentication, a token-based mechanism and [HTTP Basic Access Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) via user name and password.
+The REST API provides three means of authentication, a token-based mechanism, [HTTP Basic Access Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) via user name and password and also user name and password sent as plain-text headers, evaluated in this order and stopping as soon as one authentication mechanism is applicable, regardless of its outcome.
 Token authentication is recommended for any applications that separate sign-in from interaction with ZeyOS and is likely safer than using user name and password because only a revocable token needs to be persisted.
 HTTP Basic Access Authentication on the other hand provides compatibility with existing HTTP clients and can be less complex than managing token sessions when only single, "one-shot" requests should be performed.
-
-If _both_ a token and Basic Access Authentication credentials are provided, token authentication will be used, ignoring any given user name and password, even if token authentication fails.
+Plain-text authentication with headers should be used for testing purposes only, when no other mechanism is usable.
 
 ### Token Authentication
 
@@ -122,6 +121,31 @@ Token authentication works by including the `Zeyos-Api-Token` header in your req
 
 The REST API server itself will _not_ advertise HTTP Basic Access Authentication capabilities by default, i.e. it will not send a `WWW-Authenticate` response header, unless the request includes a URL query parameter `__auth=basic` or was attempted using this authentication method and failed.
 However, the REST API will accept and verify an `Authorization: Basic ...` request header if one is supplied (and no authentication token was provided).
+
+### Plain-text User Name & Password Authentication
+
+This mechanism should only be used as a fallback, when the other authentication mechanisms are unusable (e.g. during testing).
+To use this authentication method, just send the user name and password in the headers `Zeyos-Api-User` and `Zeyos-Api-Password`.
+
+### Disabling Authentication Methods
+
+HTTP Basic Access and/or the plain-text user name & password authentication methods can be disabled in your ZeyOS system settings.
+Administrators can configure these in ZeyOS by clicking on their user icon in the top right area, _System Settings_, and opening the _Config File_ tab.
+
+Insert or update the top-level object `com.zeyos.api` like this, taking care to use proper JSON notation:
+
+```json
+{
+    "com.zeyos.api": {
+        "auth": {
+            "basic": false,
+            "password": false
+        }
+    }
+}
+```
+
+HTTP Basic Access Authentication and plain-text header authentication are both enabled by default, unless explicitly disabled like in the example above.
 
 ## Data Access and Data Manipulation
 
@@ -1798,53 +1822,53 @@ account has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "3627",
+                        "ID": "4121",
                         "ownergroup": null,
                         "creator": null,
                         "assigneduser": null,
-                        "creationdate": "1412783261",
-                        "lastmodified": "1428442710",
-                        "contact": "13144",
-                        "visibility": "0",
-                        "lastname": "RA Florian Wehner",
-                        "firstname": "",
-                        "type": "1",
-                        "customernum": "31408",
-                        "suppliernum": "",
-                        "excludetax": "0",
-                        "description": "",
-                        "locked": "0",
-                        "currency": "EUR"
-                    },
-                    {
-                        "ID": "3632",
-                        "ownergroup": null,
-                        "creator": null,
-                        "assigneduser": null,
-                        "creationdate": "1423842461",
-                        "lastmodified": "1428442863",
-                        "contact": "13149",
-                        "visibility": "0",
-                        "lastname": "Donner & Reuschel AG",
-                        "firstname": "",
-                        "type": "1",
-                        "customernum": "31413",
-                        "suppliernum": "",
-                        "excludetax": "0",
-                        "description": "",
-                        "locked": "0",
-                        "currency": "EUR"
-                    },
-                    {
-                        "ID": "3607",
-                        "ownergroup": null,
-                        "creator": null,
-                        "assigneduser": null,
-                        "creationdate": "1418399261",
-                        "lastmodified": "1418744861",
-                        "contact": "13124",
+                        "creationdate": "1430290849",
+                        "lastmodified": "1431759649",
+                        "contact": "15067",
                         "visibility": "0",
                         "lastname": "Lightexx AG",
+                        "firstname": "",
+                        "type": "2",
+                        "customernum": "",
+                        "suppliernum": "",
+                        "excludetax": "0",
+                        "description": "",
+                        "locked": "0",
+                        "currency": "EUR"
+                    },
+                    {
+                        "ID": "4122",
+                        "ownergroup": null,
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1436166049",
+                        "lastmodified": "1436425249",
+                        "contact": "15068",
+                        "visibility": "0",
+                        "lastname": "BEQ Building Equipment",
+                        "firstname": "",
+                        "type": "2",
+                        "customernum": "",
+                        "suppliernum": "",
+                        "excludetax": "0",
+                        "description": "",
+                        "locked": "0",
+                        "currency": "EUR"
+                    },
+                    {
+                        "ID": "4123",
+                        "ownergroup": null,
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1436425249",
+                        "lastmodified": "1436684449",
+                        "contact": "15069",
+                        "visibility": "0",
+                        "lastname": "E-Tronic AB",
                         "firstname": "",
                         "type": "2",
                         "customernum": "",
@@ -1878,14 +1902,14 @@ account has the following attributes:
                 "ownergroup": null,
                 "creator": null,
                 "assigneduser": null,
-                "creationdate": "1412783261",
-                "lastmodified": "1428442710",
-                "contact": "13144",
+                "creationdate": "1430290849",
+                "lastmodified": "1431759649",
+                "contact": "15067",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
+                "lastname": "Lightexx AG",
                 "firstname": "",
-                "type": "1",
-                "customernum": "31408",
+                "type": "2",
+                "customernum": "",
                 "suppliernum": "",
                 "excludetax": "0",
                 "description": "",
@@ -1941,14 +1965,14 @@ account has the following attributes:
                 "ownergroup": null,
                 "creator": null,
                 "assigneduser": null,
-                "creationdate": "1412783261",
-                "lastmodified": "1428442710",
-                "contact": "13144",
+                "creationdate": "1430290849",
+                "lastmodified": "1431759649",
+                "contact": "15067",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
+                "lastname": "Lightexx AG",
                 "firstname": "",
-                "type": "1",
-                "customernum": "31408",
+                "type": "2",
+                "customernum": "",
                 "suppliernum": "",
                 "excludetax": "0",
                 "description": "",
@@ -2021,18 +2045,18 @@ A single Account object with all its details
 
             {
                 "result": {
-                    "ID": "3627",
+                    "ID": "4121",
                     "ownergroup": null,
                     "creator": null,
                     "assigneduser": null,
-                    "creationdate": "1412783261",
-                    "lastmodified": "1428442710",
-                    "contact": "13144",
+                    "creationdate": "1430290849",
+                    "lastmodified": "1431759649",
+                    "contact": "15067",
                     "visibility": "0",
-                    "lastname": "RA Florian Wehner",
+                    "lastname": "Lightexx AG",
                     "firstname": "",
-                    "type": "1",
-                    "customernum": "31408",
+                    "type": "2",
+                    "customernum": "",
                     "suppliernum": "",
                     "excludetax": "0",
                     "description": "",
@@ -2071,14 +2095,14 @@ A single Account object with all its details
                 "ownergroup": null,
                 "creator": null,
                 "assigneduser": null,
-                "creationdate": "1412783261",
-                "lastmodified": "1428442710",
-                "contact": "13144",
+                "creationdate": "1430290849",
+                "lastmodified": "1431759649",
+                "contact": "15067",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
+                "lastname": "Lightexx AG",
                 "firstname": "",
-                "type": "1",
-                "customernum": "31408",
+                "type": "2",
+                "customernum": "",
                 "suppliernum": "",
                 "excludetax": "0",
                 "description": "",
@@ -2453,62 +2477,62 @@ actionstep has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "8451",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "1",
-                        "assigneduser": "97",
-                        "creationdate": "1431421284",
-                        "lastmodified": "1432102089",
-                        "task": "2022",
-                        "ticket": null,
-                        "account": null,
-                        "transaction": null,
-                        "name": "test",
-                        "actionnum": "",
-                        "date": "1431421286",
-                        "status": "1",
-                        "effort": "300",
-                        "description": "",
-                        "duedate": null
-                    },
-                    {
-                        "ID": "8244",
+                        "ID": "11069",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": null,
                         "assigneduser": null,
-                        "creationdate": "1417585440",
-                        "lastmodified": "1417585440",
-                        "task": "2003",
+                        "creationdate": "1431300477",
+                        "lastmodified": "1431300477",
+                        "task": "2437",
                         "ticket": null,
                         "account": null,
                         "transaction": null,
-                        "name": "Coordinate with team",
+                        "name": "Fix minor issues",
                         "actionnum": "",
-                        "date": "1417585440",
+                        "date": "1431300477",
+                        "status": "0",
+                        "effort": "125",
+                        "description": "",
+                        "duedate": null
+                    },
+                    {
+                        "ID": "11070",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1431355668",
+                        "lastmodified": "1431355668",
+                        "task": "2437",
+                        "ticket": null,
+                        "account": null,
+                        "transaction": null,
+                        "name": "Fix minor issues",
+                        "actionnum": "",
+                        "date": "1431355668",
                         "status": "0",
                         "effort": "145",
                         "description": "",
                         "duedate": null
                     },
                     {
-                        "ID": "8245",
+                        "ID": "11071",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": null,
                         "assigneduser": null,
-                        "creationdate": "1413791802",
-                        "lastmodified": "1413791802",
-                        "task": "2004",
+                        "creationdate": "1431368064",
+                        "lastmodified": "1431368064",
+                        "task": "2437",
                         "ticket": null,
                         "account": null,
                         "transaction": null,
-                        "name": "(none)",
+                        "name": "Sample entry",
                         "actionnum": "",
-                        "date": "1413791802",
+                        "date": "1431368064",
                         "status": "0",
-                        "effort": "125",
+                        "effort": "135",
                         "description": "",
                         "duedate": null
                     }
@@ -2535,19 +2559,19 @@ actionstep has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "97",
-                "creationdate": "1431421284",
-                "lastmodified": "1432102089",
-                "task": "2022",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1431300477",
+                "lastmodified": "1431300477",
+                "task": "2437",
                 "ticket": null,
                 "account": null,
                 "transaction": null,
-                "name": "test",
+                "name": "Fix minor issues",
                 "actionnum": "",
-                "date": "1431421286",
-                "status": "1",
-                "effort": "300",
+                "date": "1431300477",
+                "status": "0",
+                "effort": "125",
                 "description": "",
                 "duedate": null
             }
@@ -2603,19 +2627,19 @@ actionstep has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "97",
-                "creationdate": "1431421284",
-                "lastmodified": "1432102089",
-                "task": "2022",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1431300477",
+                "lastmodified": "1431300477",
+                "task": "2437",
                 "ticket": null,
                 "account": null,
                 "transaction": null,
-                "name": "test",
+                "name": "Fix minor issues",
                 "actionnum": "",
-                "date": "1431421286",
-                "status": "1",
-                "effort": "300",
+                "date": "1431300477",
+                "status": "0",
+                "effort": "125",
                 "description": "",
                 "duedate": null
             }
@@ -2689,22 +2713,22 @@ A single Actionstep object with all its details
 
             {
                 "result": {
-                    "ID": "8451",
+                    "ID": "11069",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "1",
-                    "assigneduser": "97",
-                    "creationdate": "1431421284",
-                    "lastmodified": "1432102089",
-                    "task": "2022",
+                    "creator": null,
+                    "assigneduser": null,
+                    "creationdate": "1431300477",
+                    "lastmodified": "1431300477",
+                    "task": "2437",
                     "ticket": null,
                     "account": null,
                     "transaction": null,
-                    "name": "test",
+                    "name": "Fix minor issues",
                     "actionnum": "",
-                    "date": "1431421286",
-                    "status": "1",
-                    "effort": "300",
+                    "date": "1431300477",
+                    "status": "0",
+                    "effort": "125",
                     "description": "",
                     "duedate": null
                 }
@@ -2739,19 +2763,19 @@ A single Actionstep object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "97",
-                "creationdate": "1431421284",
-                "lastmodified": "1432102089",
-                "task": "2022",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1431300477",
+                "lastmodified": "1431300477",
+                "task": "2437",
                 "ticket": null,
                 "account": null,
                 "transaction": null,
-                "name": "test",
+                "name": "Fix minor issues",
                 "actionnum": "",
-                "date": "1431421286",
-                "status": "1",
-                "effort": "300",
+                "date": "1431300477",
+                "status": "0",
+                "effort": "125",
                 "description": "",
                 "duedate": null
             }
@@ -3735,61 +3759,61 @@ appointment has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "2666",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "1",
-                        "assigneduser": "1",
-                        "creationdate": "1430975463",
-                        "lastmodified": "1430975472",
-                        "visibility": "0",
-                        "name": "Test",
-                        "location": "",
-                        "datefrom": "1430978400",
-                        "dateto": "1430982000",
-                        "recurrence": null,
-                        "interval": "1",
-                        "daterecurrence": null,
-                        "description": "",
-                        "color": ""
-                    },
-                    {
-                        "ID": "2567",
+                        "ID": "3789",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": "98",
                         "assigneduser": "98",
-                        "creationdate": "1421423261",
-                        "lastmodified": "1424360861",
+                        "creationdate": "1437548532",
+                        "lastmodified": "1437634932",
                         "visibility": "0",
-                        "name": "Project Kickoff @Katayo Industries",
+                        "name": "Wedding Tom & Jane",
                         "location": "",
-                        "datefrom": "1422805500",
-                        "dateto": "1422809100",
+                        "datefrom": "1433840400",
+                        "dateto": "1433844900",
                         "recurrence": null,
                         "interval": "1",
                         "daterecurrence": null,
                         "description": "",
-                        "color": "CCF"
+                        "color": "FFC"
                     },
                     {
-                        "ID": "2568",
+                        "ID": "3790",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "98",
-                        "assigneduser": "98",
-                        "creationdate": "1420127261",
-                        "lastmodified": "1422546461",
+                        "creator": "96",
+                        "assigneduser": "96",
+                        "creationdate": "1437116532",
+                        "lastmodified": "1437462132",
                         "visibility": "0",
-                        "name": "Training session with S. Fields",
+                        "name": "Job Interview: Monica Whitrun",
                         "location": "",
-                        "datefrom": "1422702000",
-                        "dateto": "1422702000",
+                        "datefrom": "1437665400",
+                        "dateto": "1437669000",
                         "recurrence": null,
                         "interval": "1",
                         "daterecurrence": null,
                         "description": "",
-                        "color": "FCC"
+                        "color": "CFF"
+                    },
+                    {
+                        "ID": "3791",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "93",
+                        "assigneduser": "93",
+                        "creationdate": "1427094132",
+                        "lastmodified": "1436943732",
+                        "visibility": "0",
+                        "name": "Maintenance window for LTG installation",
+                        "location": "",
+                        "datefrom": "1437197400",
+                        "dateto": "1437199200",
+                        "recurrence": null,
+                        "interval": "1",
+                        "daterecurrence": null,
+                        "description": "",
+                        "color": "CFF"
                     }
                 ]
             }
@@ -3814,20 +3838,20 @@ appointment has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "1",
-                "creationdate": "1430975463",
-                "lastmodified": "1430975472",
+                "creator": "98",
+                "assigneduser": "98",
+                "creationdate": "1437548532",
+                "lastmodified": "1437634932",
                 "visibility": "0",
-                "name": "Test",
+                "name": "Wedding Tom & Jane",
                 "location": "",
-                "datefrom": "1430978400",
-                "dateto": "1430982000",
+                "datefrom": "1433840400",
+                "dateto": "1433844900",
                 "recurrence": null,
                 "interval": "1",
                 "daterecurrence": null,
                 "description": "",
-                "color": ""
+                "color": "FFC"
             }
 
 + Response 201 (application/json)
@@ -3877,20 +3901,20 @@ appointment has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "1",
-                "creationdate": "1430975463",
-                "lastmodified": "1430975472",
+                "creator": "98",
+                "assigneduser": "98",
+                "creationdate": "1437548532",
+                "lastmodified": "1437634932",
                 "visibility": "0",
-                "name": "Test",
+                "name": "Wedding Tom & Jane",
                 "location": "",
-                "datefrom": "1430978400",
-                "dateto": "1430982000",
+                "datefrom": "1433840400",
+                "dateto": "1433844900",
                 "recurrence": null,
                 "interval": "1",
                 "daterecurrence": null,
                 "description": "",
-                "color": ""
+                "color": "FFC"
             }
 
 + Response 200 (application/json)
@@ -3958,23 +3982,23 @@ A single Appointment object with all its details
 
             {
                 "result": {
-                    "ID": "2666",
+                    "ID": "3789",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "1",
-                    "assigneduser": "1",
-                    "creationdate": "1430975463",
-                    "lastmodified": "1430975472",
+                    "creator": "98",
+                    "assigneduser": "98",
+                    "creationdate": "1437548532",
+                    "lastmodified": "1437634932",
                     "visibility": "0",
-                    "name": "Test",
+                    "name": "Wedding Tom & Jane",
                     "location": "",
-                    "datefrom": "1430978400",
-                    "dateto": "1430982000",
+                    "datefrom": "1433840400",
+                    "dateto": "1433844900",
                     "recurrence": null,
                     "interval": "1",
                     "daterecurrence": null,
                     "description": "",
-                    "color": ""
+                    "color": "FFC"
                 }
             }
 
@@ -4007,20 +4031,20 @@ A single Appointment object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": "1",
-                "creationdate": "1430975463",
-                "lastmodified": "1430975472",
+                "creator": "98",
+                "assigneduser": "98",
+                "creationdate": "1437548532",
+                "lastmodified": "1437634932",
                 "visibility": "0",
-                "name": "Test",
+                "name": "Wedding Tom & Jane",
                 "location": "",
-                "datefrom": "1430978400",
-                "dateto": "1430982000",
+                "datefrom": "1433840400",
+                "dateto": "1433844900",
                 "recurrence": null,
                 "interval": "1",
                 "daterecurrence": null,
                 "description": "",
-                "color": ""
+                "color": "FFC"
             }
 
 + Response 200 (application/json)
@@ -4389,54 +4413,6 @@ campaign has the following attributes:
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": [
-                    {
-                        "ID": "358",
-                        "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "94",
-                        "creationdate": "1424965661",
-                        "lastmodified": "1426607261",
-                        "visibility": "0",
-                        "name": "Flyer campaign Munich",
-                        "datefrom": "1422745200",
-                        "dateto": "1427929200",
-                        "status": "2",
-                        "description": ""
-                    },
-                    {
-                        "ID": "359",
-                        "ownergroup": null,
-                        "creator": "97",
-                        "assigneduser": "97",
-                        "creationdate": "1420991261",
-                        "lastmodified": "1423151261",
-                        "visibility": "0",
-                        "name": "Novotec tradeshow invitation",
-                        "datefrom": "1420066800",
-                        "dateto": "1422658800",
-                        "status": "2",
-                        "description": ""
-                    },
-                    {
-                        "ID": "360",
-                        "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "94",
-                        "creationdate": "1423324061",
-                        "lastmodified": "1425397661",
-                        "visibility": "0",
-                        "name": "Newsletter 02\/15",
-                        "datefrom": "1422745200",
-                        "dateto": "1427929200",
-                        "status": "1",
-                        "description": ""
-                    }
-                ]
-            }
 
 ### Create Campaign [PUT]
 
@@ -4453,21 +4429,6 @@ campaign has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1424965661",
-                "lastmodified": "1426607261",
-                "visibility": "0",
-                "name": "Flyer campaign Munich",
-                "datefrom": "1422745200",
-                "dateto": "1427929200",
-                "status": "2",
-                "description": ""
-            }
 
 + Response 201 (application/json)
 
@@ -4510,21 +4471,6 @@ campaign has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1424965661",
-                "lastmodified": "1426607261",
-                "visibility": "0",
-                "name": "Flyer campaign Munich",
-                "datefrom": "1422745200",
-                "dateto": "1427929200",
-                "status": "2",
-                "description": ""
-            }
 
 + Response 200 (application/json)
 
@@ -4586,24 +4532,6 @@ A single Campaign object with all its details
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": {
-                    "ID": "358",
-                    "ownergroup": null,
-                    "creator": "94",
-                    "assigneduser": "94",
-                    "creationdate": "1424965661",
-                    "lastmodified": "1426607261",
-                    "visibility": "0",
-                    "name": "Flyer campaign Munich",
-                    "datefrom": "1422745200",
-                    "dateto": "1427929200",
-                    "status": "2",
-                    "description": ""
-                }
-            }
 
 + Response 404 (application/json)
 
@@ -4629,21 +4557,6 @@ A single Campaign object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "94",
-                "creationdate": "1424965661",
-                "lastmodified": "1426607261",
-                "visibility": "0",
-                "name": "Flyer campaign Munich",
-                "datefrom": "1422745200",
-                "dateto": "1427929200",
-                "status": "2",
-                "description": ""
-            }
 
 + Response 200 (application/json)
 
@@ -5306,28 +5219,28 @@ comment has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "267",
-                        "creator": "95",
-                        "creationdate": "1426719014",
-                        "record": "12106",
-                        "sender": "",
-                        "text": "Absolutely! :-) It's great doing business with them."
-                    },
-                    {
-                        "ID": "266",
+                        "ID": "476",
                         "creator": "97",
-                        "creationdate": "1426541919",
-                        "record": "12106",
+                        "creationdate": "1437657791",
+                        "record": "12375",
                         "sender": "",
                         "text": "Yes, he's a charmer!"
                     },
                     {
-                        "ID": "269",
-                        "creator": "98",
-                        "creationdate": "1426818129",
-                        "record": "12107",
+                        "ID": "477",
+                        "creator": "96",
+                        "creationdate": "1437880688",
+                        "record": "12375",
                         "sender": "",
-                        "text": "That would be perfekt - thanks!"
+                        "text": "Absolutely! :-) It's great doing business with them."
+                    },
+                    {
+                        "ID": "478",
+                        "creator": "94",
+                        "creationdate": "1437468004",
+                        "record": "12376",
+                        "sender": "",
+                        "text": "I had - should I take care of this?"
                     }
                 ]
             }
@@ -5350,11 +5263,11 @@ comment has the following attributes:
     + Body
 
             {
-                "creator": "95",
-                "creationdate": "1426719014",
-                "record": "12106",
+                "creator": "97",
+                "creationdate": "1437657791",
+                "record": "12375",
                 "sender": "",
-                "text": "Absolutely! :-) It's great doing business with them."
+                "text": "Yes, he's a charmer!"
             }
 
 + Response 201 (application/json)
@@ -5398,11 +5311,11 @@ comment has the following attributes:
     + Body
 
             {
-                "creator": "95",
-                "creationdate": "1426719014",
-                "record": "12106",
+                "creator": "97",
+                "creationdate": "1437657791",
+                "record": "12375",
                 "sender": "",
-                "text": "Absolutely! :-) It's great doing business with them."
+                "text": "Yes, he's a charmer!"
             }
 
 + Response 200 (application/json)
@@ -5466,12 +5379,12 @@ A single Comment object with all its details
 
             {
                 "result": {
-                    "ID": "267",
-                    "creator": "95",
-                    "creationdate": "1426719014",
-                    "record": "12106",
+                    "ID": "476",
+                    "creator": "97",
+                    "creationdate": "1437657791",
+                    "record": "12375",
                     "sender": "",
-                    "text": "Absolutely! :-) It's great doing business with them."
+                    "text": "Yes, he's a charmer!"
                 }
             }
 
@@ -5502,11 +5415,11 @@ A single Comment object with all its details
     + Body
 
             {
-                "creator": "95",
-                "creationdate": "1426719014",
-                "record": "12106",
+                "creator": "97",
+                "creationdate": "1437657791",
+                "record": "12375",
                 "sender": "",
-                "text": "Absolutely! :-) It's great doing business with them."
+                "text": "Yes, he's a charmer!"
             }
 
 + Response 200 (application/json)
@@ -5612,102 +5525,102 @@ contact has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "13144",
+                        "ID": "12198",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "94",
-                        "assigneduser": "98",
-                        "creationdate": "1412783261",
-                        "lastmodified": "1428442725",
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1427469160",
+                        "lastmodified": "1427469160",
                         "visibility": "0",
-                        "lastname": "RA Florian Wehner",
-                        "firstname": "",
-                        "type": "0",
+                        "lastname": "Morris",
+                        "firstname": "Steve",
+                        "type": "1",
                         "title": "",
                         "company": "",
                         "position": "",
-                        "department": "",
-                        "address": "Reiterstr. 19",
-                        "postalcode": "80175",
-                        "city": "Munich",
+                        "department": "Demo",
+                        "address": "",
+                        "postalcode": "",
+                        "city": "",
                         "region": "",
-                        "country": "US",
-                        "phone": "00364323",
-                        "phone2": "",
-                        "cell": "",
-                        "fax": "00364311",
-                        "email": "info@barcley1.com",
-                        "email2": "",
-                        "website": "",
-                        "description": "",
-                        "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
-                        "picbinfile": null,
-                        "birthdate": null
-                    },
-                    {
-                        "ID": "13134",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "96",
-                        "assigneduser": "96",
-                        "creationdate": "1415720861",
-                        "lastmodified": "1426088861",
-                        "visibility": "0",
-                        "lastname": "XD Designs Internet Technologies",
-                        "firstname": "",
-                        "type": "0",
-                        "title": "",
-                        "company": "",
-                        "position": "",
-                        "department": "",
-                        "address": "Data Street 01",
-                        "postalcode": "010101",
-                        "city": "Comtown",
-                        "region": "",
-                        "country": "ES",
-                        "phone": "0103493",
+                        "country": "",
+                        "phone": "",
                         "phone2": "",
                         "cell": "",
                         "fax": "",
-                        "email": "info@xddesigns.biz",
+                        "email": "steve.morris@katayo.com",
                         "email2": "",
                         "website": "",
                         "description": "",
-                        "gravatar": "2349693620a6287f6d61a407c5fdbfda",
-                        "picbinfile": null,
+                        "gravatar": "",
+                        "picbinfile": "1546073439",
                         "birthdate": null
                     },
                     {
-                        "ID": "13135",
+                        "ID": "12199",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "98",
-                        "assigneduser": "99",
-                        "creationdate": "1425570461",
-                        "lastmodified": "1425656861",
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1427469160",
+                        "lastmodified": "1427469160",
                         "visibility": "0",
-                        "lastname": "iCom Software Distributions",
-                        "firstname": "",
-                        "type": "0",
+                        "lastname": "Schulz",
+                        "firstname": "Dirk",
+                        "type": "1",
                         "title": "",
                         "company": "",
                         "position": "",
-                        "department": "",
-                        "address": "Internet Drive 10",
-                        "postalcode": "010101",
-                        "city": "Netcity",
+                        "department": "Demo",
+                        "address": "",
+                        "postalcode": "",
+                        "city": "",
                         "region": "",
-                        "country": "DE",
-                        "phone": "010232473",
+                        "country": "",
+                        "phone": "",
                         "phone2": "",
                         "cell": "",
-                        "fax": "010232474",
-                        "email": "contact@icom.biz",
+                        "fax": "",
+                        "email": "dirk.schulz@katayo.com",
                         "email2": "",
                         "website": "",
                         "description": "",
-                        "gravatar": "68c3f4b9c50d25a352c8e2bdf426c99f",
-                        "picbinfile": null,
+                        "gravatar": "",
+                        "picbinfile": "1000015191",
+                        "birthdate": null
+                    },
+                    {
+                        "ID": "12200",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": null,
+                        "assigneduser": null,
+                        "creationdate": "1427469160",
+                        "lastmodified": "1427469160",
+                        "visibility": "0",
+                        "lastname": "Charlott",
+                        "firstname": "Sophie",
+                        "type": "1",
+                        "title": "",
+                        "company": "",
+                        "position": "",
+                        "department": "Demo",
+                        "address": "",
+                        "postalcode": "",
+                        "city": "",
+                        "region": "",
+                        "country": "",
+                        "phone": "",
+                        "phone2": "",
+                        "cell": "",
+                        "fax": "",
+                        "email": "sophie.charlott@katayo.com",
+                        "email2": "",
+                        "website": "",
+                        "description": "",
+                        "gravatar": "",
+                        "picbinfile": "390201310",
                         "birthdate": null
                     }
                 ]
@@ -5733,33 +5646,33 @@ contact has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "98",
-                "creationdate": "1412783261",
-                "lastmodified": "1428442725",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1427469160",
+                "lastmodified": "1427469160",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
-                "firstname": "",
-                "type": "0",
+                "lastname": "Morris",
+                "firstname": "Steve",
+                "type": "1",
                 "title": "",
                 "company": "",
                 "position": "",
-                "department": "",
-                "address": "Reiterstr. 19",
-                "postalcode": "80175",
-                "city": "Munich",
+                "department": "Demo",
+                "address": "",
+                "postalcode": "",
+                "city": "",
                 "region": "",
-                "country": "US",
-                "phone": "00364323",
+                "country": "",
+                "phone": "",
                 "phone2": "",
                 "cell": "",
-                "fax": "00364311",
-                "email": "info@barcley1.com",
+                "fax": "",
+                "email": "steve.morris@katayo.com",
                 "email2": "",
                 "website": "",
                 "description": "",
-                "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
-                "picbinfile": null,
+                "gravatar": "",
+                "picbinfile": "1546073439",
                 "birthdate": null
             }
 
@@ -5810,33 +5723,33 @@ contact has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "98",
-                "creationdate": "1412783261",
-                "lastmodified": "1428442725",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1427469160",
+                "lastmodified": "1427469160",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
-                "firstname": "",
-                "type": "0",
+                "lastname": "Morris",
+                "firstname": "Steve",
+                "type": "1",
                 "title": "",
                 "company": "",
                 "position": "",
-                "department": "",
-                "address": "Reiterstr. 19",
-                "postalcode": "80175",
-                "city": "Munich",
+                "department": "Demo",
+                "address": "",
+                "postalcode": "",
+                "city": "",
                 "region": "",
-                "country": "US",
-                "phone": "00364323",
+                "country": "",
+                "phone": "",
                 "phone2": "",
                 "cell": "",
-                "fax": "00364311",
-                "email": "info@barcley1.com",
+                "fax": "",
+                "email": "steve.morris@katayo.com",
                 "email2": "",
                 "website": "",
                 "description": "",
-                "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
-                "picbinfile": null,
+                "gravatar": "",
+                "picbinfile": "1546073439",
                 "birthdate": null
             }
 
@@ -5905,36 +5818,36 @@ A single Contact object with all its details
 
             {
                 "result": {
-                    "ID": "13144",
+                    "ID": "12198",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "94",
-                    "assigneduser": "98",
-                    "creationdate": "1412783261",
-                    "lastmodified": "1428442725",
+                    "creator": null,
+                    "assigneduser": null,
+                    "creationdate": "1427469160",
+                    "lastmodified": "1427469160",
                     "visibility": "0",
-                    "lastname": "RA Florian Wehner",
-                    "firstname": "",
-                    "type": "0",
+                    "lastname": "Morris",
+                    "firstname": "Steve",
+                    "type": "1",
                     "title": "",
                     "company": "",
                     "position": "",
-                    "department": "",
-                    "address": "Reiterstr. 19",
-                    "postalcode": "80175",
-                    "city": "Munich",
+                    "department": "Demo",
+                    "address": "",
+                    "postalcode": "",
+                    "city": "",
                     "region": "",
-                    "country": "US",
-                    "phone": "00364323",
+                    "country": "",
+                    "phone": "",
                     "phone2": "",
                     "cell": "",
-                    "fax": "00364311",
-                    "email": "info@barcley1.com",
+                    "fax": "",
+                    "email": "steve.morris@katayo.com",
                     "email2": "",
                     "website": "",
                     "description": "",
-                    "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
-                    "picbinfile": null,
+                    "gravatar": "",
+                    "picbinfile": "1546073439",
                     "birthdate": null
                 }
             }
@@ -5968,33 +5881,33 @@ A single Contact object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "94",
-                "assigneduser": "98",
-                "creationdate": "1412783261",
-                "lastmodified": "1428442725",
+                "creator": null,
+                "assigneduser": null,
+                "creationdate": "1427469160",
+                "lastmodified": "1427469160",
                 "visibility": "0",
-                "lastname": "RA Florian Wehner",
-                "firstname": "",
-                "type": "0",
+                "lastname": "Morris",
+                "firstname": "Steve",
+                "type": "1",
                 "title": "",
                 "company": "",
                 "position": "",
-                "department": "",
-                "address": "Reiterstr. 19",
-                "postalcode": "80175",
-                "city": "Munich",
+                "department": "Demo",
+                "address": "",
+                "postalcode": "",
+                "city": "",
                 "region": "",
-                "country": "US",
-                "phone": "00364323",
+                "country": "",
+                "phone": "",
                 "phone2": "",
                 "cell": "",
-                "fax": "00364311",
-                "email": "info@barcley1.com",
+                "fax": "",
+                "email": "steve.morris@katayo.com",
                 "email2": "",
                 "website": "",
                 "description": "",
-                "gravatar": "c1424ca8210ab74cfbc0a925711ed058",
-                "picbinfile": null,
+                "gravatar": "",
+                "picbinfile": "1546073439",
                 "birthdate": null
             }
 
@@ -6386,66 +6299,6 @@ contract has the following attributes:
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": [
-                    {
-                        "ID": "214",
-                        "ownergroup": null,
-                        "creator": "1",
-                        "assigneduser": null,
-                        "creationdate": "1435593264",
-                        "lastmodified": "1435593327",
-                        "account": "3631",
-                        "visibility": "2",
-                        "name": "test",
-                        "contractnum": "C-00196",
-                        "datefrom": "1435528800",
-                        "dateto": null,
-                        "datecancel": null,
-                        "status": "0",
-                        "description": "",
-                        "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
-                    },
-                    {
-                        "ID": "204",
-                        "ownergroup": null,
-                        "creator": "97",
-                        "assigneduser": "97",
-                        "creationdate": "1413301661",
-                        "lastmodified": "1435593718",
-                        "account": "3614",
-                        "visibility": "0",
-                        "name": "New logo design",
-                        "contractnum": "C-00191",
-                        "datefrom": "1412497831",
-                        "dateto": "1448924400",
-                        "datecancel": null,
-                        "status": "2",
-                        "description": "",
-                        "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":3,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Glass Pannel, Ø 0.5cm, 30x50 cm, green\",\"manufacturer\":\"FLAWLESS\",\"itemnum\":\"527313\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":4,\"amounttaken\":0,\"sellingprice\":61,\"purchaseprice\":0.94,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20565,\"reservation\":null,\"transactions\":[]}]"
-                    },
-                    {
-                        "ID": "216",
-                        "ownergroup": null,
-                        "creator": "1",
-                        "assigneduser": null,
-                        "creationdate": "1435593798",
-                        "lastmodified": "1435593812",
-                        "account": null,
-                        "visibility": "2",
-                        "name": "test - Copy",
-                        "contractnum": "C-00198",
-                        "datefrom": "1435528800",
-                        "dateto": null,
-                        "datecancel": null,
-                        "status": "0",
-                        "description": "",
-                        "items": null
-                    }
-                ]
-            }
 
 ### Create Contract [PUT]
 
@@ -6462,25 +6315,6 @@ contract has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1435593264",
-                "lastmodified": "1435593327",
-                "account": "3631",
-                "visibility": "2",
-                "name": "test",
-                "contractnum": "C-00196",
-                "datefrom": "1435528800",
-                "dateto": null,
-                "datecancel": null,
-                "status": "0",
-                "description": "",
-                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
-            }
 
 + Response 201 (application/json)
 
@@ -6524,25 +6358,6 @@ contract has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1435593264",
-                "lastmodified": "1435593327",
-                "account": "3631",
-                "visibility": "2",
-                "name": "test",
-                "contractnum": "C-00196",
-                "datefrom": "1435528800",
-                "dateto": null,
-                "datecancel": null,
-                "status": "0",
-                "description": "",
-                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
-            }
 
 + Response 200 (application/json)
 
@@ -6605,28 +6420,6 @@ A single Contract object with all its details
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": {
-                    "ID": "214",
-                    "ownergroup": null,
-                    "creator": "1",
-                    "assigneduser": null,
-                    "creationdate": "1435593264",
-                    "lastmodified": "1435593327",
-                    "account": "3631",
-                    "visibility": "2",
-                    "name": "test",
-                    "contractnum": "C-00196",
-                    "datefrom": "1435528800",
-                    "dateto": null,
-                    "datecancel": null,
-                    "status": "0",
-                    "description": "",
-                    "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
-                }
-            }
 
 + Response 404 (application/json)
 
@@ -6652,25 +6445,6 @@ A single Contract object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1435593264",
-                "lastmodified": "1435593327",
-                "account": "3631",
-                "visibility": "2",
-                "name": "test",
-                "contractnum": "C-00196",
-                "datefrom": "1435528800",
-                "dateto": null,
-                "datecancel": null,
-                "status": "0",
-                "description": "",
-                "items": "[{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"tet\",\"manufacturer\":\"\",\"itemnum\":\"\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"\",\"amount\":1,\"amounttaken\":0,\"sellingprice\":0,\"purchaseprice\":0,\"rebate\":0,\"discount\":0,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":null,\"reservation\":null,\"transactions\":[]},{\"type\":0,\"original\":null,\"subindex\":0,\"references\":[],\"name\":\"Aluminium Bar, Ø 3.0cm, L 300cm\",\"manufacturer\":\"SMW SMITH\",\"itemnum\":\"811006\",\"barcode\":\"\",\"itemtype\":0,\"unit\":\"0\",\"amount\":2,\"amounttaken\":0,\"sellingprice\":73.62,\"purchaseprice\":35.67,\"rebate\":0,\"discount\":16,\"discount2\":0,\"taxrate\":19,\"weight\":0,\"item\":20607,\"reservation\":null,\"transactions\":[]}]"
-            }
 
 + Response 200 (application/json)
 
@@ -7350,57 +7124,6 @@ event has the following attributes:
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": [
-                    {
-                        "ID": "41",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": null,
-                        "creationdate": "1425550499",
-                        "lastmodified": "1425550499",
-                        "entity": "transactions",
-                        "index": "16342",
-                        "name": "Nachverfolgung",
-                        "datefrom": "1425549600",
-                        "dateto": "1425553200",
-                        "color": "",
-                        "meta": null
-                    },
-                    {
-                        "ID": "51",
-                        "owneruser": "1",
-                        "ownergroup": null,
-                        "creator": null,
-                        "creationdate": "1434726334",
-                        "lastmodified": "1434726334",
-                        "entity": "tasks",
-                        "index": "2046",
-                        "name": "Due date",
-                        "datefrom": "1434899040",
-                        "dateto": "1434899040",
-                        "color": "",
-                        "meta": "{\"type\":\"duedate\"}"
-                    },
-                    {
-                        "ID": "52",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": null,
-                        "creationdate": "1435759697",
-                        "lastmodified": "1435759697",
-                        "entity": "transactions",
-                        "index": "16387",
-                        "name": "Deadline Auftragsvergabe",
-                        "datefrom": "1435759200",
-                        "dateto": "1435762800",
-                        "color": "",
-                        "meta": null
-                    }
-                ]
-            }
 
 ### Create Event [PUT]
 
@@ -7417,22 +7140,6 @@ event has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "owneruser": null,
-                "ownergroup": null,
-                "creator": null,
-                "creationdate": "1425550499",
-                "lastmodified": "1425550499",
-                "entity": "transactions",
-                "index": "16342",
-                "name": "Nachverfolgung",
-                "datefrom": "1425549600",
-                "dateto": "1425553200",
-                "color": "",
-                "meta": null
-            }
 
 + Response 201 (application/json)
 
@@ -7475,22 +7182,6 @@ event has the following attributes:
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "owneruser": null,
-                "ownergroup": null,
-                "creator": null,
-                "creationdate": "1425550499",
-                "lastmodified": "1425550499",
-                "entity": "transactions",
-                "index": "16342",
-                "name": "Nachverfolgung",
-                "datefrom": "1425549600",
-                "dateto": "1425553200",
-                "color": "",
-                "meta": null
-            }
 
 + Response 200 (application/json)
 
@@ -7552,25 +7243,6 @@ A single Event object with all its details
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": {
-                    "ID": "41",
-                    "owneruser": null,
-                    "ownergroup": null,
-                    "creator": null,
-                    "creationdate": "1425550499",
-                    "lastmodified": "1425550499",
-                    "entity": "transactions",
-                    "index": "16342",
-                    "name": "Nachverfolgung",
-                    "datefrom": "1425549600",
-                    "dateto": "1425553200",
-                    "color": "",
-                    "meta": null
-                }
-            }
 
 + Response 404 (application/json)
 
@@ -7596,22 +7268,6 @@ A single Event object with all its details
             Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
             Content-Type: application/json
 
-    + Body
-
-            {
-                "owneruser": null,
-                "ownergroup": null,
-                "creator": null,
-                "creationdate": "1425550499",
-                "lastmodified": "1425550499",
-                "entity": "transactions",
-                "index": "16342",
-                "name": "Nachverfolgung",
-                "datefrom": "1425549600",
-                "dateto": "1425553200",
-                "color": "",
-                "meta": null
-            }
 
 + Response 200 (application/json)
 
@@ -8579,21 +8235,6 @@ file has the following attributes:
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": [
-                    {
-                        "ID": "8",
-                        "record": "12239",
-                        "filename": "ZeyOS_MktgProposal_PF2.pdf",
-                        "mimetype": "application\/pdf",
-                        "size": "254534",
-                        "binfile": "334671366",
-                        "comment": null
-                    }
-                ]
-            }
 
 ## Edit Files [/files/{id}{?monitor}{?object}{?extdata}{?a}{?s}{?w}{?g}{?o}{?n}{?i}{?j}{?disposition}]
 A single File object with all its details
@@ -8643,19 +8284,6 @@ A single File object with all its details
 
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "result": {
-                    "ID": "8",
-                    "record": "12239",
-                    "filename": "ZeyOS_MktgProposal_PF2.pdf",
-                    "mimetype": "application\/pdf",
-                    "size": "254534",
-                    "binfile": "334671366",
-                    "comment": null
-                }
-            }
 
 + Response 404 (application/json)
 
@@ -9961,22 +9589,22 @@ like has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "688",
-                        "creator": "1",
-                        "creationdate": "1435759551",
-                        "record": "12239"
-                    },
-                    {
-                        "ID": "646",
+                        "ID": "1145",
                         "creator": "95",
-                        "creationdate": "1426353042",
-                        "record": "12106"
+                        "creationdate": "1437565904",
+                        "record": "12375"
                     },
                     {
-                        "ID": "647",
-                        "creator": "93",
-                        "creationdate": "1426519880",
-                        "record": "12106"
+                        "ID": "1146",
+                        "creator": "98",
+                        "creationdate": "1437608290",
+                        "record": "12375"
+                    },
+                    {
+                        "ID": "1147",
+                        "creator": "99",
+                        "creationdate": "1437669162",
+                        "record": "12375"
                     }
                 ]
             }
@@ -10034,10 +9662,10 @@ A single Like object with all its details
 
             {
                 "result": {
-                    "ID": "688",
-                    "creator": "1",
-                    "creationdate": "1435759551",
-                    "record": "12239"
+                    "ID": "1145",
+                    "creator": "95",
+                    "creationdate": "1437565904",
+                    "record": "12375"
                 }
             }
 
@@ -10109,49 +9737,49 @@ link has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "594",
+                        "ID": "802",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "95",
-                        "assigneduser": "95",
-                        "creationdate": "1418658461",
-                        "lastmodified": "1421077661",
+                        "creator": "97",
+                        "assigneduser": "97",
+                        "creationdate": "1427353388",
+                        "lastmodified": "1434956588",
                         "visibility": "0",
                         "name": "ZeyConnect",
                         "url": "http:\/\/www.zeyconnect.com",
-                        "visits": "40",
+                        "visits": "36",
                         "description": "",
                         "username": "",
                         "password": ""
                     },
                     {
-                        "ID": "595",
+                        "ID": "803",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "100",
-                        "assigneduser": "100",
-                        "creationdate": "1413560861",
-                        "lastmodified": "1418572061",
+                        "creator": "94",
+                        "assigneduser": "94",
+                        "creationdate": "1428562988",
+                        "lastmodified": "1432450988",
                         "visibility": "0",
                         "name": "ZeyOS",
                         "url": "http:\/\/www.zeyos.com",
-                        "visits": "3",
+                        "visits": "2",
                         "description": "",
                         "username": "",
                         "password": ""
                     },
                     {
-                        "ID": "596",
+                        "ID": "804",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "95",
-                        "assigneduser": "95",
-                        "creationdate": "1423756061",
-                        "lastmodified": "1425829661",
+                        "creator": "94",
+                        "assigneduser": "94",
+                        "creationdate": "1432710188",
+                        "lastmodified": "1437548588",
                         "visibility": "0",
                         "name": "Zeyon @ AngelList",
                         "url": "http:\/\/www.angel.co\/zeyon",
-                        "visits": "42",
+                        "visits": "38",
                         "description": "",
                         "username": "",
                         "password": ""
@@ -10179,14 +9807,14 @@ link has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418658461",
-                "lastmodified": "1421077661",
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1427353388",
+                "lastmodified": "1434956588",
                 "visibility": "0",
                 "name": "ZeyConnect",
                 "url": "http:\/\/www.zeyconnect.com",
-                "visits": "40",
+                "visits": "36",
                 "description": "",
                 "username": "",
                 "password": ""
@@ -10238,14 +9866,14 @@ link has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418658461",
-                "lastmodified": "1421077661",
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1427353388",
+                "lastmodified": "1434956588",
                 "visibility": "0",
                 "name": "ZeyConnect",
                 "url": "http:\/\/www.zeyconnect.com",
-                "visits": "40",
+                "visits": "36",
                 "description": "",
                 "username": "",
                 "password": ""
@@ -10315,17 +9943,17 @@ A single Link object with all its details
 
             {
                 "result": {
-                    "ID": "594",
+                    "ID": "802",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "95",
-                    "assigneduser": "95",
-                    "creationdate": "1418658461",
-                    "lastmodified": "1421077661",
+                    "creator": "97",
+                    "assigneduser": "97",
+                    "creationdate": "1427353388",
+                    "lastmodified": "1434956588",
                     "visibility": "0",
                     "name": "ZeyConnect",
                     "url": "http:\/\/www.zeyconnect.com",
-                    "visits": "40",
+                    "visits": "36",
                     "description": "",
                     "username": "",
                     "password": ""
@@ -10361,14 +9989,14 @@ A single Link object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418658461",
-                "lastmodified": "1421077661",
+                "creator": "97",
+                "assigneduser": "97",
+                "creationdate": "1427353388",
+                "lastmodified": "1434956588",
                 "visibility": "0",
                 "name": "ZeyConnect",
                 "url": "http:\/\/www.zeyconnect.com",
-                "visits": "40",
+                "visits": "36",
                 "description": "",
                 "username": "",
                 "password": ""
@@ -11929,13 +11557,13 @@ note has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "279",
+                        "ID": "370",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "95",
-                        "assigneduser": "95",
-                        "creationdate": "1418312861",
-                        "lastmodified": "1424879261",
+                        "creator": "99",
+                        "assigneduser": "99",
+                        "creationdate": "1430982190",
+                        "lastmodified": "1436684590",
                         "visibility": "0",
                         "name": "JavaScript",
                         "status": "0",
@@ -11946,13 +11574,13 @@ note has the following attributes:
                         "description": ""
                     },
                     {
-                        "ID": "280",
+                        "ID": "371",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": "96",
                         "assigneduser": "96",
-                        "creationdate": "1424792861",
-                        "lastmodified": "1425570461",
+                        "creationdate": "1431241390",
+                        "lastmodified": "1437289390",
                         "visibility": "0",
                         "name": "Scrum (development)",
                         "status": "0",
@@ -11963,13 +11591,13 @@ note has the following attributes:
                         "description": ""
                     },
                     {
-                        "ID": "281",
+                        "ID": "372",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "96",
-                        "assigneduser": "96",
-                        "creationdate": "1414079261",
-                        "lastmodified": "1422892061",
+                        "creator": "93",
+                        "assigneduser": "93",
+                        "creationdate": "1433401390",
+                        "lastmodified": "1434956590",
                         "visibility": "0",
                         "name": "Waterfall model",
                         "status": "0",
@@ -12002,10 +11630,10 @@ note has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418312861",
-                "lastmodified": "1424879261",
+                "creator": "99",
+                "assigneduser": "99",
+                "creationdate": "1430982190",
+                "lastmodified": "1436684590",
                 "visibility": "0",
                 "name": "JavaScript",
                 "status": "0",
@@ -12063,10 +11691,10 @@ note has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418312861",
-                "lastmodified": "1424879261",
+                "creator": "99",
+                "assigneduser": "99",
+                "creationdate": "1430982190",
+                "lastmodified": "1436684590",
                 "visibility": "0",
                 "name": "JavaScript",
                 "status": "0",
@@ -12142,13 +11770,13 @@ A single Note object with all its details
 
             {
                 "result": {
-                    "ID": "279",
+                    "ID": "370",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "95",
-                    "assigneduser": "95",
-                    "creationdate": "1418312861",
-                    "lastmodified": "1424879261",
+                    "creator": "99",
+                    "assigneduser": "99",
+                    "creationdate": "1430982190",
+                    "lastmodified": "1436684590",
                     "visibility": "0",
                     "name": "JavaScript",
                     "status": "0",
@@ -12189,10 +11817,10 @@ A single Note object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "95",
-                "assigneduser": "95",
-                "creationdate": "1418312861",
-                "lastmodified": "1424879261",
+                "creator": "99",
+                "assigneduser": "99",
+                "creationdate": "1430982190",
+                "lastmodified": "1436684590",
                 "visibility": "0",
                 "name": "JavaScript",
                 "status": "0",
@@ -12549,24 +12177,24 @@ notification has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1",
+                        "ID": "1053",
                         "user": "1",
-                        "record": "12109",
-                        "date": "1432110997",
+                        "record": "12375",
+                        "date": "1437880688",
                         "flag": "0"
                     },
                     {
-                        "ID": "2",
+                        "ID": "1054",
                         "user": "1",
-                        "record": "12158",
-                        "date": "1432110840",
+                        "record": "12376",
+                        "date": "1437674473",
                         "flag": "0"
                     },
                     {
-                        "ID": "3",
+                        "ID": "1055",
                         "user": "1",
-                        "record": "12157",
-                        "date": "1432110838",
+                        "record": "12381",
+                        "date": "1437537867",
                         "flag": "0"
                     }
                 ]
@@ -12591,8 +12219,8 @@ notification has the following attributes:
 
             {
                 "user": "1",
-                "record": "12109",
-                "date": "1432110997",
+                "record": "12375",
+                "date": "1437880688",
                 "flag": "0"
             }
 
@@ -12638,8 +12266,8 @@ notification has the following attributes:
 
             {
                 "user": "1",
-                "record": "12109",
-                "date": "1432110997",
+                "record": "12375",
+                "date": "1437880688",
                 "flag": "0"
             }
 
@@ -12704,10 +12332,10 @@ A single Notification object with all its details
 
             {
                 "result": {
-                    "ID": "1",
+                    "ID": "1053",
                     "user": "1",
-                    "record": "12109",
-                    "date": "1432110997",
+                    "record": "12375",
+                    "date": "1437880688",
                     "flag": "0"
                 }
             }
@@ -12740,8 +12368,8 @@ A single Notification object with all its details
 
             {
                 "user": "1",
-                "record": "12109",
-                "date": "1432110997",
+                "record": "12375",
+                "date": "1437880688",
                 "flag": "0"
             }
 
@@ -13447,66 +13075,66 @@ opportunity has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1293",
+                        "ID": "1629",
                         "ownergroup": null,
-                        "creator": "93",
-                        "assigneduser": "93",
-                        "creationdate": "1422114461",
-                        "lastmodified": "1432110716",
-                        "account": "3619",
-                        "contact": "13170",
-                        "visibility": "0",
-                        "name": "New office chairs for uOpen Workstations",
-                        "opportunitynum": "",
-                        "duedate": "1420559261",
-                        "status": "0",
-                        "priority": "0",
-                        "probability": "95",
-                        "worstcase": "934",
-                        "mostlikely": "4823",
-                        "upside": "9514",
-                        "description": ""
-                    },
-                    {
-                        "ID": "1291",
-                        "ownergroup": null,
-                        "creator": "97",
+                        "creator": "100",
                         "assigneduser": "99",
-                        "creationdate": "1423410461",
-                        "lastmodified": "1425570461",
-                        "account": "3626",
-                        "contact": "13199",
+                        "creationdate": "1428649390",
+                        "lastmodified": "1434351790",
+                        "account": "4136",
+                        "contact": "15094",
                         "visibility": "0",
-                        "name": "Jones & Jones Tax Consulting needs a new door sign",
+                        "name": "HyperFlyer needs a new office layout",
                         "opportunitynum": "",
-                        "duedate": "1414079261",
-                        "status": "3",
-                        "priority": "0",
-                        "probability": "50",
-                        "worstcase": "604",
-                        "mostlikely": "4132",
-                        "upside": "4199",
+                        "duedate": "1428044590",
+                        "status": "1",
+                        "priority": "1",
+                        "probability": "85",
+                        "worstcase": "477",
+                        "mostlikely": "4954",
+                        "upside": "5170",
                         "description": ""
                     },
                     {
-                        "ID": "1292",
+                        "ID": "1630",
                         "ownergroup": null,
-                        "creator": "98",
+                        "creator": "96",
                         "assigneduser": "95",
-                        "creationdate": "1422805661",
-                        "lastmodified": "1423410461",
-                        "account": "3632",
-                        "contact": "13212",
+                        "creationdate": "1423378990",
+                        "lastmodified": "1426748590",
+                        "account": "4173",
+                        "contact": "15257",
                         "visibility": "0",
-                        "name": "Paint job for office wall at Connectronics office",
+                        "name": "Interior design services for Connectronics",
                         "opportunitynum": "",
-                        "duedate": "1410104861",
-                        "status": "2",
+                        "duedate": "1420527790",
+                        "status": "5",
+                        "priority": "1",
+                        "probability": "100",
+                        "worstcase": "583",
+                        "mostlikely": "936",
+                        "upside": "7885",
+                        "description": ""
+                    },
+                    {
+                        "ID": "1631",
+                        "ownergroup": null,
+                        "creator": "96",
+                        "assigneduser": "96",
+                        "creationdate": "1429167790",
+                        "lastmodified": "1434524590",
+                        "account": "4158",
+                        "contact": "15230",
+                        "visibility": "0",
+                        "name": "XD Designs Internet Technologies needs a new office layout",
+                        "opportunitynum": "",
+                        "duedate": "1426662190",
+                        "status": "4",
                         "priority": "4",
-                        "probability": "40",
-                        "worstcase": "624",
-                        "mostlikely": "1390",
-                        "upside": "6200",
+                        "probability": "30",
+                        "worstcase": "434",
+                        "mostlikely": "1707",
+                        "upside": "3726",
                         "description": ""
                     }
                 ]
@@ -13531,22 +13159,22 @@ opportunity has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1422114461",
-                "lastmodified": "1432110716",
-                "account": "3619",
-                "contact": "13170",
+                "creator": "100",
+                "assigneduser": "99",
+                "creationdate": "1428649390",
+                "lastmodified": "1434351790",
+                "account": "4136",
+                "contact": "15094",
                 "visibility": "0",
-                "name": "New office chairs for uOpen Workstations",
+                "name": "HyperFlyer needs a new office layout",
                 "opportunitynum": "",
-                "duedate": "1420559261",
-                "status": "0",
-                "priority": "0",
-                "probability": "95",
-                "worstcase": "934",
-                "mostlikely": "4823",
-                "upside": "9514",
+                "duedate": "1428044590",
+                "status": "1",
+                "priority": "1",
+                "probability": "85",
+                "worstcase": "477",
+                "mostlikely": "4954",
+                "upside": "5170",
                 "description": ""
             }
 
@@ -13597,22 +13225,22 @@ opportunity has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1422114461",
-                "lastmodified": "1432110716",
-                "account": "3619",
-                "contact": "13170",
+                "creator": "100",
+                "assigneduser": "99",
+                "creationdate": "1428649390",
+                "lastmodified": "1434351790",
+                "account": "4136",
+                "contact": "15094",
                 "visibility": "0",
-                "name": "New office chairs for uOpen Workstations",
+                "name": "HyperFlyer needs a new office layout",
                 "opportunitynum": "",
-                "duedate": "1420559261",
-                "status": "0",
-                "priority": "0",
-                "probability": "95",
-                "worstcase": "934",
-                "mostlikely": "4823",
-                "upside": "9514",
+                "duedate": "1428044590",
+                "status": "1",
+                "priority": "1",
+                "probability": "85",
+                "worstcase": "477",
+                "mostlikely": "4954",
+                "upside": "5170",
                 "description": ""
             }
 
@@ -13682,24 +13310,24 @@ A single Opportunity object with all its details
 
             {
                 "result": {
-                    "ID": "1293",
+                    "ID": "1629",
                     "ownergroup": null,
-                    "creator": "93",
-                    "assigneduser": "93",
-                    "creationdate": "1422114461",
-                    "lastmodified": "1432110716",
-                    "account": "3619",
-                    "contact": "13170",
+                    "creator": "100",
+                    "assigneduser": "99",
+                    "creationdate": "1428649390",
+                    "lastmodified": "1434351790",
+                    "account": "4136",
+                    "contact": "15094",
                     "visibility": "0",
-                    "name": "New office chairs for uOpen Workstations",
+                    "name": "HyperFlyer needs a new office layout",
                     "opportunitynum": "",
-                    "duedate": "1420559261",
-                    "status": "0",
-                    "priority": "0",
-                    "probability": "95",
-                    "worstcase": "934",
-                    "mostlikely": "4823",
-                    "upside": "9514",
+                    "duedate": "1428044590",
+                    "status": "1",
+                    "priority": "1",
+                    "probability": "85",
+                    "worstcase": "477",
+                    "mostlikely": "4954",
+                    "upside": "5170",
                     "description": ""
                 }
             }
@@ -13732,22 +13360,22 @@ A single Opportunity object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1422114461",
-                "lastmodified": "1432110716",
-                "account": "3619",
-                "contact": "13170",
+                "creator": "100",
+                "assigneduser": "99",
+                "creationdate": "1428649390",
+                "lastmodified": "1434351790",
+                "account": "4136",
+                "contact": "15094",
                 "visibility": "0",
-                "name": "New office chairs for uOpen Workstations",
+                "name": "HyperFlyer needs a new office layout",
                 "opportunitynum": "",
-                "duedate": "1420559261",
-                "status": "0",
-                "priority": "0",
-                "probability": "95",
-                "worstcase": "934",
-                "mostlikely": "4823",
-                "upside": "9514",
+                "duedate": "1428044590",
+                "status": "1",
+                "priority": "1",
+                "probability": "85",
+                "worstcase": "477",
+                "mostlikely": "4954",
+                "upside": "5170",
                 "description": ""
             }
 
@@ -14137,21 +13765,6 @@ payment has the following attributes:
                         "status": "1"
                     },
                     {
-                        "ID": "57",
-                        "creator": null,
-                        "creationdate": "1428594016",
-                        "transaction": null,
-                        "date": "1418857200",
-                        "amount": "500000",
-                        "subject": "Gesellschafterdarlehen",
-                        "assigneduser": null,
-                        "lastmodified": "1428594016",
-                        "description": "",
-                        "account": "3627",
-                        "ownergroup": null,
-                        "status": "1"
-                    },
-                    {
                         "ID": "58",
                         "creator": null,
                         "creationdate": "1428594016",
@@ -14159,6 +13772,21 @@ payment has the following attributes:
                         "date": "1418857200",
                         "amount": "-498500",
                         "subject": "Kaufpreiszahlung",
+                        "assigneduser": null,
+                        "lastmodified": "1428594016",
+                        "description": "",
+                        "account": null,
+                        "ownergroup": null,
+                        "status": "1"
+                    },
+                    {
+                        "ID": "61",
+                        "creator": null,
+                        "creationdate": "1428594016",
+                        "transaction": null,
+                        "date": "1418943600",
+                        "amount": "150",
+                        "subject": "Kommanditeinlage",
                         "assigneduser": null,
                         "lastmodified": "1428594016",
                         "description": "",
@@ -14472,11 +14100,11 @@ pricelist has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1541",
+                        "ID": "1607",
                         "ownergroup": null,
-                        "creator": "99",
-                        "creationdate": "1412524061",
-                        "lastmodified": "1426175261",
+                        "creator": "96",
+                        "creationdate": "1424329391",
+                        "lastmodified": "1429081391",
                         "name": "Partner prices",
                         "type": "0",
                         "applytoall": "0",
@@ -14487,11 +14115,11 @@ pricelist has the following attributes:
                         "dateto": null
                     },
                     {
-                        "ID": "1542",
+                        "ID": "1608",
                         "ownergroup": null,
-                        "creator": "96",
-                        "creationdate": "1413215261",
-                        "lastmodified": "1423842461",
+                        "creator": "97",
+                        "creationdate": "1423551791",
+                        "lastmodified": "1432796591",
                         "name": "Reseller prices",
                         "type": "0",
                         "applytoall": "0",
@@ -14502,11 +14130,11 @@ pricelist has the following attributes:
                         "dateto": null
                     },
                     {
-                        "ID": "1543",
+                        "ID": "1609",
                         "ownergroup": null,
-                        "creator": "97",
-                        "creationdate": "1424965661",
-                        "lastmodified": "1425397661",
+                        "creator": "94",
+                        "creationdate": "1424415791",
+                        "lastmodified": "1425193391",
                         "name": "Christmas prices",
                         "type": "0",
                         "applytoall": "0",
@@ -14538,9 +14166,9 @@ pricelist has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "99",
-                "creationdate": "1412524061",
-                "lastmodified": "1426175261",
+                "creator": "96",
+                "creationdate": "1424329391",
+                "lastmodified": "1429081391",
                 "name": "Partner prices",
                 "type": "0",
                 "applytoall": "0",
@@ -14595,9 +14223,9 @@ pricelist has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "99",
-                "creationdate": "1412524061",
-                "lastmodified": "1426175261",
+                "creator": "96",
+                "creationdate": "1424329391",
+                "lastmodified": "1429081391",
                 "name": "Partner prices",
                 "type": "0",
                 "applytoall": "0",
@@ -14671,11 +14299,11 @@ A single Pricelist object with all its details
 
             {
                 "result": {
-                    "ID": "1541",
+                    "ID": "1607",
                     "ownergroup": null,
-                    "creator": "99",
-                    "creationdate": "1412524061",
-                    "lastmodified": "1426175261",
+                    "creator": "96",
+                    "creationdate": "1424329391",
+                    "lastmodified": "1429081391",
                     "name": "Partner prices",
                     "type": "0",
                     "applytoall": "0",
@@ -14715,9 +14343,9 @@ A single Pricelist object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "99",
-                "creationdate": "1412524061",
-                "lastmodified": "1426175261",
+                "creator": "96",
+                "creationdate": "1424329391",
+                "lastmodified": "1429081391",
                 "name": "Partner prices",
                 "type": "0",
                 "applytoall": "0",
@@ -15085,43 +14713,43 @@ project has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "163",
+                        "ID": "212",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": "100",
                         "assigneduser": null,
-                        "creationdate": "1423928861",
-                        "lastmodified": "1428442042",
-                        "visibility": "2",
+                        "creationdate": "1432623792",
+                        "lastmodified": "1433228592",
+                        "visibility": "0",
+                        "name": "Novotec Tradeshow 2013",
+                        "status": "0",
+                        "description": "",
+                        "projectnum": ""
+                    },
+                    {
+                        "ID": "213",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "99",
+                        "assigneduser": null,
+                        "creationdate": "1435474992",
+                        "lastmodified": "1437202992",
+                        "visibility": "0",
                         "name": "New Data Center",
                         "status": "0",
                         "description": "",
                         "projectnum": ""
                     },
                     {
-                        "ID": "164",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "93",
-                        "assigneduser": null,
-                        "creationdate": "1425743261",
-                        "lastmodified": "1428442042",
-                        "visibility": "2",
-                        "name": "New Website",
-                        "status": "0",
-                        "description": "",
-                        "projectnum": ""
-                    },
-                    {
-                        "ID": "162",
+                        "ID": "214",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": "100",
                         "assigneduser": null,
-                        "creationdate": "1421250461",
-                        "lastmodified": "1428442042",
-                        "visibility": "2",
-                        "name": "Novotec Tradeshow 2013",
+                        "creationdate": "1436079792",
+                        "lastmodified": "1437289392",
+                        "visibility": "0",
+                        "name": "New Website",
                         "status": "0",
                         "description": "",
                         "projectnum": ""
@@ -15151,10 +14779,10 @@ project has the following attributes:
                 "ownergroup": null,
                 "creator": "100",
                 "assigneduser": null,
-                "creationdate": "1423928861",
-                "lastmodified": "1428442042",
-                "visibility": "2",
-                "name": "New Data Center",
+                "creationdate": "1432623792",
+                "lastmodified": "1433228592",
+                "visibility": "0",
+                "name": "Novotec Tradeshow 2013",
                 "status": "0",
                 "description": "",
                 "projectnum": ""
@@ -15209,10 +14837,10 @@ project has the following attributes:
                 "ownergroup": null,
                 "creator": "100",
                 "assigneduser": null,
-                "creationdate": "1423928861",
-                "lastmodified": "1428442042",
-                "visibility": "2",
-                "name": "New Data Center",
+                "creationdate": "1432623792",
+                "lastmodified": "1433228592",
+                "visibility": "0",
+                "name": "Novotec Tradeshow 2013",
                 "status": "0",
                 "description": "",
                 "projectnum": ""
@@ -15283,15 +14911,15 @@ A single Project object with all its details
 
             {
                 "result": {
-                    "ID": "163",
+                    "ID": "212",
                     "owneruser": null,
                     "ownergroup": null,
                     "creator": "100",
                     "assigneduser": null,
-                    "creationdate": "1423928861",
-                    "lastmodified": "1428442042",
-                    "visibility": "2",
-                    "name": "New Data Center",
+                    "creationdate": "1432623792",
+                    "lastmodified": "1433228592",
+                    "visibility": "0",
+                    "name": "Novotec Tradeshow 2013",
                     "status": "0",
                     "description": "",
                     "projectnum": ""
@@ -15329,10 +14957,10 @@ A single Project object with all its details
                 "ownergroup": null,
                 "creator": "100",
                 "assigneduser": null,
-                "creationdate": "1423928861",
-                "lastmodified": "1428442042",
-                "visibility": "2",
-                "name": "New Data Center",
+                "creationdate": "1432623792",
+                "lastmodified": "1433228592",
+                "visibility": "0",
+                "name": "Novotec Tradeshow 2013",
                 "status": "0",
                 "description": "",
                 "projectnum": ""
@@ -15719,50 +15347,50 @@ record has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "12116",
+                        "ID": "12375",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "100",
-                        "creationdate": "1427477223",
-                        "entity": "appointments",
-                        "index": "2662",
-                        "flag": "3",
+                        "creator": "93",
+                        "creationdate": "1437548588",
+                        "entity": "accounts",
+                        "index": "4170",
+                        "flag": "0",
                         "sender": "",
-                        "text": "MODIFY appointments 2662 Seynet project team meeting",
-                        "lastmodified": "1427477223",
-                        "date": "1427477223",
+                        "text": "Just had a gread phone conversation with Elena Bender from X-Net",
+                        "lastmodified": "1437548588",
+                        "date": "1437548588",
                         "meta": null,
                         "assigneduser": null
                     },
                     {
-                        "ID": "12129",
+                        "ID": "12376",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "1",
-                        "creationdate": "1428442855",
-                        "entity": "contacts",
-                        "index": "13149",
-                        "flag": "3",
+                        "creator": "93",
+                        "creationdate": "1437375788",
+                        "entity": "accounts",
+                        "index": "4160",
+                        "flag": "0",
                         "sender": "",
-                        "text": "MODIFY contacts 13149 Donner & Reuschel AG",
-                        "lastmodified": "1428442855",
-                        "date": "1428442855",
-                        "meta": "{\"name\":\"Donner & Reuschel AG\"}",
+                        "text": "Received an inquiry from Manuela Bach (uOpen Workstations) - did anybody ever had contact with him?",
+                        "lastmodified": "1437375788",
+                        "date": "1437375788",
+                        "meta": null,
                         "assigneduser": null
                     },
                     {
-                        "ID": "12149",
+                        "ID": "12377",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "1",
-                        "creationdate": "1431357926",
-                        "entity": "opportunities",
-                        "index": "1293",
-                        "flag": "3",
+                        "creator": "99",
+                        "creationdate": "1437202988",
+                        "entity": "accounts",
+                        "index": "4122",
+                        "flag": "0",
                         "sender": "",
-                        "text": "MODIFY opportunities 1293 New office chairs for uOpen Workstations",
-                        "lastmodified": "1431357926",
-                        "date": "1431357926",
+                        "text": "Just wanted to share the great news! Peter McCloud from BEQ Building Equipment confirmed that he would be our testimonial at the next tradeshow!",
+                        "lastmodified": "1437202988",
+                        "date": "1437202988",
                         "meta": null,
                         "assigneduser": null
                     }
@@ -15789,15 +15417,15 @@ record has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "100",
-                "creationdate": "1427477223",
-                "entity": "appointments",
-                "index": "2662",
-                "flag": "3",
+                "creator": "93",
+                "creationdate": "1437548588",
+                "entity": "accounts",
+                "index": "4170",
+                "flag": "0",
                 "sender": "",
-                "text": "MODIFY appointments 2662 Seynet project team meeting",
-                "lastmodified": "1427477223",
-                "date": "1427477223",
+                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
+                "lastmodified": "1437548588",
+                "date": "1437548588",
                 "meta": null,
                 "assigneduser": null
             }
@@ -15849,15 +15477,15 @@ record has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "100",
-                "creationdate": "1427477223",
-                "entity": "appointments",
-                "index": "2662",
-                "flag": "3",
+                "creator": "93",
+                "creationdate": "1437548588",
+                "entity": "accounts",
+                "index": "4170",
+                "flag": "0",
                 "sender": "",
-                "text": "MODIFY appointments 2662 Seynet project team meeting",
-                "lastmodified": "1427477223",
-                "date": "1427477223",
+                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
+                "lastmodified": "1437548588",
+                "date": "1437548588",
                 "meta": null,
                 "assigneduser": null
             }
@@ -15927,18 +15555,18 @@ A single Record object with all its details
 
             {
                 "result": {
-                    "ID": "12116",
+                    "ID": "12375",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "100",
-                    "creationdate": "1427477223",
-                    "entity": "appointments",
-                    "index": "2662",
-                    "flag": "3",
+                    "creator": "93",
+                    "creationdate": "1437548588",
+                    "entity": "accounts",
+                    "index": "4170",
+                    "flag": "0",
                     "sender": "",
-                    "text": "MODIFY appointments 2662 Seynet project team meeting",
-                    "lastmodified": "1427477223",
-                    "date": "1427477223",
+                    "text": "Just had a gread phone conversation with Elena Bender from X-Net",
+                    "lastmodified": "1437548588",
+                    "date": "1437548588",
                     "meta": null,
                     "assigneduser": null
                 }
@@ -15973,15 +15601,15 @@ A single Record object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "100",
-                "creationdate": "1427477223",
-                "entity": "appointments",
-                "index": "2662",
-                "flag": "3",
+                "creator": "93",
+                "creationdate": "1437548588",
+                "entity": "accounts",
+                "index": "4170",
+                "flag": "0",
                 "sender": "",
-                "text": "MODIFY appointments 2662 Seynet project team meeting",
-                "lastmodified": "1427477223",
-                "date": "1427477223",
+                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
+                "lastmodified": "1437548588",
+                "date": "1437548588",
                 "meta": null,
                 "assigneduser": null
             }
@@ -17989,64 +17617,64 @@ task has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "2037",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "1",
-                        "assigneduser": null,
-                        "creationdate": "1429031955",
-                        "lastmodified": "1429031955",
-                        "project": null,
-                        "visibility": "0",
-                        "name": "Create quote",
-                        "datefrom": "1429031955",
-                        "duedate": null,
-                        "status": "0",
-                        "priority": "2",
-                        "projectedeffort": "0",
-                        "description": "",
-                        "tasknum": "T.00032",
-                        "ticket": null
-                    },
-                    {
-                        "ID": "2002",
-                        "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "93",
-                        "assigneduser": "93",
-                        "creationdate": "1425138461",
-                        "lastmodified": "1426866461",
-                        "project": "162",
-                        "visibility": "0",
-                        "name": "Write invitations",
-                        "datefrom": "1425138461",
-                        "duedate": "1410968861",
-                        "status": "2",
-                        "priority": "1",
-                        "projectedeffort": "720",
-                        "description": "",
-                        "tasknum": "",
-                        "ticket": "2106"
-                    },
-                    {
-                        "ID": "2003",
+                        "ID": "2439",
                         "owneruser": null,
                         "ownergroup": null,
                         "creator": "99",
                         "assigneduser": "95",
-                        "creationdate": "1417448861",
-                        "lastmodified": "1425743261",
-                        "project": "162",
+                        "creationdate": "1424156592",
+                        "lastmodified": "1424415792",
+                        "project": "212",
                         "visibility": "0",
-                        "name": "Update marketing brochure",
-                        "datefrom": "1417448861",
-                        "duedate": "1407772061",
-                        "status": "1",
-                        "priority": "0",
-                        "projectedeffort": "720",
+                        "name": "Apply for free tradeshow tickets",
+                        "datefrom": "1424156592",
+                        "duedate": "1409382192",
+                        "status": "3",
+                        "priority": "3",
+                        "projectedeffort": "2220",
                         "description": "",
                         "tasknum": "",
-                        "ticket": "2103"
+                        "ticket": null
+                    },
+                    {
+                        "ID": "2456",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "98",
+                        "assigneduser": "95",
+                        "creationdate": "1430463792",
+                        "lastmodified": "1434092592",
+                        "project": "214",
+                        "visibility": "0",
+                        "name": "Create design styleguilde",
+                        "datefrom": "1430463792",
+                        "duedate": "1418799792",
+                        "status": "2",
+                        "priority": "0",
+                        "projectedeffort": "2340",
+                        "description": "",
+                        "tasknum": "",
+                        "ticket": null
+                    },
+                    {
+                        "ID": "2453",
+                        "owneruser": null,
+                        "ownergroup": null,
+                        "creator": "94",
+                        "assigneduser": "97",
+                        "creationdate": "1430377392",
+                        "lastmodified": "1432105392",
+                        "project": "213",
+                        "visibility": "0",
+                        "name": "Setup new web server",
+                        "datefrom": "1430377392",
+                        "duedate": "1429081392",
+                        "status": "2",
+                        "priority": "1",
+                        "projectedeffort": "2580",
+                        "description": "",
+                        "tasknum": "",
+                        "ticket": null
                     }
                 ]
             }
@@ -18071,20 +17699,20 @@ task has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1429031955",
-                "lastmodified": "1429031955",
-                "project": null,
+                "creator": "99",
+                "assigneduser": "95",
+                "creationdate": "1424156592",
+                "lastmodified": "1424415792",
+                "project": "212",
                 "visibility": "0",
-                "name": "Create quote",
-                "datefrom": "1429031955",
-                "duedate": null,
-                "status": "0",
-                "priority": "2",
-                "projectedeffort": "0",
+                "name": "Apply for free tradeshow tickets",
+                "datefrom": "1424156592",
+                "duedate": "1409382192",
+                "status": "3",
+                "priority": "3",
+                "projectedeffort": "2220",
                 "description": "",
-                "tasknum": "T.00032",
+                "tasknum": "",
                 "ticket": null
             }
 
@@ -18136,20 +17764,20 @@ task has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1429031955",
-                "lastmodified": "1429031955",
-                "project": null,
+                "creator": "99",
+                "assigneduser": "95",
+                "creationdate": "1424156592",
+                "lastmodified": "1424415792",
+                "project": "212",
                 "visibility": "0",
-                "name": "Create quote",
-                "datefrom": "1429031955",
-                "duedate": null,
-                "status": "0",
-                "priority": "2",
-                "projectedeffort": "0",
+                "name": "Apply for free tradeshow tickets",
+                "datefrom": "1424156592",
+                "duedate": "1409382192",
+                "status": "3",
+                "priority": "3",
+                "projectedeffort": "2220",
                 "description": "",
-                "tasknum": "T.00032",
+                "tasknum": "",
                 "ticket": null
             }
 
@@ -18219,23 +17847,23 @@ A single Task object with all its details
 
             {
                 "result": {
-                    "ID": "2037",
+                    "ID": "2439",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "1",
-                    "assigneduser": null,
-                    "creationdate": "1429031955",
-                    "lastmodified": "1429031955",
-                    "project": null,
+                    "creator": "99",
+                    "assigneduser": "95",
+                    "creationdate": "1424156592",
+                    "lastmodified": "1424415792",
+                    "project": "212",
                     "visibility": "0",
-                    "name": "Create quote",
-                    "datefrom": "1429031955",
-                    "duedate": null,
-                    "status": "0",
-                    "priority": "2",
-                    "projectedeffort": "0",
+                    "name": "Apply for free tradeshow tickets",
+                    "datefrom": "1424156592",
+                    "duedate": "1409382192",
+                    "status": "3",
+                    "priority": "3",
+                    "projectedeffort": "2220",
                     "description": "",
-                    "tasknum": "T.00032",
+                    "tasknum": "",
                     "ticket": null
                 }
             }
@@ -18269,20 +17897,20 @@ A single Task object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "1",
-                "assigneduser": null,
-                "creationdate": "1429031955",
-                "lastmodified": "1429031955",
-                "project": null,
+                "creator": "99",
+                "assigneduser": "95",
+                "creationdate": "1424156592",
+                "lastmodified": "1424415792",
+                "project": "212",
                 "visibility": "0",
-                "name": "Create quote",
-                "datefrom": "1429031955",
-                "duedate": null,
-                "status": "0",
-                "priority": "2",
-                "projectedeffort": "0",
+                "name": "Apply for free tradeshow tickets",
+                "datefrom": "1424156592",
+                "duedate": "1409382192",
+                "status": "3",
+                "priority": "3",
+                "projectedeffort": "2220",
                 "description": "",
-                "tasknum": "T.00032",
+                "tasknum": "",
                 "ticket": null
             }
 
@@ -18648,54 +18276,54 @@ ticket has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "2099",
+                        "ID": "2207",
                         "ownergroup": null,
-                        "creator": "93",
-                        "assigneduser": "93",
-                        "creationdate": "1424015261",
-                        "lastmodified": "1424360861",
-                        "account": "3629",
+                        "creator": "94",
+                        "assigneduser": "94",
+                        "creationdate": "1432882992",
+                        "lastmodified": "1436166192",
+                        "account": "4167",
                         "visibility": "0",
-                        "name": "Wrong delivery for X-Net",
-                        "ticketnum": "T3841",
-                        "status": "6",
-                        "priority": "3",
+                        "name": "Wrong delivery for Jones & Jones Tax Consulting",
+                        "ticketnum": "T3949",
+                        "status": "0",
+                        "priority": "1",
                         "description": "",
                         "duedate": null,
                         "items": null,
                         "project": null
                     },
                     {
-                        "ID": "2100",
+                        "ID": "2208",
+                        "ownergroup": null,
+                        "creator": "98",
+                        "assigneduser": "98",
+                        "creationdate": "1434524592",
+                        "lastmodified": "1436511792",
+                        "account": "4144",
+                        "visibility": "0",
+                        "name": "Sebastian Hoffmann is asking to change delivery schedule",
+                        "ticketnum": "T3950",
+                        "status": "4",
+                        "priority": "0",
+                        "description": "",
+                        "duedate": null,
+                        "items": null,
+                        "project": null
+                    },
+                    {
+                        "ID": "2209",
                         "ownergroup": null,
                         "creator": "96",
                         "assigneduser": "96",
-                        "creationdate": "1420991261",
-                        "lastmodified": "1422719261",
-                        "account": "3628",
-                        "visibility": "0",
-                        "name": "Thomas Williams is asking to change delivery schedule",
-                        "ticketnum": "T3842",
-                        "status": "1",
-                        "priority": "3",
-                        "description": "",
-                        "duedate": null,
-                        "items": null,
-                        "project": null
-                    },
-                    {
-                        "ID": "2101",
-                        "ownergroup": null,
-                        "creator": "99",
-                        "assigneduser": "99",
-                        "creationdate": "1420645661",
-                        "lastmodified": "1423669661",
-                        "account": "3622",
+                        "creationdate": "1435388592",
+                        "lastmodified": "1436857392",
+                        "account": "4157",
                         "visibility": "0",
                         "name": "Request to change delivery address",
-                        "ticketnum": "T3843",
-                        "status": "1",
-                        "priority": "2",
+                        "ticketnum": "T3951",
+                        "status": "6",
+                        "priority": "0",
                         "description": "",
                         "duedate": null,
                         "items": null,
@@ -18723,16 +18351,16 @@ ticket has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1424015261",
-                "lastmodified": "1424360861",
-                "account": "3629",
+                "creator": "94",
+                "assigneduser": "94",
+                "creationdate": "1432882992",
+                "lastmodified": "1436166192",
+                "account": "4167",
                 "visibility": "0",
-                "name": "Wrong delivery for X-Net",
-                "ticketnum": "T3841",
-                "status": "6",
-                "priority": "3",
+                "name": "Wrong delivery for Jones & Jones Tax Consulting",
+                "ticketnum": "T3949",
+                "status": "0",
+                "priority": "1",
                 "description": "",
                 "duedate": null,
                 "items": null,
@@ -18786,16 +18414,16 @@ ticket has the following attributes:
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1424015261",
-                "lastmodified": "1424360861",
-                "account": "3629",
+                "creator": "94",
+                "assigneduser": "94",
+                "creationdate": "1432882992",
+                "lastmodified": "1436166192",
+                "account": "4167",
                 "visibility": "0",
-                "name": "Wrong delivery for X-Net",
-                "ticketnum": "T3841",
-                "status": "6",
-                "priority": "3",
+                "name": "Wrong delivery for Jones & Jones Tax Consulting",
+                "ticketnum": "T3949",
+                "status": "0",
+                "priority": "1",
                 "description": "",
                 "duedate": null,
                 "items": null,
@@ -18868,18 +18496,18 @@ A single Ticket object with all its details
 
             {
                 "result": {
-                    "ID": "2099",
+                    "ID": "2207",
                     "ownergroup": null,
-                    "creator": "93",
-                    "assigneduser": "93",
-                    "creationdate": "1424015261",
-                    "lastmodified": "1424360861",
-                    "account": "3629",
+                    "creator": "94",
+                    "assigneduser": "94",
+                    "creationdate": "1432882992",
+                    "lastmodified": "1436166192",
+                    "account": "4167",
                     "visibility": "0",
-                    "name": "Wrong delivery for X-Net",
-                    "ticketnum": "T3841",
-                    "status": "6",
-                    "priority": "3",
+                    "name": "Wrong delivery for Jones & Jones Tax Consulting",
+                    "ticketnum": "T3949",
+                    "status": "0",
+                    "priority": "1",
                     "description": "",
                     "duedate": null,
                     "items": null,
@@ -18915,16 +18543,16 @@ A single Ticket object with all its details
 
             {
                 "ownergroup": null,
-                "creator": "93",
-                "assigneduser": "93",
-                "creationdate": "1424015261",
-                "lastmodified": "1424360861",
-                "account": "3629",
+                "creator": "94",
+                "assigneduser": "94",
+                "creationdate": "1432882992",
+                "lastmodified": "1436166192",
+                "account": "4167",
                 "visibility": "0",
-                "name": "Wrong delivery for X-Net",
-                "ticketnum": "T3841",
-                "status": "6",
-                "priority": "3",
+                "name": "Wrong delivery for Jones & Jones Tax Consulting",
+                "ticketnum": "T3949",
+                "status": "0",
+                "priority": "1",
                 "description": "",
                 "duedate": null,
                 "items": null,
