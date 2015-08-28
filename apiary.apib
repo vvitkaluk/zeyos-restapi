@@ -31,6 +31,8 @@ The major version number may be increased along with the ZeyOS major version if 
 
 We will however **not** change **documented semantics** of endpoints, HTTP headers, request parameters specified in the URI query string or the request body for routes from the point on they are **first made public and documented**.
 
+No assumptions must be made regarding the specific order of properties in a JSON object.
+
 While the REST API may stay the same, the underlying ZeyOS database itself _may_ change its schema on rare occasions (e.g. table or column changes, changes of type identifiers), thereby potentially breaking the REST API indirectly.
 
 If this happens, the broken REST API version will be _phased out_, unless restoring compatibility through internal API code changes is deemed feasible, at our discretion.
@@ -132,11 +134,11 @@ To use this authentication method, just send the user name and password in the h
 HTTP Basic Access and/or the plain-text user name & password authentication methods can be disabled in your ZeyOS system settings.
 Administrators can configure these in ZeyOS by clicking on their user icon in the top right area, _System Settings_, and opening the _Config File_ tab.
 
-Insert or update the top-level object `com.zeyos.api` like this, taking care to use proper JSON notation:
+Insert or update the top-level object `api` like this, taking care to use proper JSON notation:
 
 ```json
 {
-    "com.zeyos.api": {
+    "api": {
         "auth": {
             "basic": false,
             "password": false
@@ -7626,10 +7628,10 @@ extdataform has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1605",
+                        "ID": "1620",
                         "creator": null,
-                        "creationdate": "0",
-                        "lastmodified": "1413817367",
+                        "creationdate": "1438096783",
+                        "lastmodified": "1438096783",
                         "application": "425",
                         "activity": "0",
                         "name": "Vacation days",
@@ -7692,8 +7694,8 @@ extdataform has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "0",
-                "lastmodified": "1413817367",
+                "creationdate": "1438096783",
+                "lastmodified": "1438096783",
                 "application": "425",
                 "activity": "0",
                 "name": "Vacation days",
@@ -7749,8 +7751,8 @@ extdataform has the following attributes:
 
             {
                 "creator": null,
-                "creationdate": "0",
-                "lastmodified": "1413817367",
+                "creationdate": "1438096783",
+                "lastmodified": "1438096783",
                 "application": "425",
                 "activity": "0",
                 "name": "Vacation days",
@@ -7825,10 +7827,10 @@ A single Extdataform object with all its details
 
             {
                 "result": {
-                    "ID": "1605",
+                    "ID": "1620",
                     "creator": null,
-                    "creationdate": "0",
-                    "lastmodified": "1413817367",
+                    "creationdate": "1438096783",
+                    "lastmodified": "1438096783",
                     "application": "425",
                     "activity": "0",
                     "name": "Vacation days",
@@ -7869,8 +7871,8 @@ A single Extdataform object with all its details
 
             {
                 "creator": null,
-                "creationdate": "0",
-                "lastmodified": "1413817367",
+                "creationdate": "1438096783",
+                "lastmodified": "1438096783",
                 "application": "425",
                 "activity": "0",
                 "name": "Vacation days",
@@ -12185,17 +12187,17 @@ notification has the following attributes:
                         "flag": "0"
                     },
                     {
-                        "ID": "1054",
-                        "user": "1",
-                        "record": "12376",
-                        "date": "1437674473",
+                        "ID": "1116",
+                        "user": "100",
+                        "record": "12383",
+                        "date": "1438096863",
                         "flag": "0"
                     },
                     {
-                        "ID": "1055",
-                        "user": "1",
-                        "record": "12381",
-                        "date": "1437537867",
+                        "ID": "1117",
+                        "user": "100",
+                        "record": "12382",
+                        "date": "1438096830",
                         "flag": "0"
                     }
                 ]
@@ -15348,50 +15350,50 @@ record has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "12375",
+                        "ID": "12382",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "93",
-                        "creationdate": "1437548588",
-                        "entity": "accounts",
-                        "index": "4170",
-                        "flag": "0",
-                        "sender": "",
-                        "text": "Just had a gread phone conversation with Elena Bender from X-Net",
-                        "lastmodified": "1437548588",
-                        "date": "1437548588",
+                        "creator": "1",
+                        "creationdate": "1438096830",
+                        "entity": "groups",
+                        "index": "12",
+                        "flag": "3",
+                        "sender": "Admin",
+                        "text": "MODIFY groups 12\nEmployees",
+                        "lastmodified": "1438096830",
+                        "date": "1438096830",
                         "meta": null,
                         "assigneduser": null
                     },
                     {
-                        "ID": "12376",
+                        "ID": "12387",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "93",
-                        "creationdate": "1437375788",
-                        "entity": "accounts",
-                        "index": "4160",
-                        "flag": "0",
-                        "sender": "",
-                        "text": "Received an inquiry from Manuela Bach (uOpen Workstations) - did anybody ever had contact with him?",
-                        "lastmodified": "1437375788",
-                        "date": "1437375788",
-                        "meta": null,
+                        "creator": "1",
+                        "creationdate": "1438180860",
+                        "entity": "transactions",
+                        "index": "16971",
+                        "flag": "3",
+                        "sender": "Admin",
+                        "text": "MODIFY transactions 16971\nOV15-F04987",
+                        "lastmodified": "1438180860",
+                        "date": "1438180860",
+                        "meta": "{\"status\":1}",
                         "assigneduser": null
                     },
                     {
-                        "ID": "12377",
+                        "ID": "12383",
                         "owneruser": null,
                         "ownergroup": null,
-                        "creator": "99",
-                        "creationdate": "1437202988",
-                        "entity": "accounts",
-                        "index": "4122",
-                        "flag": "0",
-                        "sender": "",
-                        "text": "Just wanted to share the great news! Peter McCloud from BEQ Building Equipment confirmed that he would be our testimonial at the next tradeshow!",
-                        "lastmodified": "1437202988",
-                        "date": "1437202988",
+                        "creator": "1",
+                        "creationdate": "1438096863",
+                        "entity": "groups",
+                        "index": "12",
+                        "flag": "3",
+                        "sender": "Admin",
+                        "text": "MODIFY groups 12\nEmployees",
+                        "lastmodified": "1438096863",
+                        "date": "1438096863",
                         "meta": null,
                         "assigneduser": null
                     }
@@ -15418,15 +15420,15 @@ record has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "93",
-                "creationdate": "1437548588",
-                "entity": "accounts",
-                "index": "4170",
-                "flag": "0",
-                "sender": "",
-                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
-                "lastmodified": "1437548588",
-                "date": "1437548588",
+                "creator": "1",
+                "creationdate": "1438096830",
+                "entity": "groups",
+                "index": "12",
+                "flag": "3",
+                "sender": "Admin",
+                "text": "MODIFY groups 12\nEmployees",
+                "lastmodified": "1438096830",
+                "date": "1438096830",
                 "meta": null,
                 "assigneduser": null
             }
@@ -15478,15 +15480,15 @@ record has the following attributes:
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "93",
-                "creationdate": "1437548588",
-                "entity": "accounts",
-                "index": "4170",
-                "flag": "0",
-                "sender": "",
-                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
-                "lastmodified": "1437548588",
-                "date": "1437548588",
+                "creator": "1",
+                "creationdate": "1438096830",
+                "entity": "groups",
+                "index": "12",
+                "flag": "3",
+                "sender": "Admin",
+                "text": "MODIFY groups 12\nEmployees",
+                "lastmodified": "1438096830",
+                "date": "1438096830",
                 "meta": null,
                 "assigneduser": null
             }
@@ -15556,18 +15558,18 @@ A single Record object with all its details
 
             {
                 "result": {
-                    "ID": "12375",
+                    "ID": "12382",
                     "owneruser": null,
                     "ownergroup": null,
-                    "creator": "93",
-                    "creationdate": "1437548588",
-                    "entity": "accounts",
-                    "index": "4170",
-                    "flag": "0",
-                    "sender": "",
-                    "text": "Just had a gread phone conversation with Elena Bender from X-Net",
-                    "lastmodified": "1437548588",
-                    "date": "1437548588",
+                    "creator": "1",
+                    "creationdate": "1438096830",
+                    "entity": "groups",
+                    "index": "12",
+                    "flag": "3",
+                    "sender": "Admin",
+                    "text": "MODIFY groups 12\nEmployees",
+                    "lastmodified": "1438096830",
+                    "date": "1438096830",
                     "meta": null,
                     "assigneduser": null
                 }
@@ -15602,15 +15604,15 @@ A single Record object with all its details
             {
                 "owneruser": null,
                 "ownergroup": null,
-                "creator": "93",
-                "creationdate": "1437548588",
-                "entity": "accounts",
-                "index": "4170",
-                "flag": "0",
-                "sender": "",
-                "text": "Just had a gread phone conversation with Elena Bender from X-Net",
-                "lastmodified": "1437548588",
-                "date": "1437548588",
+                "creator": "1",
+                "creationdate": "1438096830",
+                "entity": "groups",
+                "index": "12",
+                "flag": "3",
+                "sender": "Admin",
+                "text": "MODIFY groups 12\nEmployees",
+                "lastmodified": "1438096830",
+                "date": "1438096830",
                 "meta": null,
                 "assigneduser": null
             }
@@ -19427,20 +19429,14 @@ user has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1",
-                        "contact": null,
-                        "activity": "0",
-                        "name": "Admin",
-                        "expdate": null,
-                        "email": "peter.haider@mx.zeyon.net"
-                    },
-                    {
                         "ID": "100",
                         "contact": "12205",
                         "activity": "0",
                         "name": "cathy.winters",
                         "expdate": null,
-                        "email": "cathy.winters@katayo.com"
+                        "email": "cathy.winters@katayo.com",
+                        "lastloginattempt": null,
+                        "loginattempts": "0"
                     },
                     {
                         "ID": "99",
@@ -19448,7 +19444,19 @@ user has the following attributes:
                         "activity": "0",
                         "name": "marry.johanson",
                         "expdate": null,
-                        "email": "marry.johanson@katayo.com"
+                        "email": "marry.johanson@katayo.com",
+                        "lastloginattempt": null,
+                        "loginattempts": "0"
+                    },
+                    {
+                        "ID": "94",
+                        "contact": "12199",
+                        "activity": "0",
+                        "name": "dirk.schulz",
+                        "expdate": null,
+                        "email": "dirk.schulz@katayo.com",
+                        "lastloginattempt": null,
+                        "loginattempts": "0"
                     }
                 ]
             }
@@ -19471,11 +19479,13 @@ user has the following attributes:
     + Body
 
             {
-                "contact": null,
+                "contact": "12205",
                 "activity": "0",
-                "name": "Admin",
+                "name": "cathy.winters",
                 "expdate": null,
-                "email": "peter.haider@mx.zeyon.net"
+                "email": "cathy.winters@katayo.com",
+                "lastloginattempt": null,
+                "loginattempts": "0"
             }
 
 + Response 201 (application/json)
@@ -19520,11 +19530,13 @@ user has the following attributes:
     + Body
 
             {
-                "contact": null,
+                "contact": "12205",
                 "activity": "0",
-                "name": "Admin",
+                "name": "cathy.winters",
                 "expdate": null,
-                "email": "peter.haider@mx.zeyon.net"
+                "email": "cathy.winters@katayo.com",
+                "lastloginattempt": null,
+                "loginattempts": "0"
             }
 
 + Response 200 (application/json)
@@ -19589,12 +19601,14 @@ A single User object with all its details
 
             {
                 "result": {
-                    "ID": "1",
-                    "contact": null,
+                    "ID": "100",
+                    "contact": "12205",
                     "activity": "0",
-                    "name": "Admin",
+                    "name": "cathy.winters",
                     "expdate": null,
-                    "email": "peter.haider@mx.zeyon.net"
+                    "email": "cathy.winters@katayo.com",
+                    "lastloginattempt": null,
+                    "loginattempts": "0"
                 }
             }
 
@@ -19625,11 +19639,13 @@ A single User object with all its details
     + Body
 
             {
-                "contact": null,
+                "contact": "12205",
                 "activity": "0",
-                "name": "Admin",
+                "name": "cathy.winters",
                 "expdate": null,
-                "email": "peter.haider@mx.zeyon.net"
+                "email": "cathy.winters@katayo.com",
+                "lastloginattempt": null,
+                "loginattempts": "0"
             }
 
 + Response 200 (application/json)
