@@ -117,7 +117,7 @@ This allows devices to renew their tokens independently.
 
 To obtain a new token (and invalidate any previous token for an identifier), call the REST API URI `/{platform}/1.0/auth` using `PUT` or `POST` and specify the user name, password and the app / device identifier as described below.
 
-Token authentication works by including the `Zeyos-Api-Token` header in your request with the identifier, followed by a colon `:` and the obtained token string, as the value, e.g. `Zeyos-Api-Token: com.example.myapp.dev1138:2a3e4ec88e66138253a69da3406841fccb1c998e`.
+Token authentication works by including the `Authorization` header in your request with the method indicator `ZeyOS-Token`, a space, the obtained token string, followed by a space and the identifier, as the value, e.g. `Authorization: ZeyOS-Token 2a3e4ec88e66138253a69da3406841fccb1c998e com.example.myapp.dev1138`.
 
 ### HTTP Basic Access Authentication
 
@@ -569,7 +569,7 @@ If the authenticated user does not have a contact assigned, the `contact` proper
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -655,7 +655,7 @@ Parameters:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200
 
@@ -667,7 +667,7 @@ Parameters:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -681,7 +681,7 @@ Parameters:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1159,7 +1159,7 @@ Parameters:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1287,7 +1287,7 @@ Returns the next used number that would be used for the [numformat](http://www.z
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1320,7 +1320,7 @@ Returns an object with web page metadata, or `null` if the web page does not hav
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1352,7 +1352,7 @@ Returns the timezone configured for the platform as an object with the propertie
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1373,7 +1373,7 @@ Returns the name of the timezone configured for the platform.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1391,7 +1391,7 @@ Returns the offset for the platform's timezone.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1417,7 +1417,7 @@ Returns an object with the numeric versions in the properties `zeyos` and `api`.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 + Response 200 (application/json)
 
@@ -1586,7 +1586,7 @@ A request with just one command.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
     + Body
 
@@ -1633,7 +1633,7 @@ You can also pre-select a part of the result to conserve bandwidth and make post
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
     + Body
 
@@ -1659,7 +1659,7 @@ Here, we create a contact for _John Smith_ and tag the contact with _VIP_ and ha
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
     + Body
 
@@ -1697,7 +1697,7 @@ This request turns off database transaction mode and will not abort execution at
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
     + Body
 
@@ -1815,7 +1815,7 @@ account has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -1896,7 +1896,7 @@ account has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -1959,7 +1959,7 @@ account has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2024,7 +2024,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -2039,7 +2039,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2089,7 +2089,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2127,7 +2127,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2151,7 +2151,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2172,7 +2172,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2201,7 +2201,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2236,7 +2236,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -2251,7 +2251,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2276,7 +2276,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2301,7 +2301,7 @@ A single Account object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2327,7 +2327,7 @@ Lists all associated objects for a single Account.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2366,7 +2366,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -2383,7 +2383,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2400,7 +2400,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2470,7 +2470,7 @@ actionstep has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2554,7 +2554,7 @@ actionstep has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2622,7 +2622,7 @@ actionstep has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2692,7 +2692,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -2707,7 +2707,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2758,7 +2758,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2797,7 +2797,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2821,7 +2821,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2842,7 +2842,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2871,7 +2871,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -2906,7 +2906,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -2921,7 +2921,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2946,7 +2946,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2971,7 +2971,7 @@ A single Actionstep object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -2997,7 +2997,7 @@ Lists all associated objects for a single Actionstep.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3036,7 +3036,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -3053,7 +3053,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3070,7 +3070,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3129,7 +3129,7 @@ application has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3201,7 +3201,7 @@ application has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3258,7 +3258,7 @@ application has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3317,7 +3317,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -3332,7 +3332,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3379,7 +3379,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3414,7 +3414,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3438,7 +3438,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3459,7 +3459,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3488,7 +3488,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3523,7 +3523,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -3538,7 +3538,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3563,7 +3563,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3588,7 +3588,7 @@ A single Application object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3614,7 +3614,7 @@ Lists all associated objects for a single Application.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3653,7 +3653,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -3670,7 +3670,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3687,7 +3687,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3752,7 +3752,7 @@ appointment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -3833,7 +3833,7 @@ appointment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3896,7 +3896,7 @@ appointment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -3961,7 +3961,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -3976,7 +3976,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4026,7 +4026,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -4064,7 +4064,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4088,7 +4088,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4109,7 +4109,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -4138,7 +4138,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -4173,7 +4173,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -4188,7 +4188,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4213,7 +4213,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4238,7 +4238,7 @@ A single Appointment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4264,7 +4264,7 @@ Lists all associated objects for a single Appointment.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4303,7 +4303,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -4320,7 +4320,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4337,7 +4337,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4411,7 +4411,7 @@ campaign has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4429,7 +4429,7 @@ campaign has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -4471,7 +4471,7 @@ campaign has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -4515,7 +4515,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -4530,7 +4530,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4557,7 +4557,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -4575,7 +4575,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4599,7 +4599,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4620,7 +4620,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -4649,7 +4649,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -4684,7 +4684,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -4699,7 +4699,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4724,7 +4724,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4749,7 +4749,7 @@ A single Campaign object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4775,7 +4775,7 @@ Lists all associated objects for a single Campaign.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4814,7 +4814,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -4831,7 +4831,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4848,7 +4848,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4902,7 +4902,7 @@ category has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -4953,7 +4953,7 @@ category has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5005,7 +5005,7 @@ category has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5059,7 +5059,7 @@ A single Category object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -5074,7 +5074,7 @@ A single Category object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5114,7 +5114,7 @@ A single Category object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5142,7 +5142,7 @@ A single Category object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5212,7 +5212,7 @@ comment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5222,14 +5222,6 @@ comment has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "476",
-                        "creator": "97",
-                        "creationdate": "1437657791",
-                        "record": "12375",
-                        "sender": "",
-                        "text": "Yes, he's a charmer!"
-                    },
-                    {
                         "ID": "477",
                         "creator": "96",
                         "creationdate": "1437880688",
@@ -5238,12 +5230,20 @@ comment has the following attributes:
                         "text": "Absolutely! :-) It's great doing business with them."
                     },
                     {
-                        "ID": "478",
-                        "creator": "94",
-                        "creationdate": "1437468004",
+                        "ID": "476",
+                        "creator": "97",
+                        "creationdate": "1437657791",
+                        "record": "12375",
+                        "sender": "",
+                        "text": "Yes, he's a charmer!"
+                    },
+                    {
+                        "ID": "479",
+                        "creator": "98",
+                        "creationdate": "1437674473",
                         "record": "12376",
                         "sender": "",
-                        "text": "I had - should I take care of this?"
+                        "text": "That would be perfekt - thanks!"
                     }
                 ]
             }
@@ -5260,17 +5260,17 @@ comment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "creator": "97",
-                "creationdate": "1437657791",
+                "creator": "96",
+                "creationdate": "1437880688",
                 "record": "12375",
                 "sender": "",
-                "text": "Yes, he's a charmer!"
+                "text": "Absolutely! :-) It's great doing business with them."
             }
 
 + Response 201 (application/json)
@@ -5308,17 +5308,17 @@ comment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "creator": "97",
-                "creationdate": "1437657791",
+                "creator": "96",
+                "creationdate": "1437880688",
                 "record": "12375",
                 "sender": "",
-                "text": "Yes, he's a charmer!"
+                "text": "Absolutely! :-) It's great doing business with them."
             }
 
 + Response 200 (application/json)
@@ -5358,7 +5358,7 @@ A single Comment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -5373,7 +5373,7 @@ A single Comment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5382,12 +5382,12 @@ A single Comment object with all its details
 
             {
                 "result": {
-                    "ID": "476",
-                    "creator": "97",
-                    "creationdate": "1437657791",
+                    "ID": "477",
+                    "creator": "96",
+                    "creationdate": "1437880688",
                     "record": "12375",
                     "sender": "",
-                    "text": "Yes, he's a charmer!"
+                    "text": "Absolutely! :-) It's great doing business with them."
                 }
             }
 
@@ -5412,17 +5412,17 @@ A single Comment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "creator": "97",
-                "creationdate": "1437657791",
+                "creator": "96",
+                "creationdate": "1437880688",
                 "record": "12375",
                 "sender": "",
-                "text": "Yes, he's a charmer!"
+                "text": "Absolutely! :-) It's great doing business with them."
             }
 
 + Response 200 (application/json)
@@ -5439,7 +5439,7 @@ A single Comment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5518,7 +5518,7 @@ contact has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5641,7 +5641,7 @@ contact has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5718,7 +5718,7 @@ contact has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5797,7 +5797,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -5812,7 +5812,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5876,7 +5876,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -5928,7 +5928,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5952,7 +5952,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -5973,7 +5973,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6002,7 +6002,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6037,7 +6037,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -6052,7 +6052,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6077,7 +6077,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6102,7 +6102,7 @@ A single Contact object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6128,7 +6128,7 @@ Lists all associated objects for a single Contact.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6167,7 +6167,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -6184,7 +6184,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6201,7 +6201,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6227,7 +6227,7 @@ Download pictures.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (image/jpeg)
@@ -6297,7 +6297,7 @@ contract has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6315,7 +6315,7 @@ contract has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -6358,7 +6358,7 @@ contract has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -6403,7 +6403,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -6418,7 +6418,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6445,7 +6445,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -6463,7 +6463,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6487,7 +6487,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6508,7 +6508,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6537,7 +6537,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6572,7 +6572,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -6587,7 +6587,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6612,7 +6612,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6637,7 +6637,7 @@ A single Contract object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6663,7 +6663,7 @@ Lists all associated objects for a single Contract.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6702,7 +6702,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -6719,7 +6719,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6736,7 +6736,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6794,7 +6794,7 @@ dunning has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -6857,7 +6857,7 @@ dunning has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6913,7 +6913,7 @@ dunning has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -6971,7 +6971,7 @@ A single Dunning object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -6986,7 +6986,7 @@ A single Dunning object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7030,7 +7030,7 @@ A single Dunning object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7062,7 +7062,7 @@ A single Dunning object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7122,7 +7122,7 @@ event has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7140,7 +7140,7 @@ event has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -7182,7 +7182,7 @@ event has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -7226,7 +7226,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -7241,7 +7241,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7268,7 +7268,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -7286,7 +7286,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7310,7 +7310,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7331,7 +7331,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7360,7 +7360,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7395,7 +7395,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -7410,7 +7410,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7435,7 +7435,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7460,7 +7460,7 @@ A single Event object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7486,7 +7486,7 @@ Lists all associated objects for a single Event.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7525,7 +7525,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -7542,7 +7542,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7559,7 +7559,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7618,7 +7618,7 @@ extdataform has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7687,7 +7687,7 @@ extdataform has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7744,7 +7744,7 @@ extdataform has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7803,7 +7803,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -7818,7 +7818,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7864,7 +7864,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7898,7 +7898,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7922,7 +7922,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -7943,7 +7943,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -7972,7 +7972,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -8007,7 +8007,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -8022,7 +8022,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8047,7 +8047,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8072,7 +8072,7 @@ A single Extdataform object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8098,7 +8098,7 @@ Lists all associated objects for a single Extdataform.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8137,7 +8137,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -8154,7 +8154,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8171,7 +8171,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8233,7 +8233,7 @@ file has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8267,7 +8267,7 @@ A single File object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -8282,7 +8282,7 @@ A single File object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8310,7 +8310,7 @@ A single File object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (text/plain)
@@ -8339,7 +8339,7 @@ A single File object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8402,7 +8402,7 @@ group has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8453,7 +8453,7 @@ group has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -8503,7 +8503,7 @@ group has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -8555,7 +8555,7 @@ A single Group object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -8570,7 +8570,7 @@ A single Group object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8610,7 +8610,7 @@ A single Group object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -8638,7 +8638,7 @@ A single Group object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8690,7 +8690,7 @@ invitation has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8708,7 +8708,7 @@ invitation has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -8748,7 +8748,7 @@ invitation has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -8790,7 +8790,7 @@ A single Invitation object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -8805,7 +8805,7 @@ A single Invitation object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8832,7 +8832,7 @@ A single Invitation object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -8850,7 +8850,7 @@ A single Invitation object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8914,7 +8914,7 @@ item has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -8998,7 +8998,7 @@ item has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9060,7 +9060,7 @@ item has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9124,7 +9124,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -9139,7 +9139,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9190,7 +9190,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9229,7 +9229,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9253,7 +9253,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9274,7 +9274,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9303,7 +9303,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9338,7 +9338,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -9353,7 +9353,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9378,7 +9378,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9403,7 +9403,7 @@ A single Item object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9429,7 +9429,7 @@ Lists all associated objects for a single Item.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9468,7 +9468,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -9485,7 +9485,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9502,7 +9502,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9528,7 +9528,7 @@ Download pictures.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (image/jpeg)
@@ -9582,7 +9582,7 @@ like has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9641,7 +9641,7 @@ A single Like object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -9656,7 +9656,7 @@ A single Like object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9730,7 +9730,7 @@ link has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9802,7 +9802,7 @@ link has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9861,7 +9861,7 @@ link has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -9922,7 +9922,7 @@ A single Link object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -9937,7 +9937,7 @@ A single Link object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -9984,7 +9984,7 @@ A single Link object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -10019,7 +10019,7 @@ A single Link object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10079,7 +10079,7 @@ mailinglist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10097,7 +10097,7 @@ mailinglist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10140,7 +10140,7 @@ mailinglist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10185,7 +10185,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -10200,7 +10200,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10227,7 +10227,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10245,7 +10245,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10269,7 +10269,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10290,7 +10290,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -10319,7 +10319,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -10354,7 +10354,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -10369,7 +10369,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10394,7 +10394,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10419,7 +10419,7 @@ A single Mailinglist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10445,7 +10445,7 @@ Lists all associated objects for a single Mailinglist.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10484,7 +10484,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -10501,7 +10501,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10518,7 +10518,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10587,7 +10587,7 @@ mailserver has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10605,7 +10605,7 @@ mailserver has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10650,7 +10650,7 @@ mailserver has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10697,7 +10697,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -10712,7 +10712,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10739,7 +10739,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -10757,7 +10757,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10781,7 +10781,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10802,7 +10802,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -10831,7 +10831,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -10866,7 +10866,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -10881,7 +10881,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10906,7 +10906,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10931,7 +10931,7 @@ A single Mailserver object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10957,7 +10957,7 @@ Lists all associated objects for a single Mailserver.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -10996,7 +10996,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -11013,7 +11013,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11030,7 +11030,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11105,7 +11105,7 @@ message has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11216,7 +11216,7 @@ message has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11289,7 +11289,7 @@ message has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11364,7 +11364,7 @@ A single Message object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -11379,7 +11379,7 @@ A single Message object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11439,7 +11439,7 @@ A single Message object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11487,7 +11487,7 @@ A single Message object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11550,7 +11550,7 @@ note has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11625,7 +11625,7 @@ note has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11686,7 +11686,7 @@ note has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11749,7 +11749,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -11764,7 +11764,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11812,7 +11812,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11848,7 +11848,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11872,7 +11872,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11893,7 +11893,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11922,7 +11922,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -11957,7 +11957,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -11972,7 +11972,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -11997,7 +11997,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12022,7 +12022,7 @@ A single Note object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12048,7 +12048,7 @@ Lists all associated objects for a single Note.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12087,7 +12087,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -12104,7 +12104,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12121,7 +12121,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12170,7 +12170,7 @@ notification has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12180,25 +12180,25 @@ notification has the following attributes:
             {
                 "result": [
                     {
-                        "ID": "1053",
-                        "user": "1",
-                        "record": "12375",
-                        "date": "1437880688",
-                        "flag": "0"
+                        "ID": "1746",
+                        "user": "99",
+                        "record": "12401",
+                        "date": "1441206436",
+                        "flag": "1"
                     },
                     {
-                        "ID": "1116",
-                        "user": "100",
-                        "record": "12383",
-                        "date": "1438096863",
-                        "flag": "0"
+                        "ID": "1747",
+                        "user": "99",
+                        "record": "12400",
+                        "date": "1441206431",
+                        "flag": "1"
                     },
                     {
-                        "ID": "1117",
-                        "user": "100",
-                        "record": "12382",
-                        "date": "1438096830",
-                        "flag": "0"
+                        "ID": "1748",
+                        "user": "99",
+                        "record": "12399",
+                        "date": "1441206353",
+                        "flag": "1"
                     }
                 ]
             }
@@ -12215,16 +12215,16 @@ notification has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "user": "1",
-                "record": "12375",
-                "date": "1437880688",
-                "flag": "0"
+                "user": "99",
+                "record": "12401",
+                "date": "1441206436",
+                "flag": "1"
             }
 
 + Response 201 (application/json)
@@ -12262,16 +12262,16 @@ notification has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "user": "1",
-                "record": "12375",
-                "date": "1437880688",
-                "flag": "0"
+                "user": "99",
+                "record": "12401",
+                "date": "1441206436",
+                "flag": "1"
             }
 
 + Response 200 (application/json)
@@ -12311,7 +12311,7 @@ A single Notification object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -12326,7 +12326,7 @@ A single Notification object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12335,11 +12335,11 @@ A single Notification object with all its details
 
             {
                 "result": {
-                    "ID": "1053",
-                    "user": "1",
-                    "record": "12375",
-                    "date": "1437880688",
-                    "flag": "0"
+                    "ID": "1746",
+                    "user": "99",
+                    "record": "12401",
+                    "date": "1441206436",
+                    "flag": "1"
                 }
             }
 
@@ -12364,16 +12364,16 @@ A single Notification object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "user": "1",
-                "record": "12375",
-                "date": "1437880688",
-                "flag": "0"
+                "user": "99",
+                "record": "12401",
+                "date": "1441206436",
+                "flag": "1"
             }
 
 + Response 200 (application/json)
@@ -12390,7 +12390,7 @@ A single Notification object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12450,7 +12450,7 @@ object has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12516,7 +12516,7 @@ object has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -12574,7 +12574,7 @@ object has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -12634,7 +12634,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -12649,7 +12649,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12694,7 +12694,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -12727,7 +12727,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12751,7 +12751,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12772,7 +12772,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -12801,7 +12801,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -12836,7 +12836,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -12851,7 +12851,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12876,7 +12876,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12901,7 +12901,7 @@ A single Object object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12927,7 +12927,7 @@ Lists all associated objects for a single Object.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -12966,7 +12966,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -12983,7 +12983,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13000,7 +13000,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13068,7 +13068,7 @@ opportunity has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13077,6 +13077,27 @@ opportunity has the following attributes:
 
             {
                 "result": [
+                    {
+                        "ID": "1656",
+                        "ownergroup": null,
+                        "creator": "100",
+                        "assigneduser": "100",
+                        "creationdate": "1441206353",
+                        "lastmodified": "1441206353",
+                        "account": null,
+                        "contact": null,
+                        "visibility": "0",
+                        "name": "Demo",
+                        "opportunitynum": "",
+                        "duedate": null,
+                        "status": "0",
+                        "priority": "2",
+                        "probability": "0",
+                        "worstcase": "0",
+                        "mostlikely": "0",
+                        "upside": "0",
+                        "description": ""
+                    },
                     {
                         "ID": "1629",
                         "ownergroup": null,
@@ -13118,27 +13139,6 @@ opportunity has the following attributes:
                         "mostlikely": "936",
                         "upside": "7885",
                         "description": ""
-                    },
-                    {
-                        "ID": "1631",
-                        "ownergroup": null,
-                        "creator": "96",
-                        "assigneduser": "96",
-                        "creationdate": "1429167790",
-                        "lastmodified": "1434524590",
-                        "account": "4158",
-                        "contact": "15230",
-                        "visibility": "0",
-                        "name": "XD Designs Internet Technologies needs a new office layout",
-                        "opportunitynum": "",
-                        "duedate": "1426662190",
-                        "status": "4",
-                        "priority": "4",
-                        "probability": "30",
-                        "worstcase": "434",
-                        "mostlikely": "1707",
-                        "upside": "3726",
-                        "description": ""
                     }
                 ]
             }
@@ -13155,7 +13155,7 @@ opportunity has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13163,21 +13163,21 @@ opportunity has the following attributes:
             {
                 "ownergroup": null,
                 "creator": "100",
-                "assigneduser": "99",
-                "creationdate": "1428649390",
-                "lastmodified": "1434351790",
-                "account": "4136",
-                "contact": "15094",
+                "assigneduser": "100",
+                "creationdate": "1441206353",
+                "lastmodified": "1441206353",
+                "account": null,
+                "contact": null,
                 "visibility": "0",
-                "name": "HyperFlyer needs a new office layout",
+                "name": "Demo",
                 "opportunitynum": "",
-                "duedate": "1428044590",
-                "status": "1",
-                "priority": "1",
-                "probability": "85",
-                "worstcase": "477",
-                "mostlikely": "4954",
-                "upside": "5170",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "probability": "0",
+                "worstcase": "0",
+                "mostlikely": "0",
+                "upside": "0",
                 "description": ""
             }
 
@@ -13221,7 +13221,7 @@ opportunity has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13229,21 +13229,21 @@ opportunity has the following attributes:
             {
                 "ownergroup": null,
                 "creator": "100",
-                "assigneduser": "99",
-                "creationdate": "1428649390",
-                "lastmodified": "1434351790",
-                "account": "4136",
-                "contact": "15094",
+                "assigneduser": "100",
+                "creationdate": "1441206353",
+                "lastmodified": "1441206353",
+                "account": null,
+                "contact": null,
                 "visibility": "0",
-                "name": "HyperFlyer needs a new office layout",
+                "name": "Demo",
                 "opportunitynum": "",
-                "duedate": "1428044590",
-                "status": "1",
-                "priority": "1",
-                "probability": "85",
-                "worstcase": "477",
-                "mostlikely": "4954",
-                "upside": "5170",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "probability": "0",
+                "worstcase": "0",
+                "mostlikely": "0",
+                "upside": "0",
                 "description": ""
             }
 
@@ -13289,7 +13289,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -13304,7 +13304,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13313,24 +13313,24 @@ A single Opportunity object with all its details
 
             {
                 "result": {
-                    "ID": "1629",
+                    "ID": "1656",
                     "ownergroup": null,
                     "creator": "100",
-                    "assigneduser": "99",
-                    "creationdate": "1428649390",
-                    "lastmodified": "1434351790",
-                    "account": "4136",
-                    "contact": "15094",
+                    "assigneduser": "100",
+                    "creationdate": "1441206353",
+                    "lastmodified": "1441206353",
+                    "account": null,
+                    "contact": null,
                     "visibility": "0",
-                    "name": "HyperFlyer needs a new office layout",
+                    "name": "Demo",
                     "opportunitynum": "",
-                    "duedate": "1428044590",
-                    "status": "1",
-                    "priority": "1",
-                    "probability": "85",
-                    "worstcase": "477",
-                    "mostlikely": "4954",
-                    "upside": "5170",
+                    "duedate": null,
+                    "status": "0",
+                    "priority": "2",
+                    "probability": "0",
+                    "worstcase": "0",
+                    "mostlikely": "0",
+                    "upside": "0",
                     "description": ""
                 }
             }
@@ -13356,7 +13356,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13364,21 +13364,21 @@ A single Opportunity object with all its details
             {
                 "ownergroup": null,
                 "creator": "100",
-                "assigneduser": "99",
-                "creationdate": "1428649390",
-                "lastmodified": "1434351790",
-                "account": "4136",
-                "contact": "15094",
+                "assigneduser": "100",
+                "creationdate": "1441206353",
+                "lastmodified": "1441206353",
+                "account": null,
+                "contact": null,
                 "visibility": "0",
-                "name": "HyperFlyer needs a new office layout",
+                "name": "Demo",
                 "opportunitynum": "",
-                "duedate": "1428044590",
-                "status": "1",
-                "priority": "1",
-                "probability": "85",
-                "worstcase": "477",
-                "mostlikely": "4954",
-                "upside": "5170",
+                "duedate": null,
+                "status": "0",
+                "priority": "2",
+                "probability": "0",
+                "worstcase": "0",
+                "mostlikely": "0",
+                "upside": "0",
                 "description": ""
             }
 
@@ -13396,7 +13396,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13420,7 +13420,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13441,7 +13441,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13470,7 +13470,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13505,7 +13505,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -13520,7 +13520,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13545,7 +13545,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13570,7 +13570,7 @@ A single Opportunity object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13596,7 +13596,7 @@ Lists all associated objects for a single Opportunity.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13635,7 +13635,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -13652,7 +13652,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13669,7 +13669,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13743,7 +13743,7 @@ payment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13812,7 +13812,7 @@ payment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13868,7 +13868,7 @@ payment has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -13926,7 +13926,7 @@ A single Payment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -13941,7 +13941,7 @@ A single Payment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -13987,7 +13987,7 @@ A single Payment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14021,7 +14021,7 @@ A single Payment object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14093,7 +14093,7 @@ pricelist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14162,7 +14162,7 @@ pricelist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14219,7 +14219,7 @@ pricelist has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14278,7 +14278,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -14293,7 +14293,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14339,7 +14339,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14373,7 +14373,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14397,7 +14397,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14418,7 +14418,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14447,7 +14447,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14482,7 +14482,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -14497,7 +14497,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14522,7 +14522,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14547,7 +14547,7 @@ A single Pricelist object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14573,7 +14573,7 @@ Lists all associated objects for a single Pricelist.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14612,7 +14612,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -14629,7 +14629,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14646,7 +14646,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14706,7 +14706,7 @@ project has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14772,7 +14772,7 @@ project has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14830,7 +14830,7 @@ project has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14890,7 +14890,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -14905,7 +14905,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -14950,7 +14950,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -14983,7 +14983,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15007,7 +15007,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15028,7 +15028,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15057,7 +15057,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15092,7 +15092,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -15107,7 +15107,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15132,7 +15132,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15157,7 +15157,7 @@ A single Project object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15183,7 +15183,7 @@ Lists all associated objects for a single Project.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15222,7 +15222,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -15239,7 +15239,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15256,7 +15256,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15340,7 +15340,7 @@ record has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15382,18 +15382,18 @@ record has the following attributes:
                         "assigneduser": null
                     },
                     {
-                        "ID": "12383",
+                        "ID": "12391",
                         "owneruser": null,
-                        "ownergroup": null,
-                        "creator": "1",
-                        "creationdate": "1438096863",
-                        "entity": "groups",
-                        "index": "12",
+                        "ownergroup": "10",
+                        "creator": "100",
+                        "creationdate": "1441036774",
+                        "entity": "messages",
+                        "index": "3933",
                         "flag": "3",
-                        "sender": "Admin",
-                        "text": "MODIFY groups 12\nEmployees",
-                        "lastmodified": "1438096863",
-                        "date": "1438096863",
+                        "sender": "cathy.winters",
+                        "text": "MODIFY messages 3933\nTest Thunderbird",
+                        "lastmodified": "1441036774",
+                        "date": "1441036774",
                         "meta": null,
                         "assigneduser": null
                     }
@@ -15412,7 +15412,7 @@ record has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15472,7 +15472,7 @@ record has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15534,7 +15534,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -15549,7 +15549,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15596,7 +15596,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15631,7 +15631,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15655,7 +15655,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15676,7 +15676,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15705,7 +15705,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -15740,7 +15740,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -15755,7 +15755,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15780,7 +15780,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15805,7 +15805,7 @@ A single Record object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15831,7 +15831,7 @@ Lists all associated objects for a single Record.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15870,7 +15870,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -15887,7 +15887,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15904,7 +15904,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15929,7 +15929,7 @@ Manages a Record's likes.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -15959,7 +15959,7 @@ Manages a Record's likes.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -15984,7 +15984,7 @@ Manages a Record's likes.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16047,7 +16047,7 @@ resource has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16107,7 +16107,7 @@ resource has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16160,7 +16160,7 @@ resource has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16215,7 +16215,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -16230,7 +16230,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16273,7 +16273,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16304,7 +16304,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16328,7 +16328,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16349,7 +16349,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16378,7 +16378,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16413,7 +16413,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -16428,7 +16428,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16453,7 +16453,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16478,7 +16478,7 @@ A single Resource object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16504,7 +16504,7 @@ Lists all associated objects for a single Resource.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16543,7 +16543,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -16560,7 +16560,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16577,7 +16577,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16646,7 +16646,7 @@ service has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16721,7 +16721,7 @@ service has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16779,7 +16779,7 @@ service has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16839,7 +16839,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -16854,7 +16854,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16902,7 +16902,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -16938,7 +16938,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16962,7 +16962,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -16983,7 +16983,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17012,7 +17012,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17047,7 +17047,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -17062,7 +17062,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17087,7 +17087,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17112,7 +17112,7 @@ A single Service object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17138,7 +17138,7 @@ Lists all associated objects for a single Service.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17177,7 +17177,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -17194,7 +17194,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17211,7 +17211,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17285,7 +17285,7 @@ storage has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17339,7 +17339,7 @@ storage has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17389,7 +17389,7 @@ storage has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17441,7 +17441,7 @@ A single Storage object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -17456,7 +17456,7 @@ A single Storage object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17497,7 +17497,7 @@ A single Storage object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17526,7 +17526,7 @@ A single Storage object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17610,7 +17610,7 @@ task has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17694,7 +17694,7 @@ task has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17759,7 +17759,7 @@ task has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17826,7 +17826,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -17841,7 +17841,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17892,7 +17892,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -17931,7 +17931,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17955,7 +17955,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -17976,7 +17976,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18005,7 +18005,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18040,7 +18040,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -18055,7 +18055,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18080,7 +18080,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18105,7 +18105,7 @@ A single Task object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18131,7 +18131,7 @@ Lists all associated objects for a single Task.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18170,7 +18170,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -18187,7 +18187,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18204,7 +18204,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18269,7 +18269,7 @@ ticket has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18347,7 +18347,7 @@ ticket has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18410,7 +18410,7 @@ ticket has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18475,7 +18475,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -18490,7 +18490,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18539,7 +18539,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18576,7 +18576,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18600,7 +18600,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18621,7 +18621,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18650,7 +18650,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -18685,7 +18685,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -18700,7 +18700,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18725,7 +18725,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18750,7 +18750,7 @@ A single Ticket object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18776,7 +18776,7 @@ Lists all associated objects for a single Ticket.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18815,7 +18815,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -18832,7 +18832,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18849,7 +18849,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18929,7 +18929,7 @@ transaction has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -18947,7 +18947,7 @@ transaction has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -18990,7 +18990,7 @@ transaction has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -19035,7 +19035,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -19050,7 +19050,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19077,7 +19077,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -19095,7 +19095,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19119,7 +19119,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19140,7 +19140,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -19169,7 +19169,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -19204,7 +19204,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -19219,7 +19219,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19244,7 +19244,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19269,7 +19269,7 @@ A single Transaction object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19295,7 +19295,7 @@ Lists all associated objects for a single Transaction.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19334,7 +19334,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -19351,7 +19351,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19368,7 +19368,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19419,7 +19419,7 @@ user has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19428,16 +19428,6 @@ user has the following attributes:
 
             {
                 "result": [
-                    {
-                        "ID": "100",
-                        "contact": "12205",
-                        "activity": "0",
-                        "name": "cathy.winters",
-                        "expdate": null,
-                        "email": "cathy.winters@katayo.com",
-                        "lastloginattempt": null,
-                        "loginattempts": "0"
-                    },
                     {
                         "ID": "99",
                         "contact": "12204",
@@ -19457,6 +19447,16 @@ user has the following attributes:
                         "email": "dirk.schulz@katayo.com",
                         "lastloginattempt": null,
                         "loginattempts": "0"
+                    },
+                    {
+                        "ID": "98",
+                        "contact": "12203",
+                        "activity": "0",
+                        "name": "kyle.hover",
+                        "expdate": null,
+                        "email": "kyle.hover@katayo.com",
+                        "lastloginattempt": null,
+                        "loginattempts": "0"
                     }
                 ]
             }
@@ -19473,17 +19473,17 @@ user has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "contact": "12205",
+                "contact": "12204",
                 "activity": "0",
-                "name": "cathy.winters",
+                "name": "marry.johanson",
                 "expdate": null,
-                "email": "cathy.winters@katayo.com",
+                "email": "marry.johanson@katayo.com",
                 "lastloginattempt": null,
                 "loginattempts": "0"
             }
@@ -19524,17 +19524,17 @@ user has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "contact": "12205",
+                "contact": "12204",
                 "activity": "0",
-                "name": "cathy.winters",
+                "name": "marry.johanson",
                 "expdate": null,
-                "email": "cathy.winters@katayo.com",
+                "email": "marry.johanson@katayo.com",
                 "lastloginattempt": null,
                 "loginattempts": "0"
             }
@@ -19577,7 +19577,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -19592,7 +19592,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19601,12 +19601,12 @@ A single User object with all its details
 
             {
                 "result": {
-                    "ID": "100",
-                    "contact": "12205",
+                    "ID": "99",
+                    "contact": "12204",
                     "activity": "0",
-                    "name": "cathy.winters",
+                    "name": "marry.johanson",
                     "expdate": null,
-                    "email": "cathy.winters@katayo.com",
+                    "email": "marry.johanson@katayo.com",
                     "lastloginattempt": null,
                     "loginattempts": "0"
                 }
@@ -19633,17 +19633,17 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
 
             {
-                "contact": "12205",
+                "contact": "12204",
                 "activity": "0",
-                "name": "cathy.winters",
+                "name": "marry.johanson",
                 "expdate": null,
-                "email": "cathy.winters@katayo.com",
+                "email": "marry.johanson@katayo.com",
                 "lastloginattempt": null,
                 "loginattempts": "0"
             }
@@ -19662,7 +19662,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19686,7 +19686,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19707,7 +19707,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -19736,7 +19736,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -19771,7 +19771,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -19786,7 +19786,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19811,7 +19811,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19836,7 +19836,7 @@ A single User object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19862,7 +19862,7 @@ Lists all associated objects for a single User.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19901,7 +19901,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -19918,7 +19918,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19935,7 +19935,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -19998,7 +19998,7 @@ weblet has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20016,7 +20016,7 @@ weblet has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -20056,7 +20056,7 @@ weblet has the following attributes:
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -20098,7 +20098,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -20113,7 +20113,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20140,7 +20140,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
 
@@ -20158,7 +20158,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20182,7 +20182,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20203,7 +20203,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -20232,7 +20232,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
             Content-Type: application/json
 
     + Body
@@ -20267,7 +20267,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200
@@ -20282,7 +20282,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20307,7 +20307,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20332,7 +20332,7 @@ A single Weblet object with all its details
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20358,7 +20358,7 @@ Lists all associated objects for a single Weblet.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20397,7 +20397,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 201 (application/json)
@@ -20414,7 +20414,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
@@ -20431,7 +20431,7 @@ Add or change an association.
 
     + Headers
 
-            Zeyos-Api-Token: com.example.app1.device2:6183ec9028caeee647246be2ac82e620a1830b6d
+            Authorization: ZeyOS-Token 6183ec9028caeee647246be2ac82e620a1830b6d com.example.app1.device2
 
 
 + Response 200 (application/json)
