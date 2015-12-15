@@ -30,22 +30,6 @@
     "produces": [
         "application/json"
     ],
-    "securityDefinitions": {
-        "basicAuth": {
-            "type": "basic"
-        },
-        "tokenAuth": {
-            "type": "apiKey",
-            "name": "Zeyos-Api-Token",
-            "in": "header"
-        }
-    },
-    "security": [
-        {
-            "basicAuth": [],
-            "tokenAuth": []
-        }
-    ],
     "tags": [
         {
             "name": "REST"
@@ -1218,6 +1202,15 @@
                     "type": "string"
                 },
                 "expdate": {
+                    "type": "string"
+                },
+                "lastloginattempt": {
+                    "type": "string"
+                },
+                "loginattempts": {
+                    "type": "string"
+                },
+                "logintoken": {
                     "type": "string"
                 }
             }

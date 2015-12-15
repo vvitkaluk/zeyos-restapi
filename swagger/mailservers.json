@@ -30,22 +30,6 @@
     "produces": [
         "application/json"
     ],
-    "securityDefinitions": {
-        "basicAuth": {
-            "type": "basic"
-        },
-        "tokenAuth": {
-            "type": "apiKey",
-            "name": "Zeyos-Api-Token",
-            "in": "header"
-        }
-    },
-    "security": [
-        {
-            "basicAuth": [],
-            "tokenAuth": []
-        }
-    ],
     "tags": [
         {
             "name": "REST"
@@ -1253,10 +1237,7 @@
                 "description": {
                     "type": "string"
                 },
-                "lastfetch": {
-                    "type": "string"
-                },
-                "uidvalidity": {
+                "folders": {
                     "type": "string"
                 }
             }
